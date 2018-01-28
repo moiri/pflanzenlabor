@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('div[id|="link"]')
         .hover(function() {
             image_path = "";
-            var $img = $(this).children('img').first();
+            var $img = $(this).find('img:first');
             var paths = $img.attr("src").split("/");
             image_name = paths[paths.length-1];
             for( var i=0; i<paths.length-1; i++) {
@@ -12,6 +12,6 @@ $(document).ready(function() {
             }
             $img.attr("src", image_path + "hov_" + image_name);
         }, function() {
-            $(this).children('img').first().attr("src", image_path + image_name);
+            $(this).find('img:first').attr("src", image_path + image_name);
         });
 });

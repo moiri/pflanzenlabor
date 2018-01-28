@@ -1,4 +1,18 @@
-.card {
-    border: none;
-    cursor: pointer;
+.card-link a {
+    text-decoration: none;
+}
+.card-link a img{
+    padding:2rem;
+    margin-bottom:-2rem;
+}
+
+a {
+}
+
+.card-link:hover {
+    border-color:#343a40;
+}
+
+.footer {
+    margin-top: 2rem;
 }
