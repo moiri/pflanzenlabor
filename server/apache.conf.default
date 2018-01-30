@@ -1,0 +1,15 @@
+# pflanzenlabor default apache configuration
+# change ___path___ to the location of the project
+
+Alias /pflanzenlabor ___path___
+
+<Directory "___path___">
+    AllowOverride All
+    Options MultiViews
+    Options FollowSymLinks
+    Require all granted
+</Directory>
+
+<Directory "___path___/server">
+    Require all denied
+</Directory>

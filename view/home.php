@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
-<head>
-<title>Pflanzenlabor</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta name="DC.creator" content="Simon Maurer" />
-<meta name="DC.contributor" content="Giovina Nicolai" />
-<meta name="DC.title" content="Pflanzenlabor" />
-<meta name="DC.date" content="2018-01-27" />
-<meta name="DC.language" content="de" />
-<link rel="stylesheet" type="text/css" href="plugin/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="css/main.css" />
-<script src="plugin/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="plugin/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/main.js" type="text/javascript"></script>
-</head>
-<body>
 <div class="container-fluid">
     <div class="row">
         <div class="container">
@@ -29,7 +12,7 @@
         <div class="container">
             <div class="card-deck text-center">
                 <div id="link-kurse" class="card card-link">
-                    <a class="text-dark" href="#">
+                    <a class="text-dark" href="<?php echo $router->generate('classes'); ?>">
                         <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">Kurse</h3>
@@ -38,7 +21,7 @@
                     </a>
                 </div>
                 <div id="link-kontakt" class="card card-link">
-                    <a class="text-dark" href="#">
+                    <a class="text-dark" href="<?php echo $router->generate('contact'); ?>">
                         <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">Kontakt</h3>
@@ -46,7 +29,7 @@
                     </a>
                 </div>
                 <div id="link-mich" class="card card-link">
-                    <a class="text-dark" href="#">
+                <a class="text-dark" href="<?php echo $router->generate('me'); ?>">
                         <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">&Uuml;ber Mich</h3>
@@ -59,24 +42,7 @@
     </div>
     <div class="row">
         <div class="container footer">
-            <div class="card bg-light rounded">
-                <div class="col card-body text-dark">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <div class="media">
-                            <img class="middle float-left mr-3 align-self-center rounded-circle" src="./img/placeholder_logo.jpg" alt="Logo">
-                            <div class="media-body">
-                            <p>Pflanzenlabor Giovina Nicolai</p>
-                            <span class="small">Tel. +41 (0)79 123 456<br>info@pflanzenlabor.ch</span>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col text-right"><a class="text-dark" href="#">Impressum</a></div>
-                    </div>
-                </div>
-            </div>
+            <?php require __DIR__ . '/footer.php'; ?>
         </div>
     </div>
 </div>
-</body>
-</html>
