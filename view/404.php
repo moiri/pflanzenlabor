@@ -1,8 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="container header">
-            <?php require __DIR__ . '/header.php'; ?>
-        </div>
+        <?php require __DIR__ . '/header.php'; ?>
     </div>
     <div class="row">
         <div class="container">
@@ -16,8 +14,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="container footer">
-            <?php require __DIR__ . '/footer.php'; ?>
-        </div>
+        <?php require __DIR__ . '/footer.php'; ?>
     </div>
 </div>

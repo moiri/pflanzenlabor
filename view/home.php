@@ -41,8 +41,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="container footer">
-            <?php require __DIR__ . '/footer.php'; ?>
-        </div>
+        <?php require __DIR__ . '/footer.php'; ?>
     </div>
 </div>
