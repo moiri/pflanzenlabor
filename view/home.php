@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron mt-3 mb-3">
                 <h1 class="display-1">Pflanzenlabor</h1>
                 <h1>Giovina Nicolai</h1>
                 <p class="lead">Sch&ouml;ner, beschreibender Satz &uuml;ber das Pflanzenlabor</p>
