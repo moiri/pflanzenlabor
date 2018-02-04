@@ -1,6 +1,10 @@
 <?php
 require "./server/AltoRouter/AltoRouter.php";
+require "./server/dbMapper/pflanzenlaborDbMapper.php";
+require "./server/dbMapper/globals.php";
 $router = new AltoRouter();
+$dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
+$dbMapper->setDbLocale('de_CH');
 
 // map homepage
 $router->setBasePath('/pflanzenlabor');

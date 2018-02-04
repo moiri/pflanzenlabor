@@ -4,7 +4,9 @@
             <div class="jumbotron mt-3 mb-3">
                 <h1 class="display-1">Pflanzenlabor</h1>
                 <h1>Giovina Nicolai</h1>
-                <p class="lead">Sch&ouml;ner, beschreibender Satz &uuml;ber das Pflanzenlabor</p>
+                <p class="lead">
+                    Pflanzen in ihrem nat&uuml;rlichem Umfeld kennen lernen &mdash; mit allen Sinnen.
+                </p>
             </div>
         </div>
     </div>
@@ -36,6 +38,18 @@
                             <p class="card-text">Meine Name ist Giovina Nicolai...</p>
                         </div>
                     </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container mt-3">
+            <div class="card">
+                <div class="card-header">
+                    N&auml;chster Kurs
+                </div>
+                <div class="card-body">
+                    N&auml;chster Kurs
                 </div>
             </div>
         </div>

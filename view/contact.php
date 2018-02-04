@@ -6,6 +6,7 @@
         <div class="container mb-3">
             <div class="card">
                 <div class="card-body">
+                    <h1>Fragen, Anregungen, Gr&uuml;sse</h1>
                     Netter Text der um Kontaktaufnahme bittet.
                 </div>
             </div>
@@ -14,9 +15,7 @@
     <div class="row">
         <div class="container">
             <div class="card">
-                <div class="card-header">
-                    Kontaktformular
-                </div>
+                <h5 class="card-header">Kontaktformular</h5>
                 <div class="card-body">
                     <form>
                         <div class="form-group">
