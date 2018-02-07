@@ -20,6 +20,22 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         parent::__construct( $server, $dbname, $username, $password );
     }
 
+    function getClassDetail( $id ) {
+        try {
+            $sql = "SELECT c.id, c.name, c.subtitle, c.img, c.place, c.time,
+                ct.name AS type
+                FROM classes AS c
+                LEFT JOIN class_type AS ct ON ct.id = c.id_type
+                WHERE c.id = :id";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id' => $id ) );
+            return $stmt->fetchAll( PDO::FETCH_ASSOC )[0];
+        }
+        catch(PDOException $e) {
+            $this->addDebug( "PflanzenlaborDbMapper::getClassDetail: ".$e->getMessage() );
+        }
+    }
+
     /**
      * Get all classes
      *

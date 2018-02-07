@@ -12,7 +12,7 @@
         $badge = "ausgebucht";
     }
 ?>
-<button type="button" class="btn-sm border-0 list-group-item list-group-item-action d-flex justify-content-between align-items-center py-1"<?php echo $disabled; ?>>
+<a href="#" class="btn-sm border-0 list-group-item list-group-item-action d-flex justify-content-between align-items-center py-1<?php echo $disabled; ?>">
     <?php echo $date['date']; ?>
     <span class="badge badge-<?php echo $badge_css; ?>"><?php echo $badge; ?></span>
-</button>
+</a>

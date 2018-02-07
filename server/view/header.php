@@ -1,8 +1,13 @@
 <?php
 $uri = $_SERVER['REQUEST_URI'];
 $active_css = 'active';
+
+$class_check = false;
+if( array_key_exists('id', $route['params'])
+    && ( $router->generate('class', array( 'id' => $route['params']['id'])) == $uri ) )
+    $class_check = true;
 $active = array(
-    'classes' => ($router->generate('classes') == $uri) ? $active_css : '',
+    'classes' => ($class_check || ($router->generate('classes') == $uri)) ? $active_css : '',
     'contact' => ($router->generate('contact') == $uri) ? $active_css : '',
     'me' => ($router->generate('me') == $uri) ? $active_css : ''
 );
@@ -10,7 +15,7 @@ $active = array(
 <div class="container mb-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="<?php echo $router->generate('home'); ?>">
-            <img class="rounded-circle" src="./img/placeholder_logo.jpg" alt="Logo">
+        <img class="rounded-circle" src="<?php echo $router->get_asset_path("/img/placeholder_logo.jpg"); ?>" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

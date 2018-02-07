@@ -8,3 +8,6 @@
 .card-link:hover {
     border-color:#343a40;
 }
+a.disabled {
+    pointer-events: none;
+}

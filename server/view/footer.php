@@ -4,7 +4,7 @@
             <div class="row align-items-center">
                 <div class="col">
                     <div class="media">
-                        <img class="middle float-left mr-3 align-self-center rounded-circle" src="./img/hov_placeholder_logo.jpg" alt="Logo">
+                        <img class="middle float-left mr-3 align-self-center rounded-circle" src="<?php echo $router->get_asset_path("/img/hov_placeholder_logo.jpg"); ?>" alt="Logo">
                         <div class="media-body">
                             <p>Pflanzenlabor Giovina Nicolai</p>
                             <span class="small">Sch&ouml;ner Spruch</span>
