@@ -20,10 +20,10 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         parent::__construct( $server, $dbname, $username, $password );
     }
 
-    function getClassDetail( $id ) {
+    function getClass( $id ) {
         try {
-            $sql = "SELECT c.id, c.name, c.subtitle, c.img, c.place, c.time,
-                ct.name AS type
+            $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
+                c.place, c.time, c.img_desc, ct.name AS c_type
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
                 WHERE c.id = :id";
@@ -32,7 +32,25 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             return $stmt->fetchAll( PDO::FETCH_ASSOC )[0];
         }
         catch(PDOException $e) {
-            $this->addDebug( "PflanzenlaborDbMapper::getClassDetail: ".$e->getMessage() );
+            $this->addDebug( "PflanzenlaborDbMapper::getClass: ".$e->getMessage() );
+        }
+    }
+
+    function getClassSections( $id ) {
+        try {
+            $sql = "SELECT s.content, st.title, sy.type
+                FROM classes AS c
+                LEFT JOIN class_section AS cs ON cs.id_class = c.id
+                LEFT JOIN sections AS s ON s.id = cs.id_section
+                LEFT JOIN section_title AS st ON st.id = s.id_section_title
+                LEFT JOIN section_type AS sy ON sy.id = s.id_section_type
+                WHERE c.id = :id";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id' => $id ) );
+            return $stmt->fetchAll( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            $this->addDebug( "PflanzenlaborDbMapper::getClassSections: ".$e->getMessage() );
         }
     }
 
