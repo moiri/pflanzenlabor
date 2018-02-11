@@ -14,7 +14,7 @@
         <div class="container">
             <div class="card-deck text-center">
                 <div id="link-kurse" class="card card-link">
-                    <a class="text-dark" href="<?php echo $router->generate('classes'); ?>">
+                    <a class="text-dark" href="<?php echo $this->router->generate('classes'); ?>">
                         <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">Kurse</h3>
@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <div id="link-kontakt" class="card card-link">
-                    <a class="text-dark" href="<?php echo $router->generate('contact'); ?>">
+                    <a class="text-dark" href="<?php echo $this->router->generate('contact'); ?>">
                         <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">Kontakt</h3>
@@ -31,7 +31,7 @@
                     </a>
                 </div>
                 <div id="link-mich" class="card card-link">
-                <a class="text-dark" href="<?php echo $router->generate('me'); ?>">
+                <a class="text-dark" href="<?php echo $this->router->generate('me'); ?>">
                         <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">&Uuml;ber Mich</h3>
@@ -55,6 +55,6 @@
         </div>
     </div>
     <div class="row">
-        <?php require __DIR__ . '/footer.php'; ?>
+        <?php $this->print_footer(); ?>
     </div>
 </div>

@@ -2,6 +2,13 @@
 require "./server/Router.php";
 require "./server/dbMapper/pflanzenlaborDbMapper.php";
 require "./server/dbMapper/globals.php";
+require "./server/component/home/home.php";
+require "./server/component/contact/contact.php";
+require "./server/component/impressum/impressum.php";
+require "./server/component/me/me.php";
+require "./server/component/404/404.php";
+require "./server/component/classes/classes.php";
+require "./server/component/class/class.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -9,12 +16,32 @@ $dbMapper->setDbLocale('de_CH');
 // map homepage
 $view_path = '/server/view';
 $router->setBasePath('/pflanzenlabor');
-$router->map( 'GET', '/', $view_path . '/home.php', 'home');
-$router->map( 'GET', '/giovina', $view_path . '/me.php', 'me');
-$router->map( 'GET', '/kontakt', $view_path . '/contact.php', 'contact');
-$router->map( 'GET', '/kurse', $view_path . '/classes.php', 'classes');
-$router->map( 'GET', '/kurse/[i:id]', $view_path . '/class.php', 'class');
-$router->map( 'GET', '/impressum', $view_path . '/impressum.php', 'impressum');
+$router->map( 'GET', '/', function( $router ) {
+    $page = new Home( $router );
+    $page->print_view();
+}, 'home');
+$router->map( 'GET', '/giovina', function( $router ) {
+    $page = new Me( $router );
+    $page->print_view();
+}, 'me');
+$router->map( 'GET', '/kontakt', function( $router ) {
+    $page = new Contact( $router );
+    $page->print_view();
+}, 'contact');
+$router->map( 'GET', '/kurse', function( $router, $db ) {
+    $page = new Classes( $router, $db );
+    $page->print_view();
+}, 'classes');
+$router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
+    $page = new ClassPage( $router, $db, intval( $id ) );
+    $page->print_view();
+}, 'class');
+$router->map( 'GET', '/impressum', function( $router ) {
+    $page = new Impressum( $router );
+    $page->print_view();
+}, 'impressum');
+// match current request url
+$router->update_route();
 ?>
 
 <!DOCTYPE html>
@@ -35,16 +62,15 @@ $router->map( 'GET', '/impressum', $view_path . '/impressum.php', 'impressum');
 </head>
 <body>
 <?php
-// match current request url
-$route = $router->match();
 
 // call closure or throw 404 status
-if( $route ) {
-    require __DIR__ . $route['target'];
+if( $router->route && is_callable( $router->route['target'] ) ) {
+    call_user_func_array( $router->route['target'], array_merge( array( $router, $dbMapper ), $router->route['params'] ) );
 } else {
     // no route was matched
     /* header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found'); */
-    require __DIR__ . $view_path . '/404.php';
+    $page = new Missing( $router );
+    $page->print_view();
 }
 ?>
 </body>

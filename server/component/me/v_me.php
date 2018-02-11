@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <?php require __DIR__ . '/header.php'; ?>
+        <?php $this->print_nav(); ?>
     </div>
     <div class="row">
         <div class="container">
@@ -14,6 +14,6 @@
         </div>
     </div>
     <div class="row">
-        <?php require __DIR__ . '/footer.php'; ?>
+        <?php $this->print_footer(); ?>
     </div>
 </div>
