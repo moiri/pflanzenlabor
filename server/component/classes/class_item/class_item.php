@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . './../../class/class_date/class_date.php';
+require __DIR__ . './../../class/class_dates/class_dates.php';
 /**
  * Contact Component Class
  */
@@ -27,11 +27,9 @@ class ClassItem {
         $this->dates = $dates;
     }
 
-    public function print_class_dates() {
-        foreach( $this->dates as $date ) {
-            $class_date = new ClassDate( $this->router, $date['date'], $date['places_max'], $date['places_booked'] );
-            $class_date->print_view();
-        }
+    public function print_date_list() {
+        $date_list = new ClassDates( $this->router, $this->dates );
+        $date_list->print_view();
     }
 
     public function print_view() {

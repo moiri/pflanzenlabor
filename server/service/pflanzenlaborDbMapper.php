@@ -50,7 +50,8 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
                 LEFT JOIN sections AS s ON s.id = cs.id_section
                 LEFT JOIN section_title AS st ON st.id = s.id_section_title
                 LEFT JOIN section_type AS sy ON sy.id = s.id_section_type
-                WHERE c.id = :id";
+                WHERE c.id = :id
+                ORDER BY st.layout";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( array( ':id' => $id ) );
             return $stmt->fetchAll( PDO::FETCH_ASSOC );

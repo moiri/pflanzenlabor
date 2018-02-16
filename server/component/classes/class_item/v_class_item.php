@@ -8,10 +8,8 @@
             </div>
             <p class="mb-0"><?php echo $this->subtitle; ?></p>
         </a>
-        <div class="list-group ml-3">
 <?php
-    $this->print_class_dates();
+    $this->print_date_list();
 ?>
-        </div>
     </div>
 </div>
