@@ -5,7 +5,7 @@
     <div class="row">
         <div class="container mb-3">
             <div class="row">
-                <div class="col-md">
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm">
                     <div class="card">
                         <div class="card-body">
                             <h1>
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md">
+                <div class="col">
 <?php
     $this->print_class_sections();
 ?>
