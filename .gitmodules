@@ -1,3 +1,0 @@
-[submodule "server/AltoRouter"]
-	path = server/AltoRouter
-	url = https://github.com/dannyvankooten/AltoRouter.git

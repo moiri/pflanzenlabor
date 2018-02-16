@@ -1,7 +1,7 @@
 <?php
-require "./server/Router.php";
-require "./server/dbMapper/pflanzenlaborDbMapper.php";
-require "./server/dbMapper/globals.php";
+require "./server/service/router.php";
+require "./server/service/pflanzenlaborDbMapper.php";
+require "./server/service/globals.php";
 require "./server/component/home/home.php";
 require "./server/component/contact/contact.php";
 require "./server/component/impressum/impressum.php";

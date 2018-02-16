@@ -1,5 +1,5 @@
 <?php
-require "./server/AltoRouter/AltoRouter.php";
+require_once __DIR__ . "/altorouter.php";
 
 class Router extends AltoRouter {
     public $route = NULL;

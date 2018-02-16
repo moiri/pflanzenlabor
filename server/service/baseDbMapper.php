@@ -1,11 +1,10 @@
 <?php
-require_once('logger.php');
 /**
  * Class to handle the global communication with the DB
  * 
  * @author moiri
  */
-class BaseDBMapper extends Logger {
+class BaseDBMapper {
     var $dbh = null;
 
     /**
@@ -18,7 +17,6 @@ class BaseDBMapper extends Logger {
      * @param string $names:    charset (optional, default: utf8)
      */
     function __construct($server, $dbname, $username, $password, $names="utf8") {
-        parent::__construct( "db" );
         try {
             $this->dbh = new PDO(
                 "mysql:host=$server;dbname=$dbname;charset=$names",
@@ -29,7 +27,7 @@ class BaseDBMapper extends Logger {
         }
         catch(PDOException $e)
         {
-            $this->addError( "Connection failed: ".$e->getMessage() );
+            if( DEBUG == 1 ) "Connection failed: ".$e->getMessage();
         }
     }
 
@@ -60,7 +58,7 @@ class BaseDBMapper extends Logger {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            $this->addDebug( "BaseDbMapper::selectTable: ".$e->getMessage() );
+            if( DEBUG == 1 ) "BaseDbMapper::selectTable: ".$e->getMessage();
         }
     }
 
@@ -79,7 +77,7 @@ class BaseDBMapper extends Logger {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            $this->addDebug( "BaseDbMapper::selectByFk: ".$e->getMessage() );
+            if( DEBUG == 1 ) "BaseDbMapper::selectByFk: ".$e->getMessage();
         }
     }
 
@@ -97,7 +95,7 @@ class BaseDBMapper extends Logger {
             return $stmt->fetch( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            $this->addDebug( "BaseDbMapper::selectByUid: ".$e->getMessage() );
+            if( DEBUG == 1) "BaseDbMapper::selectByUid: ".$e->getMessage();
         }
     }
 
@@ -138,8 +136,7 @@ class BaseDBMapper extends Logger {
             }
         }
         catch(PDOException $e) {
-            $this->addDebug(
-                "BaseDbMapper::selectByUidJoin: ".$e->getMessage() );
+            if( DEBUG == 1 ) "BaseDbMapper::selectByUidJoin: ".$e->getMessage();
         }
     }
 
@@ -198,8 +195,7 @@ class BaseDBMapper extends Logger {
             return $this->dbh->lastInsertId();
         }
         catch(PDOException $e) {
-            $this->addDebug(
-                "BaseDbMapper::insert: ".$e->getMessage() );
+            if( DEBUG == 1 ) "BaseDbMapper::insert: ".$e->getMessage();
         }
     }
 
@@ -228,8 +224,7 @@ class BaseDBMapper extends Logger {
             return true;
         }
         catch(PDOException $e) {
-            $this->addDebug(
-                "BaseDbMapper::updateByUid: ".$e->getMessage() );
+            if( DEBUG == 1 ) "BaseDbMapper::updateByUid: ".$e->getMessage();
         }
     }
 }
