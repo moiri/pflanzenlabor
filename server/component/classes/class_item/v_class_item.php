@@ -1,5 +1,5 @@
 <div class="media mb-4">
-    <img class="" src="<?php echo $this->router->get_asset_path("/img/" . $this->img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>">
+    <img class="" src="<?php echo $this->router->get_asset_path("/img/" . $this->img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>" height="150" width="150">
     <div class="media-body">
         <a href="<?php echo $this->router->generate("classes") . "/" . $this->id; ?>" class="list-group-item list-group-item-action flex-column align-items-start border-0 pb-1">
             <div class="d-flex w-100 justify-content-between">

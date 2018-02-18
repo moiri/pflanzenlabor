@@ -6,8 +6,8 @@
         <div class="container mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h1>Fragen, Anregungen, Gr&uuml;sse</h1>
-                    Netter Text der um Kontaktaufnahme bittet.
+                    <h1><?php echo $this->p_title; ?></h1>
+                    <?php $this->print_page_description(); ?>
                 </div>
             </div>
         </div>

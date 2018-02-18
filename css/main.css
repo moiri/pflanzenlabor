@@ -5,9 +5,6 @@
     padding:2rem;
     margin-bottom:-2rem;
 }
-.card-link:hover {
-    border-color:#343a40;
-}
 a.disabled {
     pointer-events: none;
 }

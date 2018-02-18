@@ -16,8 +16,8 @@ class ClassPage extends Page {
     private $dates;
     private $sections;
 
-    function __construct( $router, $dbMapper, $id ) {
-        parent::__construct( $router );
+    function __construct( $router, $dbMapper, $url, $id ) {
+        parent::__construct( $router, $dbMapper, $url );
         $detail = $dbMapper->getClass( $id );
         $this->name = $detail['name'];
         $this->description = $detail['description'];

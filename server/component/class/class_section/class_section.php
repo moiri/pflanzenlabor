@@ -24,7 +24,7 @@ class ClassSection {
             $classContent->print_view();
         }
         else if( $this->type == "dates" ) {
-            /* if( is_callable( $this->content ) ) */
+            if( is_callable( $this->content ) )
                 call_user_func( $this->content );
         }
     }

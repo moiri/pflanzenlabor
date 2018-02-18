@@ -8,8 +8,8 @@ require __DIR__ . '/class_item/class_item.php';
 class Classes extends Page {
     private $classes = array();
 
-    function __construct( $router, $dbMapper ) {
-        parent::__construct( $router, $dbMapper );
+    function __construct( $router, $dbMapper, $url ) {
+        parent::__construct( $router, $dbMapper, $url );
         $classes_join = $dbMapper->getClassesJoinDates();
         $this->update_classes_list( $classes_join );
     }

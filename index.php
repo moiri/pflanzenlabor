@@ -16,28 +16,28 @@ $dbMapper->setDbLocale('de_CH');
 // map homepage
 $view_path = '/server/view';
 $router->setBasePath('/pflanzenlabor');
-$router->map( 'GET', '/', function( $router ) {
-    $page = new Home( $router );
+$router->map( 'GET', '/', function( $router, $db ) {
+    $page = new Home( $router, $db, 'home' );
     $page->print_view();
 }, 'home');
-$router->map( 'GET', '/giovina', function( $router ) {
-    $page = new Me( $router );
+$router->map( 'GET', '/giovina', function( $router, $db ) {
+    $page = new Me( $router, $db, 'giovina' );
     $page->print_view();
 }, 'me');
-$router->map( 'GET', '/kontakt', function( $router ) {
-    $page = new Contact( $router );
+$router->map( 'GET', '/kontakt', function( $router, $db ) {
+    $page = new Contact( $router, $db, 'kontakt' );
     $page->print_view();
 }, 'contact');
 $router->map( 'GET', '/kurse', function( $router, $db ) {
-    $page = new Classes( $router, $db );
+    $page = new Classes( $router, $db, 'kurse' );
     $page->print_view();
 }, 'classes');
 $router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
-    $page = new ClassPage( $router, $db, intval( $id ) );
+    $page = new ClassPage( $router, $db, '', intval( $id ) );
     $page->print_view();
 }, 'class');
-$router->map( 'GET', '/impressum', function( $router ) {
-    $page = new Impressum( $router );
+$router->map( 'GET', '/impressum', function( $router, $db ) {
+    $page = new Impressum( $router, $db, 'impressum' );
     $page->print_view();
 }, 'impressum');
 // match current request url

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="container">
             <div class="jumbotron">
-                <h1 class="display-1">Giovina Nicolai</h1>
+                <h1 class="display-1"><?php echo $this->p_title; ?></h1>
             </div>
         </div>
     </div>
