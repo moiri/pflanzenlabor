@@ -28,7 +28,7 @@ class ClassItem {
     }
 
     public function print_date_list() {
-        $date_list = new ClassDates( $this->router, $this->dates );
+        $date_list = new ClassDates( $this->router, $this->dates, array('margin-left'=>3) );
         $date_list->print_view();
     }
 

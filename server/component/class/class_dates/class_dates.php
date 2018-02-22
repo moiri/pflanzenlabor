@@ -5,10 +5,14 @@ class ClassDates {
 
     private $router;
     private $dates;
+    private $style;
 
-    function __construct( $router, $dates ) {
+    function __construct( $router, $dates, $style = array() ) {
         $this->router = $router;
         $this->dates = $dates;
+        $this->style = array();
+        $this->style['margin-left'] = array_key_exists('margin-left', $style) ? $style['margin-left'] : 0;
+        $this->style['margin-bottom'] = array_key_exists('margin-bottom', $style) ? $style['margin-bottom'] : 0;
     }
 
     private function print_class_dates() {

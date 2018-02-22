@@ -39,17 +39,10 @@ class ClassPage extends Page {
         $content->print_view();
     }
 
-    public function print_class_dates() {
-        foreach( $this->dates as $date ) {
-            $class_date = new ClassDate( $this->router, $date['date'], $date['places_max'], $date['places_booked'] );
-            $class_date->print_view();
-        }
-    }
-
     private function print_class_sections() {
         foreach( $this->sections as $section ) {
             if( $section['type'] == "dates" ) {
-                $dates = new ClassDates( $this->router, $this->dates );
+                $dates = new ClassDates( $this->router, $this->dates, array('margin-bottom'=>3) );
                 $s = new ClassSection( $section['title'], array( $dates, "print_view" ), $section['type'] );
                 $s->print_view();
                 continue;
