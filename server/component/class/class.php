@@ -15,6 +15,9 @@ class ClassPage extends Page {
     private $image;
     private $dates;
     private $sections;
+    private $class_type;
+    private $place;
+    private $time;
 
     function __construct( $router, $dbMapper, $url, $id ) {
         parent::__construct( $router, $dbMapper, $url );
@@ -23,6 +26,9 @@ class ClassPage extends Page {
         $this->description = $detail['description'];
         $this->image = $detail['img_desc'];
         $this->subtitle = $detail['subtitle'];
+        $this->class_type = $detail['c_type'];
+        $this->place = $detail['place'];
+        $this->time = $detail['time'];
         $this->dates = $dbMapper->getClassDates( $id );
         $this->sections = $dbMapper->getClassSections( $id );
     }
