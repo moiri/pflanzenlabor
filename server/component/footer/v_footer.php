@@ -7,7 +7,7 @@
                         <img class="middle float-left mr-3 align-self-center rounded-circle" src="<?php echo $this->router->get_asset_path("/img/hov_placeholder_logo.jpg"); ?>" alt="Logo">
                         <div class="media-body">
                             <p>Pflanzenlabor Giovina Nicolai</p>
-                            <span class="small">Sch&ouml;ner Spruch</span>
+                            <span class="small"><i>"Die Natur ist kein Ausflugsziel, sie ist unser Zuhause!"</i> - Gary Snyder</span>
                         </div>
                     </div>
                 </div>
