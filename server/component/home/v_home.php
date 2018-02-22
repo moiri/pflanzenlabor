@@ -15,7 +15,7 @@
             <div class="card-deck text-center">
                 <div id="link-kurse" class="card card-link">
                     <a class="text-dark" href="<?php echo $this->router->generate('classes'); ?>">
-                        <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
+                        <img class="card-img-top rounded-circle" src="./img/startpage-courses_600x600.png" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">Kurse</h3>
                         </div>
@@ -23,7 +23,7 @@
                 </div>
                 <div id="link-kontakt" class="card card-link">
                     <a class="text-dark" href="<?php echo $this->router->generate('contact'); ?>">
-                        <img class="card-img-top rounded-circle" src="./img/placeholder.jpg" alt="Photo Giovina Nicolai">
+                        <img class="card-img-top rounded-circle" src="./img/startpage-contact_600x600.png" alt="Photo Giovina Nicolai">
                         <div class="card-body">
                             <h3 class="card-title">Kontakt</h3>
                         </div>
