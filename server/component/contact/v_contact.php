@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="container">
-            <div class="card">
+            <div class="card contact-splatter">
                 <h5 class="card-header">Kontaktformular</h5>
                 <div class="card-body">
                     <form>

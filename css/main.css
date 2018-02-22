@@ -8,3 +8,13 @@
 a.disabled {
     pointer-events: none;
 }
+.me-splatter {
+    background-image: url('../img/splatter-7-1_600x600.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+.contact-splatter {
+    background-image: url('../img/splatter-8_800x600.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
