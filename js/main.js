@@ -11,7 +11,9 @@ $(document).ready(function() {
                 image_path += paths[i] + "/";
             }
             $img.attr("src", image_path + "hov_" + image_name);
+            $(this).addClass('border-dark');
         }, function() {
             $(this).find('img:first').attr("src", image_path + image_name);
+            $(this).removeClass('border-dark');
         });
 });

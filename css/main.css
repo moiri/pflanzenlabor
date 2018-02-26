@@ -8,6 +8,3 @@
 a.disabled {
     pointer-events: none;
 }
-.invert-link-img:hover {
-    border: solid 1px #212529;
-}
