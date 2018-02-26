@@ -9,6 +9,7 @@ require "./server/component/me/me.php";
 require "./server/component/404/404.php";
 require "./server/component/classes/classes.php";
 require "./server/component/class/class.php";
+require "./server/component/enroll/enroll.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -36,6 +37,10 @@ $router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
     $page = new ClassPage( $router, $db, '', intval( $id ) );
     $page->print_view();
 }, 'class');
+$router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
+    $page = new Enroll( $router, $db, 'anmeldung', intval( $id ) );
+    $page->print_view();
+}, 'enroll');
 $router->map( 'GET', '/impressum', function( $router, $db ) {
     $page = new Impressum( $router, $db, 'impressum' );
     $page->print_view();

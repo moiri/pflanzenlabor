@@ -6,6 +6,7 @@ require __DIR__ . './../../class/class_dates/class_dates.php';
 class ClassItem {
 
     private $router;
+    private $db;
     private $id;
     private $name;
     private $subtitle;
@@ -15,8 +16,9 @@ class ClassItem {
     private $time;
     private $dates;
 
-    function __construct( $router, $id, $name, $subtitle, $img, $type, $place, $time, $dates ) {
+    function __construct( $router, $db, $id, $name, $subtitle, $img, $type, $place, $time ) {
         $this->router = $router;
+        $this->db = $db;
         $this->id = $id;
         $this->class_name = $name;
         $this->subtitle = $subtitle;
@@ -24,12 +26,12 @@ class ClassItem {
         $this->class_type = $type;
         $this->place = $place;
         $this->time = $time;
-        $this->dates = $dates;
     }
 
     public function print_date_list() {
-        $date_list = new ClassDates( $this->router, $this->dates, array('margin-left'=>3) );
-        $date_list->print_view();
+        $dates = new ClassDates( $this->router, $this->db, $this->id, array('margin-bottom'=>3) );
+        $s = new ClassSection( "Anmeldung", array( $dates, "print_view" ), "dates" );
+        $s->print_view();
     }
 
     public function print_view() {

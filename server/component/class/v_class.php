@@ -5,7 +5,7 @@
     <div class="row">
         <div class="container mb-3">
             <div class="row">
-                <div class="col-xl-7 col-lg-7 col-md-7 col-sm">
+                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
                     <div class="card">
                         <div class="card-body">
                             <small><?php echo $this->class_type; ?> | <?php echo $this->place; ?> | <?php echo $this->time; ?></small>

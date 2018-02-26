@@ -7,9 +7,11 @@ require __DIR__ . '/class_item/class_item.php';
  */
 class Classes extends Page {
     private $classes = array();
+    private $db;
 
     function __construct( $router, $dbMapper, $url ) {
         parent::__construct( $router, $dbMapper, $url );
+        $this->db = $dbMapper;
         $classes_join = $dbMapper->getClassesJoinDates();
         $this->update_classes_list( $classes_join );
     }
@@ -52,14 +54,14 @@ class Classes extends Page {
         foreach( $this->classes as $class) {
             $class_item = new ClassItem(
                 $this->router,
+                $this->db,
                 intval( $class['id'] ),
                 $class['name'],
                 $class['subtitle'],
                 $class['img'],
                 $class['type'],
                 $class['place'],
-                $class['time'],
-                $class['dates']
+                $class['time']
             );
             $class_item->print_view();
         }

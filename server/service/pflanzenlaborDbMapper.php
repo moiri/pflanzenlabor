@@ -32,7 +32,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
                 WHERE c.id = :id";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( array( ':id' => $id ) );
-            return $stmt->fetchAll( PDO::FETCH_ASSOC )[0];
+            return $stmt->fetch( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) "PflanzenlaborDbMapper::getClass: ".$e->getMessage();
@@ -106,6 +106,28 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     }
 
     /**
+     * Get a specific date and associated class info
+     *
+     * @param int $id:     date id
+     * @return an array with all row entries or false if no entry was selected
+     */
+    function getClassDate( $id ) {
+        try {
+            $sql = "SELECT DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
+                cd.places_max, cd.places_booked, c.name, id_class
+                FROM class_dates AS cd
+                LEFT JOIN classes AS c ON c.id = cd.id_class
+                WHERE cd.id = :id AND date >= CURDATE()";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id' => $id ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassDate: ".$e->getMessage();
+        }
+    }
+
+    /**
      * Get all future dates from a class
      *
      * @param int $id:     class id
@@ -113,9 +135,10 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassDates( $id ) {
         try {
-            $sql = "SELECT DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date, cd.places_max, cd.places_booked
+            $sql = "SELECT id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date, cd.places_max, cd.places_booked
                 FROM class_dates AS cd
-                WHERE id_class = :id AND date >= CURDATE()";
+                WHERE id_class = :id AND date >= CURDATE()
+                ORDER BY cd.date";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( array( ':id' => $id ) );
             return $stmt->fetchAll( PDO::FETCH_ASSOC );

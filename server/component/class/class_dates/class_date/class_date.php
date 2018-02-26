@@ -7,10 +7,12 @@ class ClassDate {
     private $router;
     private $date;
     private $free_places;
+    private $id;
 
-    function __construct( $router, $date, $places_max, $places_booked ) {
+    function __construct( $router, $id, $date, $places_max, $places_booked ) {
         $this->router = $router;
         $this->date = $date;
+        $this->id = $id;
         $this->free_places = $places_max - $places_booked;
     }
 

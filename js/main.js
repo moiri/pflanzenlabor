@@ -1,7 +1,7 @@
 $(document).ready(function() {
     let image_path;
     let image_name;
-    $('div[id|="link"]')
+    $('.invert-link-img')
         .hover(function() {
             image_path = "";
             var $img = $(this).find('img:first');

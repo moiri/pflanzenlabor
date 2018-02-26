@@ -6,17 +6,10 @@
         <div class="container mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h1><?php echo $this->p_title; ?></h1>
-                    <?php $this->print_page_description(); ?>
+                    <h1>Ausgebucht</h1>
+                    <h2>Der Kurs "<?php echo $this->class_name; ?>" vom <?php echo $this->date; ?> ist ausgebucht.</h2>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container">
-<?php
-    $this->print_class_items();
-?>
         </div>
     </div>
     <div class="row">

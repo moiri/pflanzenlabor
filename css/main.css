@@ -8,17 +8,6 @@
 a.disabled {
     pointer-events: none;
 }
-.me-splatter {
-    background-image: url('../img/splatter-7-1_600x600.png');
-    background-repeat: no-repeat;
-    background-position: right bottom;
+.invert-link-img:hover {
+    border: solid 1px #212529;
 }
-.contact-splatter {
-    background-image: url('../img/splatter-8_800x600.png');
-    background-repeat: no-repeat;
-    background-position: right bottom;
-}
-.contact-splatter * input, .contact-splatter * textarea {
-    background-color: rgba(255,255,255,0.8);
-}
-
