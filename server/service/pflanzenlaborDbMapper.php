@@ -148,6 +148,32 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
+    /**
+     * Get nearest class where places are available
+     *
+     * @return an array with all row entries or false if no entry was selected
+     */
+    function getClassNearest() {
+        try {
+            $sql = "SELECT c.id, c.name, c.subtitle, c.img, c.place, c.time,
+                ct.name AS type, cd.places_max, cd.places_booked,
+                DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date
+                FROM classes AS c
+                LEFT JOIN class_type AS ct ON ct.id = c.id_type
+                LEFT JOIN class_dates AS cd ON cd.id_class = c.id
+                WHERE date >= CURDATE()
+                AND cd.places_booked < cd.places_max
+                ORDER BY cd.date
+                LIMIT 1";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute();
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassesNearest: ".$e->getMessage();
+        }
+    }
+
     function getPage( $url ) {
         try {
             $sql = "SELECT title, subtitle, description

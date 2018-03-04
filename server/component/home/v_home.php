@@ -42,14 +42,7 @@
     </div>
     <div class="row">
         <div class="container mt-3">
-            <div class="card">
-                <div class="card-header">
-                    N&auml;chster Kurs
-                </div>
-                <div class="card-body">
-                    N&auml;chster Kurs
-                </div>
-            </div>
+            <?php $this->print_nearest_class_item(); ?>
         </div>
     </div>
     <div class="row">
