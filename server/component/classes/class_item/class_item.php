@@ -20,10 +20,10 @@ class ClassItem {
         $this->router = $router;
         $this->db = $db;
         $this->id = $id;
-        $this->class_name = $name;
+        $this->name = $name;
         $this->subtitle = $subtitle;
         $this->img = $img;
-        $this->class_type = $type;
+        $this->type = $type;
         $this->place = $place;
         $this->time = $time;
     }
