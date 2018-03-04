@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../page.php';
-require __DIR__ . '/class_item/class_item.php';
+require_once __DIR__ . '/class_item/class_item.php';
 
 /**
  * Contact Component Class
@@ -21,13 +21,11 @@ class Classes extends Page {
     private function update_classes_list( $classes_join ) {
         foreach( $classes_join as $class_join ) {
             $create_new = true;
-            $idx = 0;
             foreach( $this->classes as $class ) {
                 if( $class['id'] == $class_join['id'] ) {
                     $create_new = false;
                     break;
                 }
-                $idx++;
             }
             if( $create_new ) {
                 array_push( $this->classes, array(
@@ -38,15 +36,8 @@ class Classes extends Page {
                     'type'      => $class_join['type'],
                     'place'     => $class_join['place'],
                     'time'      => $class_join['time'],
-                    'dates'     => array()
                 ) );
-                $idx = sizeof( $this->classes ) - 1;
             }
-            array_push( $this->classes[$idx]['dates'], array(
-                'date'          => $class_join['date'],
-                'places_max'    => $class_join['places_max'],
-                'places_booked' => $class_join['places_booked']
-            ) );
         }
     }
 
