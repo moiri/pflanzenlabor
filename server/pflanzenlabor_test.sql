@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2018 at 08:29 PM
+-- Generation Time: Feb 26, 2018 at 01:13 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.0.25-0ubuntu0.16.04.1
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `classes` (`id`, `name`, `subtitle`, `description`, `img`, `img_desc`, `id_type`, `place`, `time`, `pdf`) VALUES
-(0000000001, 'Schwarzdorn', 'in weissem Kleid', 'Lerne die vielfältigen Facetten des Schwarzdorns in der Blütezeit kennen – Mit allen Sinnen.\r\nWir werden den ganzen Tag draussen verbringen und zusammen am Mittag etwas picnicen. Du wirst verschiedene Facetten des Schwarzdornes erfahren, als ökologisch wichtiger Schmetterlingsbaum, als erfrischender Drink, und was er mit Schneewittchen zu tun hat.\r\nErfahre wie der Schwarzdorn bestimmt wird und wo er draussen zu finden ist. Wir werden verschiedene Verwendungsgebiete anschauen und etwas daraus herstellen.', 'course-1_media_300x300.png', 'course-1_600x800.png', 1, 'Umgebung Stadt Bern', '10:00h - 16:00h', NULL),
-(0000000002, 'Brennessel', 'zart und bissig', '', 'placeholder_media.jpg', '', 1, 'Umgebung Stadt Bern', '10:00h – 16:00h', NULL),
-(0000000003, 'Hollunder', 'wo Frau Holle wohnt', '', 'placeholder_media.jpg', '', 1, 'Umgebung Stadt Bern', '10:00h - 16:00h', NULL),
-(0000000004, 'Kanadische Goldrute', 'invasiv und golden', '', 'placeholder_media.jpg', '', 1, 'Umgebung Stadt Bern', '10:00h - 16:00h', NULL),
+(0000000001, 'Schwarzdorn', 'in weissem Kleid', 'Lerne die vielfältigen Facetten des Schwarzdorns in der Blütezeit kennen – Mit allen Sinnen.\r\nWir werden den ganzen Tag draussen verbringen und zusammen am Mittag etwas picnicen. Du wirst verschiedene Facetten des Schwarzdornes erfahren, als ökologisch wichtiger Schmetterlingsbaum, als erfrischender Drink, und was er mit Schneewittchen zu tun hat.\r\nErfahre wie der Schwarzdorn bestimmt wird und wo er draussen zu finden ist. Wir werden verschiedene Verwendungsgebiete anschauen und etwas daraus herstellen.', 'course-1_200x200.png', 'course-1_600x800.png', 1, 'Umgebung Stadt Bern', '10:00h - 16:00h', NULL),
+(0000000002, 'Brennessel', 'zart und bissig', '', 'course-2_200x200.png', '', 1, 'Umgebung Stadt Bern', '10:00h – 16:00h', NULL),
+(0000000003, 'Holunder', 'wo Frau Holle wohnt', '', 'course-3_200x200.png', '', 1, 'Umgebung Stadt Bern', '10:00h - 16:00h', NULL),
+(0000000004, 'Goldrute', 'invasiv und golden', '', 'course-4_200x200.png', '', 1, 'Umgebung Stadt Bern', '10:00h - 16:00h', NULL),
 (0000000005, 'Test Vorbei', 'test', '', 'placeholder_media.jpg', '', 1, 'bla', 'gwuag', NULL),
 (0000000006, 'Test alles vorbei', 'schwupps', '', 'placeholder_media.jpg', '', 1, 'dsa', 'dasdasd', NULL);
 
@@ -50,7 +50,7 @@ INSERT INTO `class_dates` (`id`, `id_class`, `date`, `places_max`, `places_booke
 (0000000011, 0000000004, '2018-07-21', 8, 0),
 (0000000012, 0000000004, '2018-07-29', 8, 0),
 (0000000013, 0000000005, '2018-05-17', 8, 8),
-(0000000014, 0000000005, '2018-02-21', 8, 5),
+(0000000014, 0000000005, '2018-03-03', 8, 5),
 (0000000015, 0000000005, '2018-02-01', 8, 0),
 (0000000016, 0000000006, '2018-01-01', 8, 8),
 (0000000017, 0000000006, '2018-01-27', 8, 5),
@@ -84,7 +84,8 @@ INSERT INTO `page` (`id`, `url`, `title`, `subtitle`, `description`) VALUES
 (0000000002, 'giovina', 'Giovina Nicolai', '', ''),
 (0000000003, 'kontakt', 'Fragen, Anregungen, Grüsse', '', 'Netter Text der um Kontaktaufnahme bittet.'),
 (0000000004, 'kurse', 'Kurse', '', 'An einem Pflanzenausflug werden wir eine Pflanze genauer betrachten — mit möglichst allen Sinnen, von möglichst vielen Facetten. Nebst dem sicheren bestimmen der Pflanze werden wir die Pflanze auch vor Ort verarbeiten.\r\nDie Pflanzenausflüge finden draussen statt, bei jedem Wetter. Je nach Witterung kann das Programm angepasst werden. '),
-(0000000005, 'impressum', 'Impressum', '', '');
+(0000000005, 'impressum', 'Impressum', '', ''),
+(0000000006, 'anmeldung', 'Anmeldung', '', '');
 
 --
 -- Dumping data for table `sections`
