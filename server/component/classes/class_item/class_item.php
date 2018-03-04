@@ -10,18 +10,20 @@ class ClassItem {
     private $id;
     private $name;
     private $subtitle;
+    private $desc;
     private $img;
     private $type;
     private $place;
     private $time;
     private $dates;
 
-    function __construct( $router, $db, $id, $name, $subtitle, $img, $type, $place, $time ) {
+    function __construct( $router, $db, $id, $name, $subtitle, $desc, $img, $type, $place, $time ) {
         $this->router = $router;
         $this->db = $db;
         $this->id = $id;
         $this->name = $name;
         $this->subtitle = $subtitle;
+        $this->desc = explode('.', $desc)[0] . " (...)";
         $this->img = $img;
         $this->type = $type;
         $this->place = $place;

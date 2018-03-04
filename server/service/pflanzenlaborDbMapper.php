@@ -88,8 +88,8 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassesJoinDates() {
         try {
-            $sql = "SELECT c.id, c.name, c.subtitle, c.img, c.place, c.time,
-                ct.name AS type, cd.places_max, cd.places_booked,
+            $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
+                c.place, c.time, ct.name AS type, cd.places_max, cd.places_booked,
                 DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
@@ -155,8 +155,8 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassNearest() {
         try {
-            $sql = "SELECT c.id, c.name, c.subtitle, c.img, c.place, c.time,
-                ct.name AS type, cd.places_max, cd.places_booked,
+            $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
+                c.place, c.time, ct.name AS type, cd.places_max, cd.places_booked,
                 DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type

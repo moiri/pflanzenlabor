@@ -5,8 +5,10 @@
                 <img class="align-self-center mr-3" src="<?php echo $this->router->get_asset_path("/img/" . $this->img); ?>" alt="Bild zum Kurs <?php echo $this->name; ?>" height="150" width="150">
                 <div class="media-body">
                     <small><?php echo $this->type; ?> | <?php echo $this->place; ?> | <?php echo $this->time; ?></small>
-                    <h5 class="mb-1"><?php echo $this->name; ?></h5>
-                    <p class="mb-0"><?php echo $this->subtitle; ?></p>
+                    <h4><?php echo $this->name; ?> &ndash;
+                        <small><?php echo $this->subtitle; ?></small>
+                    </h4>
+                    <p class="mt-3"><?php echo $this->desc; ?></p>
                 </div>
             </div>
         </a>
