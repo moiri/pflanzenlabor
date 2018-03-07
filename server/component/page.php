@@ -14,7 +14,7 @@ class Page {
     protected $p_subtitle;
     protected $p_description;
 
-    function __construct( $router, $db, $url )
+    function __construct( $router, $db=Null, $url='' )
     {
         $this->router = $router;
         $this->nav = new Nav( $router );

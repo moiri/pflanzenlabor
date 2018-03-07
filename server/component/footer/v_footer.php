@@ -11,7 +11,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col text-right"><a class="text-dark" href="<?php echo $this->router->generate('impressum'); ?>">Impressum</a></div>
+                <div class="col text-right">
+                    <a class="text-dark small" href="<?php echo $this->router->generate('impressum'); ?>">Impressum</a>
+                    | <a class="text-dark small" href="<?php echo $this->router->generate('disclaimer'); ?>">Discalimer</a>
+                    | <a class="text-dark small" href="<?php echo $this->router->generate('agb'); ?>">AGB</a></div>
             </div>
         </div>
     </div>

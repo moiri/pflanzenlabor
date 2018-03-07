@@ -5,6 +5,8 @@ require "./server/service/globals.php";
 require "./server/component/home/home.php";
 require "./server/component/contact/contact.php";
 require "./server/component/impressum/impressum.php";
+require "./server/component/disclaimer/disclaimer.php";
+require "./server/component/agb/agb.php";
 require "./server/component/me/me.php";
 require "./server/component/404/404.php";
 require "./server/component/classes/classes.php";
@@ -42,9 +44,17 @@ $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'enroll');
 $router->map( 'GET', '/impressum', function( $router, $db ) {
-    $page = new Impressum( $router, $db, 'impressum' );
+    $page = new Impressum( $router );
     $page->print_view();
 }, 'impressum');
+$router->map( 'GET', '/disclaimer', function( $router, $db ) {
+    $page = new Disclaimer( $router );
+    $page->print_view();
+}, 'disclaimer');
+$router->map( 'GET', '/agb', function( $router, $db ) {
+    $page = new AGB( $router );
+    $page->print_view();
+}, 'agb');
 // match current request url
 $router->update_route();
 ?>
