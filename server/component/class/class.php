@@ -21,8 +21,8 @@ class ClassPage extends Page {
     private $class_id;
     private $db;
 
-    function __construct( $router, $dbMapper, $url, $id ) {
-        parent::__construct( $router, $dbMapper, $url );
+    function __construct( $router, $dbMapper, $id ) {
+        parent::__construct( $router );
         $detail = $dbMapper->getClass( $id );
         if($detail) {
             $this->na = false;

@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1><?php echo $this->p_title; ?></h1>
-                    <?php $this->print_page_description(); ?>
+                    <p><?php $this->p_description; ?></p>
                 </div>
             </div>
         </div>

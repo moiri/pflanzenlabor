@@ -10,8 +10,8 @@ class Home extends Page {
     private $db;
     private $class_item;
 
-    function __construct( $router, $db, $url ) {
-        parent::__construct( $router, $db, $url );
+    function __construct( $router, $db ) {
+        parent::__construct( $router );
         $this->db = $db;
         $this->class_item = $db->getClassNearest();
     }

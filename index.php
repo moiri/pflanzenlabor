@@ -21,27 +21,27 @@ $dbMapper->setDbLocale('de_CH');
 $view_path = '/server/view';
 $router->setBasePath('/pflanzenlabor');
 $router->map( 'GET', '/', function( $router, $db ) {
-    $page = new Home( $router, $db, 'home' );
+    $page = new Home( $router, $db );
     $page->print_view();
 }, 'home');
 $router->map( 'GET', '/giovina', function( $router, $db ) {
-    $page = new Me( $router, $db, 'giovina' );
+    $page = new Me( $router );
     $page->print_view();
 }, 'me');
 $router->map( 'GET', '/kontakt', function( $router, $db ) {
-    $page = new Contact( $router, $db, 'kontakt' );
+    $page = new Contact( $router, $db );
     $page->print_view();
 }, 'contact');
 $router->map( 'GET', '/kurse', function( $router, $db ) {
-    $page = new Classes( $router, $db, 'kurse' );
+    $page = new Classes( $router, $db );
     $page->print_view();
 }, 'classes');
 $router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
-    $page = new ClassPage( $router, $db, '', intval( $id ) );
+    $page = new ClassPage( $router, $db, intval( $id ) );
     $page->print_view();
 }, 'class');
 $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
-    $page = new Enroll( $router, $db, 'anmeldung', intval( $id ) );
+    $page = new Enroll( $router, $db, intval( $id ) );
     $page->print_view();
 }, 'enroll');
 $router->map( 'GET', '/impressum', function( $router, $db ) {

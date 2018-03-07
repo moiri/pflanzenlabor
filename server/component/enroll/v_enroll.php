@@ -6,9 +6,8 @@
         <div class="container mb-3">
             <div class="card">
                 <div class="card-body">
-                <h1><?php echo $this->p_title; ?> zum Kurs <?php echo $this->class_name; ?></h1>
-                <h2>vom <?php echo $this->date; ?></h2>
-                    <?php $this->print_page_description(); ?>
+                    <h1>Anmeldung zum Kurs <?php echo $this->class_name; ?></h1>
+                    <h2>vom <?php echo $this->date; ?></h2>
                 </div>
             </div>
         </div>

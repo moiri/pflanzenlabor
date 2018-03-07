@@ -6,7 +6,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h1><?php echo $this->p_title; ?></h1>
+                    <h1>Disclaimer</h1>
 Die gesammte Arbeit im Pflanzenlabor giovina nicolai wird mit grösster Sorgfalt gemacht.
 Dennoch sind Fehler nicht auszuschliessen.
                 </div>

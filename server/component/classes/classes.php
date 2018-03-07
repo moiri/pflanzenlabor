@@ -9,8 +9,8 @@ class Classes extends Page {
     private $classes = array();
     private $db;
 
-    function __construct( $router, $dbMapper, $url ) {
-        parent::__construct( $router, $dbMapper, $url );
+    function __construct( $router, $dbMapper ) {
+        parent::__construct( $router );
         $this->db = $dbMapper;
         $classes_join = $dbMapper->getClassesJoinDates();
         $this->update_classes_list( $classes_join );

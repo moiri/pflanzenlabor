@@ -2,10 +2,10 @@
     <div class="row">
         <div class="container">
             <div class="jumbotron mt-3 mb-3">
-                <h1 class="display-1"><?php echo $this->p_title; ?></h1>
-                <h1><?php echo $this->p_subtitle; ?></h1>
+                <h1 class="display-1">Pflanzenlabor</h1>
+                <h1>Giovina Nicolai</h1>
                 <p class="lead">
-                    <?php $this->print_page_description(); ?>
+Pflanzen in ihrem natürlichem Umfeld kennen lernen &ndash; mit allen Sinnen.
                 </p>
             </div>
         </div>

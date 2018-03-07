@@ -6,6 +6,9 @@ require_once __DIR__ . '/../page.php';
  */
 class ContactSend extends Page {
 
+    private $p_title;
+    private $p_description;
+
     function __construct( $router ) {
         parent::__construct( $router );
     }

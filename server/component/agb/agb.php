@@ -8,7 +8,6 @@ class AGB extends Page {
 
     function __construct( $router ) {
         parent::__construct( $router );
-        $this->p_title = "AGB &ndash; Allgemeine Gesch&auml;fstbedingungen";
     }
 
     public function print_view() {

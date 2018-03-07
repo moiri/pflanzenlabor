@@ -4,8 +4,10 @@
     </div>
     <div class="row">
         <div class="container">
-            <div class="jumbotron">
-                <h1 class="display-1">Seite nicht vorhanden</h1>
+            <div class="card">
+                <div class="card-body">
+                    <h1>Seite nicht vorhanden</h1>
+                </div>
             </div>
         </div>
     </div>

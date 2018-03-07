@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2018 at 08:29 PM
+-- Generation Time: Mar 07, 2018 at 11:56 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.0.25-0ubuntu0.16.04.1
 
@@ -79,20 +79,6 @@ CREATE TABLE `class_type` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `page`
---
-
-CREATE TABLE `page` (
-  `id` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'increments automatically, do not touch this',
-  `url` varchar(20) NOT NULL,
-  `title` varchar(100) NOT NULL COMMENT 'title of the webpage',
-  `subtitle` varchar(100) NOT NULL COMMENT 'subtitle of the webpage',
-  `description` longtext NOT NULL COMMENT 'description of the webpage'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `sections`
 --
 
@@ -159,12 +145,6 @@ ALTER TABLE `class_type`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `page`
---
-ALTER TABLE `page`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `sections`
 --
 ALTER TABLE `sections`
@@ -192,12 +172,12 @@ ALTER TABLE `section_type`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `class_dates`
 --
 ALTER TABLE `class_dates`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `class_section`
 --
@@ -208,11 +188,6 @@ ALTER TABLE `class_section`
 --
 ALTER TABLE `class_type`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `page`
---
-ALTER TABLE `page`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `sections`
 --

@@ -6,8 +6,9 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h1><?php echo $this->p_title; ?></h1>
-                    <?php $this->print_page_description(); ?>
+                    <h1>Fragen, Anregungen, Gr&uuml;sse</h1>
+Du hast eine Frage, Anregung oder Idee zum Pfanzenlabor oder du willst einfach "Hallo" sagen?
+Ich freue mich &uuml;ber deine Kontaktaufnahme.
                 </div>
             </div>
         </div>

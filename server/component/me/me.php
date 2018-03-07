@@ -6,8 +6,8 @@ require_once __DIR__ . '/../page.php';
  */
 class Me extends Page {
 
-    function __construct( $router, $db, $url ) {
-        parent::__construct( $router, $db, $url );
+    function __construct( $router ) {
+        parent::__construct( $router );
     }
 
     public function print_view() {

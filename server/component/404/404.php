@@ -7,7 +7,7 @@ require_once __DIR__ . '/../page.php';
 class Missing extends Page {
 
     function __construct( $router ) {
-        parent::__construct( $router, null, '' );
+        parent::__construct( $router );
     }
 
     public function print_view() {

@@ -13,8 +13,8 @@ class Enroll extends Page {
     private $class_name;
     private $class_id;
 
-    function __construct( $router, $dbMapper, $url, $id ) {
-        parent::__construct( $router, $dbMapper, $url );
+    function __construct( $router, $dbMapper, $id ) {
+        parent::__construct( $router );
         $this->db = $dbMapper;
         $date = $dbMapper->getClassDate( $id );
         if( $date ) {

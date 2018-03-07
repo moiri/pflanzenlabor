@@ -8,7 +8,6 @@ class Disclaimer extends Page {
 
     function __construct( $router ) {
         parent::__construct( $router );
-        $this->p_title = "Disclaimer";
     }
 
     public function print_view() {

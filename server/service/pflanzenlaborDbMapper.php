@@ -173,20 +173,6 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassesNearest: ".$e->getMessage();
         }
     }
-
-    function getPage( $url ) {
-        try {
-            $sql = "SELECT title, subtitle, description
-                FROM page
-                WHERE url = :url";
-            $stmt = $this->dbh->prepare( $sql );
-            $stmt->execute( array( ':url' => $url ) );
-            return $stmt->fetch( PDO::FETCH_ASSOC );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getPage: ".$e->getMessage();
-        }
-    }
 }
 
 ?>

@@ -6,7 +6,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h1><?php echo $this->p_title; ?></h1>
+                    <h1>Impressum</h1>
                 </div>
             </div>
         </div>

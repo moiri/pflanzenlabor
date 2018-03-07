@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 04, 2018 at 06:38 PM
+-- Generation Time: Mar 07, 2018 at 11:56 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
 -- PHP Version: 7.0.25-0ubuntu0.16.04.1
 
@@ -65,18 +65,6 @@ INSERT INTO `class_section` (`id`, `id_class`, `id_section`) VALUES
 
 INSERT INTO `class_type` (`id`, `name`) VALUES
 (0000000001, 'Pflanzenausflug');
-
---
--- Dumping data for table `page`
---
-
-INSERT INTO `page` (`id`, `url`, `title`, `subtitle`, `description`) VALUES
-(0000000001, 'home', 'Pflanzenlabor\r\n', 'Giovina Nicolai', 'Pflanzen in ihrem natürlichem Umfeld kennen lernen — mit allen Sinnen.'),
-(0000000002, 'giovina', 'Giovina Nicolai', '', ''),
-(0000000003, 'kontakt', 'Fragen, Anregungen, Grüsse', '', 'Netter Text der um Kontaktaufnahme bittet.'),
-(0000000004, 'kurse', 'Kurse', '', 'An einem Pflanzenausflug werden wir eine Pflanze genauer betrachten — mit möglichst allen Sinnen, von möglichst vielen Facetten. Nebst dem sicheren bestimmen der Pflanze werden wir die Pflanze auch vor Ort verarbeiten.\r\nDie Pflanzenausflüge finden draussen statt, bei jedem Wetter. Je nach Witterung kann das Programm angepasst werden. '),
-(0000000005, 'impressum', 'Impressum', '', ''),
-(0000000006, 'anmeldung', 'Anmeldung', '', '');
 
 --
 -- Dumping data for table `sections`
