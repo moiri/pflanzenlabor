@@ -1,4 +1,4 @@
-<div class="container mb-3">
+<div class="container my-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="<?php echo $this->router->generate( 'home' ); ?>">
         <img class="rounded-circle" src="<?php echo $this->router->get_asset_path("/img/placeholder_logo.jpg"); ?>" alt="Logo">
