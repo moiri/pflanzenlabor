@@ -4,6 +4,7 @@ require "./server/service/pflanzenlaborDbMapper.php";
 require "./server/service/globals.php";
 require "./server/component/home/home.php";
 require "./server/component/contact/contact.php";
+require "./server/component/contact_send/contact_send.php";
 require "./server/component/impressum/impressum.php";
 require "./server/component/disclaimer/disclaimer.php";
 require "./server/component/agb/agb.php";
@@ -55,6 +56,11 @@ $router->map( 'GET', '/agb', function( $router, $db ) {
     $page = new AGB( $router );
     $page->print_view();
 }, 'agb');
+$router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
+    $page = new ContactSend( $router );
+    $page->send_mail();
+    $page->print_view();
+}, 'send');
 // match current request url
 $router->update_route();
 ?>
