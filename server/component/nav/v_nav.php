@@ -1,7 +1,6 @@
 <div class="container my-3">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="<?php echo $this->router->generate( 'home' ); ?>">
-        <img class="rounded-circle" src="<?php echo $this->router->get_asset_path("/img/placeholder_logo.jpg"); ?>" alt="Logo">
+        <a class="navbar-brand navbar-logo" href="<?php echo $this->router->generate( 'home' ); ?>">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

@@ -114,7 +114,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getClassDate( $id ) {
         try {
             $sql = "SELECT DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
-                cd.places_max, cd.places_booked, c.name, id_class
+                cd.places_max, cd.places_booked, c.name, c.img, id_class
                 FROM class_dates AS cd
                 LEFT JOIN classes AS c ON c.id = cd.id_class
                 WHERE cd.id = :id AND date >= CURDATE()";

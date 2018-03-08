@@ -13,12 +13,17 @@
     </div>
     <div class="row">
         <div class="container mt-3">
-            <div class="card">
-                <div class="card-body">
-Logo
-                    <p>Pflanzenlabor</p>
-                    <p>Giovina Nicolai</br>Alemannenstrasse 40</br>3018 Bern</br>Schweiz</p>
-                    <p>info@pflanzenlabor.ch</br>+41 79 636 10 57</p>
+            <div class="row">
+                <div class="col-lg-8">
+                    <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">
+                </div>
+                <div class="col-lg-4 mt-lg-0 mt-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Giovina Nicolai</br>Alemannenstrasse 40</br>3018 Bern</br>Schweiz</p>
+                            <p class="mb-0">info@pflanzenlabor.ch</br>+41 79 636 10 57</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -27,19 +32,18 @@ Logo
         <div class="container mt-3">
             <div class="card">
                 <div class="card-body">
-    <dl class="row">
-        <dt class="col-sm-2">Logo</dt>
-        <dd class="col-sm-10">Luca Nicolai, <a href="www.opak.cc">opak – grafik &amp; illustration</a></dd>
-        <dt class="col-sm-2">Webseite</dt>
-        <dd class="col-sm-10">Simon Maurer</dd>
-        <dt class="col-sm-2">Illustrationen</dt>
-        <dd class="col-sm-10">Giovina Nicolai</dd>
-        <dt class="col-sm-2">Disclaimer</dt>
-        <dd class="col-sm-10"><a href="http://www.bag.ch/impressum-generator">Impressum-Generator</a> und <a href="http://creativecommons.org">Creative Commons</a></dd>
-    </dl>
+                    <dl class="row mb-0">
+                        <dt class="col-md-3 col-lg-2">Logo</dt>
+                        <dd class="col-md-9 col-lg-10">Luca Nicolai, <a href="www.opak.cc">opak – grafik &amp; illustration</a></dd>
+                        <dt class="col-md-3 col-lg-2">Webseite</dt>
+                        <dd class="col-md-9 col-lg-10">Simon Maurer</dd>
+                        <dt class="col-md-3 col-lg-2">Illustrationen</dt>
+                        <dd class="col-md-9 col-lg-10">Giovina Nicolai</dd>
+                        <dt class="col-md-3 col-lg-2">Disclaimer</dt>
+                        <dd class="col-md-9 col-lg-10 mb-0"><a href="http://www.bag.ch/impressum-generator">Impressum-Generator</a> und <a href="http://creativecommons.org">Creative Commons</a></dd>
+                    </dl>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="row">

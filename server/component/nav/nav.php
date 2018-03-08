@@ -14,10 +14,9 @@ class Nav
 
     public function get_active_css( $route_name )
     {
-        $uri = $_SERVER['REQUEST_URI'];
-        if( $this->router->generate( $route_name ) == $uri ) {
+        if( $this->router->is_active( $route_name ) )
             return $this->active_css;
-        }
+        $uri = $_SERVER['REQUEST_URI'];
         if( $route_name == "classes" ) {
             // handle special case "/class/:id"
             $id = $this->router->get_route_param( 'id' );

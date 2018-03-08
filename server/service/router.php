@@ -12,6 +12,14 @@ class Router extends AltoRouter {
         return $this->basePath . $path;
     }
 
+    public function is_active( $route_name )
+    {
+        $uri = $_SERVER['REQUEST_URI'];
+        if( $this->generate( $route_name ) == $uri ) {
+            return true;
+        }
+    }
+
     public function update_route() {
         $this->route = $this->match();
     }

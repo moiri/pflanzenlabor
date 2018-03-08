@@ -4,10 +4,21 @@
     </div>
     <div class="row">
         <div class="container mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h1>Anmeldung zum Kurs <?php echo $this->class_name; ?></h1>
-                    <h2>vom <?php echo $this->date; ?></h2>
+            <div class="row row-eq-height">
+                <div class="col pr-md-0">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h1>Anmeldung zum Kurs <?php echo $this->class_name; ?></h1>
+                            <h2>vom <?php echo $this->date; ?></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto d-none d-md-block">
+                    <div class="card">
+                        <div class="card-body">
+                    <img class="" src="<?php echo $this->router->get_asset_path("/img/hov_" . $this->class_img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>" height="150" width="150">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

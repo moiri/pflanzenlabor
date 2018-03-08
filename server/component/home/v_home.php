@@ -1,41 +1,52 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="container">
-            <div class="jumbotron mt-3 mb-3">
-                <h1 class="display-1">Pflanzenlabor</h1>
-                <h1>Giovina Nicolai</h1>
-                <p class="lead">
+        <div class="container mt-3">
+            <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">
+        </div>
+    </div>
+    <div class="row">
+        <div class="container mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="lead text-center">
 Pflanzen in ihrem natürlichem Umfeld kennen lernen &ndash; mit allen Sinnen.
-                </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="container">
-            <div class="card-deck text-center">
-                <div class="card card-link invert-link-img">
-                    <a class="text-dark" href="<?php echo $this->router->generate('classes'); ?>">
-                        <img class="card-img-top" src="./img/startpage-courses_400x400.png" alt="Bild zum Link Kurse">
-                        <div class="card-body">
-                            <h3 class="card-title">Kurse</h3>
-                        </div>
-                    </a>
+        <div class="container mt-3">
+            <div class="row text-center">
+                <div class="col-md">
+                    <div class="card card-link invert-link-img">
+                        <a class="text-dark" href="<?php echo $this->router->generate('classes'); ?>">
+                            <img class="card-img-top" src="./img/startpage-courses_400x400.png" alt="Bild zum Link Kurse">
+                            <div class="card-body">
+                                <h3 class="card-title">Kurse</h3>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="card card-link invert-link-img">
-                    <a class="text-dark" href="<?php echo $this->router->generate('contact'); ?>">
-                        <img class="card-img-top" src="./img/startpage-contact_400x400.png" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title">Kontakt</h3>
-                        </div>
-                    </a>
+                <div class="col-md">
+                    <div class="card card-link invert-link-img mt-3 mt-md-0">
+                        <a class="text-dark" href="<?php echo $this->router->generate('contact'); ?>">
+                            <img class="card-img-top img-fluid" src="./img/startpage-contact_400x400.png" alt="">
+                            <div class="card-body">
+                                <h3 class="card-title">Kontakt</h3>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="card card-link invert-link-img">
-                    <a class="text-dark" href="<?php echo $this->router->generate('me'); ?>">
-                        <img class="card-img-top" src="./img/startpage-me_400x400.png" alt="Photo Giovina Nicolai">
-                        <div class="card-body">
-                            <h3 class="card-title">&Uuml;ber Mich</h3>
-                        </div>
-                    </a>
+                <div class="col-md">
+                    <div class="card card-link invert-link-img mt-3 mt-md-0">
+                        <a class="text-dark" href="<?php echo $this->router->generate('me'); ?>">
+                            <img class="card-img-top" src="./img/startpage-me_400x400.png" alt="Photo Giovina Nicolai">
+                            <div class="card-body">
+                                <h3 class="card-title">&Uuml;ber Mich</h3>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

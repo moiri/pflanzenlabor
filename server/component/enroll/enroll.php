@@ -11,6 +11,7 @@ class Enroll extends Page {
     private $na = true;
     private $date;
     private $class_name;
+    private $class_img;
     private $class_id;
 
     function __construct( $router, $dbMapper, $id ) {
@@ -21,6 +22,7 @@ class Enroll extends Page {
             $this->na = false;
             $this->date = $date['date'];
             $this->class_name = $date['name'];
+            $this->class_img = $date['img'];
             $this->class_id = $date['id_class'];
             $this->open = $date['places_max'] - $date['places_booked'];
         }
