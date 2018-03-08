@@ -1,4 +1,4 @@
-<div class="container my-3">
+<div class="container mb-3">
     <div class="card bg-light rounded">
         <div class="col card-body text-dark">
             <div class="row align-items-center">

@@ -112,7 +112,7 @@ Programm- und Preis&auml;nderungen sowie &Auml;nderungen in den Allgemeinen Gesc
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
 </div>

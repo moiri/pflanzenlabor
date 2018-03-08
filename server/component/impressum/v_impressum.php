@@ -14,10 +14,10 @@
     <div class="row">
         <div class="container mt-3">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-7">
                     <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">
                 </div>
-                <div class="col-lg-4 mt-lg-0 mt-md-3">
+                <div class="col-lg-5 mt-lg-0 mt-md-3">
                     <div class="card">
                         <div class="card-body">
                             <p>Giovina Nicolai</br>Alemannenstrasse 40</br>3018 Bern</br>Schweiz</p>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
 </div>

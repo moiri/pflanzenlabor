@@ -56,7 +56,7 @@ Pflanzen in ihrem natürlichem Umfeld kennen lernen &ndash; mit allen Sinnen.
             <?php $this->print_nearest_class_item(); ?>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
 </div>

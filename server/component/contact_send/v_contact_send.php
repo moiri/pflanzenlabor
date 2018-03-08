@@ -12,11 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="container mt-3">
-        </div>
-    </div>
-    <div class="row">
+    <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
 </div>

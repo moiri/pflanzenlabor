@@ -68,11 +68,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="container">
-        </div>
-    </div>
-    <div class="row">
+    <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
 </div>
