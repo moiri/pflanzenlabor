@@ -1,5 +1,5 @@
-<div class="row mt-1">
-    <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 pr-xl-1 pr-lg-1 pb-3">
+<div class="row row-eq-height mt-3">
+    <div class="col-12 col-lg-7 pr-lg-1">
         <a href="<?php echo $this->router->generate("class", array('id' => $this->id)); ?>" class="list-group-item text-dark invert-link-img h-100">
             <div class="media h-100">
                 <img class="align-self-center mr-3" src="<?php echo $this->router->get_asset_path("/img/" . $this->img); ?>" alt="Bild zum Kurs <?php echo $this->name; ?>" height="150" width="150">
@@ -13,9 +13,16 @@
             </div>
         </a>
     </div>
-    <div class="col">
-        <?php
-            $this->print_date_list();
-        ?>
+    <div class="col mb-1 mb-lg-0">
+        <div class="card h-100 mt-1 mt-lg-0">
+            <div class="card-header pb-1">
+                <h5>Anmeldung <?php echo $this->name; ?></h5>
+            </div>
+            <div class="card-body pb-1">
+                <?php
+                    $this->print_date_list();
+                ?>
+            </div>
+        </div>
     </div>
 </div>

@@ -32,8 +32,7 @@ class ClassItem {
 
     public function print_date_list() {
         $dates = new ClassDates( $this->router, $this->db, $this->id, array('margin-bottom'=>3) );
-        $s = new ClassSection( "Anmeldung", array( $dates, "print_view" ), "dates" );
-        $s->print_view();
+        $dates->print_view();
     }
 
     public function print_view() {
