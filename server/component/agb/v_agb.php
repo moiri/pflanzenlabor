@@ -82,6 +82,17 @@ Ein finanzieller Anspruch kann nicht geltend gemacht werden.
     <div class="row">
         <div class="container mt-3">
             <div class="card">
+                <h5 class="card-header">Anpassung des Kursablaufes</h5>
+                <div class="card-body">
+Das Wetter sowie das Wachstumsstadium der Pflanzen sind nur begrenzt vorherzusagen.
+Je nach aktueller Situation kann das Kursprogramm kurzfristig angepasst werden.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container mt-3">
+            <div class="card">
                 <h5 class="card-header">Haftung und Versicherung</h5>
                 <div class="card-body">
 F&uuml;r alle vom Pflanzenlabor Giovina Nicolai organisierten Kurse und Veranstaltungen schliessen wir jegliche Haftung f&uuml;r entstandene Sch&auml;den aus.
