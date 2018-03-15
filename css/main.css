@@ -19,3 +19,10 @@ a.navbar-logo {
 a.navbar-logo:hover {
     background-image: url("../img/hov_logo-icon-nav.svg");
 }
+.form-check-label {
+    margin-top: 0.25rem;
+    margin-left: 0.5rem;
+}
+.form-check-control {
+    margin-top: -0.5rem;
+}

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "./server/service/router.php";
 require "./server/service/pflanzenlaborDbMapper.php";
 require "./server/service/globals.php";
@@ -13,6 +14,7 @@ require "./server/component/404/404.php";
 require "./server/component/classes/classes.php";
 require "./server/component/class/class.php";
 require "./server/component/enroll/enroll.php";
+require "./server/component/payment/payment.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -44,6 +46,11 @@ $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
     $page = new Enroll( $router, $db, intval( $id ) );
     $page->print_view();
 }, 'enroll');
+$router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
+    $page = new Payment( $router, $db, intval( $id ) );
+    $page->submit_enroll_data();
+    $page->print_view();
+}, 'payment');
 $router->map( 'GET', '/impressum', function( $router, $db ) {
     $page = new Impressum( $router );
     $page->print_view();

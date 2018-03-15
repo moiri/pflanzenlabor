@@ -13,7 +13,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="display:none">
         <div class="container mt-3">
             <div class="card">
                 <h5 class="card-header">Newsletter</h5>
@@ -61,7 +61,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
                             </label>
                         </div>
                         <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Senden</button>
+                            <button type="submit" class="btn btn-primary">Senden</button>
                         </div>
                     </form>
                 </div>

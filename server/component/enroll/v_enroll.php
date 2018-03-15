@@ -28,48 +28,99 @@
             <div class="card">
                 <h5 class="card-header">Anmeldeformular</h5>
                 <div class="card-body">
-                    <form>
+                    <form action="<?php echo $this->router->generate('payment', array('id' => $this->date_id)); ?>" method="post">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="inputFirstName">Vorname</label>
-                                <input type="text" class="form-control" id="inputFirstName" placeholder="Max" required>
+                                <label>Vorname</label>
+                                <input type="text" class="form-control" name="first_name" placeholder="Max" value="<?php echo $this->first_name; ?>" required>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputLastName">Nachname</label>
-                                <input type="text" class="form-control" id="inputLastName" placeholder="Muster" required>
+                                <label>Nachname</label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Muster" value="<?php echo $this->last_name; ?>" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10">
-                                <label for="inputStreet">Strasse</label>
-                                <input type="text" class="form-control" id="inputStreet" placeholder="Beispielweg" required>
+                                <label>Strasse</label>
+                                <input type="text" class="form-control" name="street" placeholder="Beispielweg" value="<?php echo $this->street; ?>" required>
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="inputStreetNb">Hausnummer</label>
-                                <input type="text" class="form-control" id="inputStreetNb" placeholder="1A" required>
+                                <label>Hausnummer</label>
+                                <input type="text" class="form-control" name="street_number" placeholder="1A" value="<?php echo $this->street_number; ?>" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="inputZip">PLZ</label>
-                                <input type="text" class="form-control" id="inputZip" placeholder="3000" required>
+                                <label>PLZ</label>
+                                <input type="text" class="form-control" name="zip" placeholder="3000" value="<?php echo $this->zip; ?>" required>
                             </div>
                             <div class="form-group col-md-9">
-                                <label for="inputCity">Ortsname</label>
-                                <input type="text" class="form-control" id="inputCity" placeholder="Beispielstadt" required>
+                                <label>Ortsname</label>
+                                <input type="text" class="form-control" name="city" placeholder="Beispielstadt" value="<?php echo $this->city; ?>" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="imputPhone">Telefonnummer</label>
-                            <input type="text" class="form-control" id="inputPhone" placeholder="(+41) 079 123 456" required>
+                            <label>Telefonnummer</label>
+                            <input type="text" class="form-control" name="phone" placeholder="(+41) 079 123 456" value="<?php echo $this->phone; ?>" required>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail">Email</label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="meine.email@beispiel.ch" required>
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" value="<?php echo $this->email; ?>" required>
+                        </div>
+                        <div class="form-group mb-0">
+                            <label for="inputFood">Ich esse und trinke</label>
+                            <div class="form-row">
+                                <div class="form-group col-lg-2 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="vegetarisch" name="check_vegi"<?php echo $this->check_vegi; ?>>
+                                        <label class="form-check-label">vegetarisch</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="glutenfrei" name="check_gluten"<?php echo $this->check_gluten; ?>>
+                                        <label class="form-check-label">glutenfrei</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="lactosefrei" name="check_lactose"<?php echo $this->check_lactose; ?>>
+                                        <label class="form-check-label">lactosefrei</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="alkoholfrei" name="check_alc"<?php echo $this->check_alc; ?>>
+                                        <label class="form-check-label">alkoholfrei</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="vegan" name="check_vegan"<?php echo $this->check_vegan; ?>>
+                                        <label class="form-check-label">vegan</label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-2 col-sm-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" name="check_custom"<?php echo $this->check_custom; ?>>
+                                        <label class="form-check-label">
+                                            <input type="text" class="form-control form-check-control" name="input_custom" placeholder="anderes" value="<?php echo $this->input_custom; ?>">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Senden</button>
+                            <label for="contactContent">Bemerkung</label>
+                            <textarea class="form-control" name="comment" rows="3"><?php echo $this->comment; ?></textarea>
                         </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" name="agb" required>
+                            <label class="form-check-label mt-1 ml-2" for="contactSelf">
+                            Ich habe die <a href="<?php echo $this->router->generate('agb'); ?>">AGB</a> gelesen und bin einverstanden
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Zur Kasse</button>
                     </form>
                 </div>
             </div>
