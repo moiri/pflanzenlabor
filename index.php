@@ -85,7 +85,6 @@ $router->update_route();
 <link rel="stylesheet" type="text/css" href="<?php echo $router->get_asset_path("/plugin/bootstrap/css/bootstrap.min.css"); ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $router->get_asset_path("/css/main.css"); ?>" />
 <script src="<?php echo $router->get_asset_path("/plugin/jquery/jquery.min.js"); ?>" type="text/javascript"></script>
-<script src="<?php echo $router->get_asset_path("/plugin/bootstrap/js/bootstrap.min.js"); ?>" type="text/javascript"></script>
 <script src="<?php echo $router->get_asset_path("/js/main.js"); ?>" type="text/javascript"></script>
 </head>
 <body>

@@ -52,7 +52,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
                         </div>
                         <div class="form-group">
                             <label for="contactContent">Inhalt</label>
-                            <textarea class="form-control" name="content" rows="3"></textarea>
+                            <textarea class="form-control" name="content" rows="3" required></textarea>
                         </div>
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" value="" name="self">

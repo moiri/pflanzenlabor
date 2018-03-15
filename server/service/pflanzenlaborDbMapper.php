@@ -114,7 +114,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getClassDate( $id ) {
         try {
             $sql = "SELECT DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
-                cd.places_max, cd.places_booked, c.name, c.img, c.cost, id_class
+                cd.places_max, cd.places_booked, c.name, c.img, id_class
                 FROM class_dates AS cd
                 LEFT JOIN classes AS c ON c.id = cd.id_class
                 WHERE cd.id = :id AND date >= CURDATE()";
@@ -124,6 +124,21 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassDate: ".$e->getMessage();
+        }
+    }
+
+    function getClassCost( $id ) {
+        try {
+            $sql = "SELECT s.content
+                FROM sections AS s
+                LEFT JOIN class_section AS cs ON s.id = cs.id_section
+                WHERE cs.id_class = :id AND s.id_section_title = 1";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id' => $id ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassCost: ".$e->getMessage();
         }
     }
 

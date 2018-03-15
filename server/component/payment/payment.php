@@ -42,8 +42,12 @@ class Payment extends Page {
             $this->na = false;
             $this->date = $date['date'];
             $this->class_name = $date['name'];
-            $this->class_cost = $date['cost'];
+            $this->class_cost = "";
             $this->open = $date['places_max'] - $date['places_booked'];
+            $cost = $dbMapper->getClassCost( $date['id_class'] );
+            if( $cost ) {
+                $this->class_cost = $cost['content'];
+            }
         }
     }
 
@@ -97,10 +101,12 @@ class Payment extends Page {
             'comment' => $_POST['comment'],
             'id_class_date' => $this->date_id
         );
-        if( isset( $_SESSION['user_id'] ) )
-            $this->db->updateByUid( 'user', $data, $_SESSION['user_id'] );
-        else
-            $_SESSION['user_id'] = $this->db->insert( "user", $data );
+        if( !isset( $_SESSION['user_id'] ) ) $_SESSION['user_id'] = array();
+        if( array_key_exists( $this->date_id, $_SESSION['user_id'] ) )
+            $this->db->updateByUid( 'user', $data, $_SESSION['user_id'][$this->date_id] );
+        else {
+            $_SESSION['user_id'][$this->date_id] = $this->db->insert( "user", $data );
+        }
     }
 }
 

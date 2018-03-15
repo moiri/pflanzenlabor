@@ -56,7 +56,7 @@
             <dt class="col-md-3 col-lg-2">Datum</dt>
             <dd class="col-md-9 col-lg-10"><?php echo $this->date; ?></dd>
             <dt class="col-md-3 col-lg-2">Preis</dt>
-            <dd class="col-md-9 col-lg-10">CHF <?php echo $this->class_cost; ?>.--</dd>
+            <dd class="col-md-9 col-lg-10"><?php echo $this->class_cost; ?></dd>
         </dl>
     </div>
 </div>

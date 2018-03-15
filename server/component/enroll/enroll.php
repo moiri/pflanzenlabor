@@ -44,8 +44,9 @@ class Enroll extends Page {
         $this->check_vegan = "";
         $this->check_custom = "";
         $this->input_custom = "";
-        if( isset( $_SESSION['user_id'] ) ) {
-            $user = $dbMapper->selectByUid( 'user', $_SESSION['user_id'] );
+        if( isset( $_SESSION['user_id'] )
+            && array_key_exists( $this->date_id, $_SESSION['user_id'] ) ) {
+            $user = $dbMapper->selectByUid( 'user', $_SESSION['user_id'][$this->date_id] );
             $this->first_name = $user['first_name'];
             $this->last_name = $user['last_name'];
             $this->street = $user['street'];
