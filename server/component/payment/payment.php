@@ -63,7 +63,8 @@ class Payment extends Page {
             $str = $this->append_str( $str, $_POST['check_alc'] );
         if( isset($_POST['check_vegan'] ) )
             $str = $this->append_str( $str, $_POST['check_vegan'] );
-        if( isset($_POST['check_custom'] ) )
+        if( isset($_POST['check_custom'] )
+                || ( isset( $_POST['input_custom'] ) && ( $_POST['input_custom'] != "" ) ) )
             $str = $this->append_str( $str, $_POST['input_custom'] );
 
         if( $str == "" ) return "nichts spezielles";
