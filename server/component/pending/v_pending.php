@@ -6,8 +6,8 @@
         <div class="container mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h1>Ung&uuml;ltige Anmeldung</h1>
-                    <h2>Die Anmeldung ist fehlgeschlagen.</h2>
+                    <h1>Zahlung noch nicht Eingetroffen</h1>
+Bitte warte einen Moment und aktualisiere dann die Seite.
                 </div>
             </div>
         </div>

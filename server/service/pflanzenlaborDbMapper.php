@@ -20,6 +20,36 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         parent::__construct( $server, $dbname, $username, $password );
     }
 
+    function incrementUserCount( $id_date ) {
+        try {
+            $sql = "UPDATE class_dates
+                SET places_booked = places_booked + 1
+                WHERE id = :id";
+            $stmt = $this->dbh->prepare( $sql );
+            return $stmt->execute( array( ':id' => $id_date ) );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::incrementUserCount: ".$e->getMessage();
+        }
+    }
+
+    function markUserEnrolled( $id_user, $id_date, $type, $is_payed ) {
+        try {
+            $sql = "UPDATE user_class_dates
+                SET id_payment = :type, is_payed = :payed
+                WHERE id_user = :id_user AND id_class_dates = :id_date";
+            $stmt = $this->dbh->prepare( $sql );
+            return $stmt->execute( array(
+                ':id_user' => $id_user,
+                ':id_date' => $id_date,
+                ':type' => $type,
+                ':payed' => (int)$is_payed ) );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::markUserEnrolled: ".$e->getMessage();
+        }
+    }
+
     /**
      *
      */
@@ -113,8 +143,8 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassDate( $id ) {
         try {
-            $sql = "SELECT DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
-                cd.places_max, cd.places_booked, c.name, c.img, id_class
+            $sql = "SELECT cd.id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
+                cd.places_max, cd.places_booked, cd.paypal_key, c.name, c.img, id_class
                 FROM class_dates AS cd
                 LEFT JOIN classes AS c ON c.id = cd.id_class
                 WHERE cd.id = :id AND date >= CURDATE()";
@@ -139,6 +169,51 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassCost: ".$e->getMessage();
+        }
+    }
+
+    function checkUserFood( $id_user, $id_date, $id_food ) {
+        try {
+            $sql = "SELECT is_checked
+                FROM user_class_dates_food AS uf
+                WHERE uf.id_user = :id_user AND uf.id_class_dates = :id_date
+                AND uf.id_food = :id_food AND uf.is_checked = 1";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id_user' => $id_user, ':id_date' => $id_date, ':id_food' => $id_food ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::checkUserFood: ".$e->getMessage();
+        }
+    }
+
+    function getCheckedFood( $id_user, $id_date ) {
+        try {
+            $sql = "SELECT f.name
+                FROM food AS f
+                LEFT JOIN user_class_dates_food AS uf ON f.id = uf.id_food
+                WHERE uf.id_user = :id_user AND uf.id_class_dates = :id_date
+                AND uf.is_checked = 1";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id_user' => $id_user, ':id_date' => $id_date ) );
+            return $stmt->fetchAll( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::checkUserFood: ".$e->getMessage();
+        }
+    }
+
+    function getUserDateSpecifics( $id_user, $id_date ) {
+        try {
+            $sql = "SELECT comment, check_custom, is_payed
+                FROM user_class_dates
+                WHERE id_user = :id_user AND id_class_dates = :id_date";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id_user' => $id_user, ':id_date' => $id_date ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getUserDateSpecifics: ".$e->getMessage();
         }
     }
 
@@ -186,6 +261,56 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassesNearest: ".$e->getMessage();
+        }
+    }
+
+    function updateUserClassDates( $id_user, $id_date, $check_custom, $comment ) {
+        try {
+            $sql = "UPDATE user_class_dates
+                SET check_custom = :check_custom, comment = :comment
+                WHERE id_user = :id_user AND id_class_dates = :id_date";
+            $stmt = $this->dbh->prepare( $sql );
+            return $stmt->execute( array(
+                ':id_user' => $id_user,
+                ':id_date' => $id_date,
+                ':check_custom' => $check_custom,
+                ':comment' => $comment ) );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::updateUserClassDates: ".$e->getMessage();
+        }
+    }
+
+    function updateUserClassDatesFood( $id_user, $id_date, $id_food, $is_checked ) {
+        try {
+            $sql = "UPDATE user_class_dates_food
+                SET is_checked = :is_checked
+                WHERE id_user = :id_user AND id_class_dates = :id_date AND id_food = :id_food";
+            $stmt = $this->dbh->prepare( $sql );
+            return $stmt->execute( array(
+                ':id_user' => $id_user,
+                ':id_date' => $id_date,
+                ':id_food' => $id_food,
+                ':is_checked' => $is_checked ) );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::updateUserClassDatesFood: ".$e->getMessage();
+        }
+    }
+
+    function setPayed( $id_user, $id_date ) {
+        try {
+            $sql = "UPDATE user_class_dates
+                SET is_payed = 1
+                WHERE id_user = :id_user AND id_class_dates = :id_date";
+            $stmt = $this->dbh->prepare( $sql );
+            return $stmt->execute( array(
+                ':id_user' => $id_user,
+                ':id_date' => $id_date )
+            );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::setPayed: ".$e->getMessage();
         }
     }
 }

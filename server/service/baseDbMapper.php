@@ -36,6 +36,24 @@ class BaseDBMapper {
     }
 
     /**
+     * Remove all rows where the fk matches
+     *
+     * @param string $table:    the name of the db table
+     * @param string $fk:       name of the foreign key
+     * @param int $id:          the foreign key of the row to be selected
+     */
+    function removeByFk( $table, $fk, $id ) {
+        try {
+            $sql = "DELETE FROM $table WHERE $fk = :fk";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':fk' => $id ) );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) "BaseDbMapper::selectTable: ".$e->getMessage();
+        }
+    }
+
+    /**
      * Set locale time name variable
      *
      * @param string $locale:    the locale indentifier, e.g. de_CH
@@ -95,7 +113,7 @@ class BaseDBMapper {
             return $stmt->fetch( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1) "BaseDbMapper::selectByUid: ".$e->getMessage();
+            if( DEBUG == 1) echo "BaseDbMapper::selectByUid: ".$e->getMessage();
         }
     }
 
@@ -195,7 +213,7 @@ class BaseDBMapper {
             return $this->dbh->lastInsertId();
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "BaseDbMapper::insert: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::insert: ".$e->getMessage();
         }
     }
 

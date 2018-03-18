@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . '/../page.php';
+require_once __DIR__ . "./../404/404.php";
+require_once __DIR__ . "./../class_closed/class_closed.php";
+require_once __DIR__ . "./../invalid/invalid.php";
 
 /**
  * Contact Component Class
@@ -9,6 +12,7 @@ class Payment extends Page {
     private $open = 0;
     private $na = true;
     private $invalid = true;
+    private $user_id = Null;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router );
@@ -24,6 +28,10 @@ class Payment extends Page {
                 || ( $_POST['phone'] == "" ) || ( $_POST['email'] == "" ) ) {
             return;
         }
+
+        if( isset( $_SESSION['user_id'] )
+                && array_key_exists( $id, $_SESSION['user_id'] ) )
+            $this->user_id = $_SESSION['user_id'][$id];
         $this->invalid = false;
         $this->first_name = $_POST['first_name'];
         $this->last_name = $_POST['last_name'];
@@ -44,6 +52,7 @@ class Payment extends Page {
             $this->class_name = $date['name'];
             $this->class_cost = "";
             $this->open = $date['places_max'] - $date['places_booked'];
+            $this->paypal_key = $date['paypal_key'];
             $cost = $dbMapper->getClassCost( $date['id_class'] );
             if( $cost ) {
                 $this->class_cost = $cost['content'];
@@ -52,39 +61,43 @@ class Payment extends Page {
     }
 
     private function get_food_string() {
-        $str = "";
-        if( isset($_POST['check_vegi'] ) )
-            $str = $this->append_str( $str, $_POST['check_vegi'] );
-        if( isset($_POST['check_gluten'] ) )
-            $str = $this->append_str( $str, $_POST['check_gluten'] );
-        if( isset($_POST['check_lactose'] ) )
-            $str = $this->append_str( $str, $_POST['check_lactose'] );
-        if( isset($_POST['check_alc'] ) )
-            $str = $this->append_str( $str, $_POST['check_alc'] );
-        if( isset($_POST['check_vegan'] ) )
-            $str = $this->append_str( $str, $_POST['check_vegan'] );
-        if( isset($_POST['check_custom'] )
-                || ( isset( $_POST['input_custom'] ) && ( $_POST['input_custom'] != "" ) ) )
-            $str = $this->append_str( $str, $_POST['input_custom'] );
-
-        if( $str == "" ) return "nichts spezielles";
-        else return $str;
+        $checks = new Checks( $this->db, $this->user_id, $this->date_id, $_POST['input_custom'] );
+        return $checks->get_food_string();
     }
 
-    private function append_str( $str, $append_str ) {
-        if( $str == "" ) return $append_str;
-        else return $str . ", " . $append_str;
+    public function is_class_open() {
+        return ( $this->open > 0 );
+    }
+
+    public function is_date_existing() {
+        return ( !$this->na );
+    }
+
+    public function is_valid() {
+        return ( !$this->invalid );
     }
 
     public function print_view() {
-        if( $this->invalid ) require __DIR__ . '/v_invalid.php';
-        else if( $this->na ) require __DIR__ . '/../404/v_404.php';
-        else if( $this->open <= 0 ) require __DIR__ . '../enroll/v_closed.php';
+        if( !$this->is_valid() ) {
+            $invalid = new Invalid( $this->router );
+            $iinvalid->print_view();
+        }
+        else if( !$this->is_date_existing() ) {
+            $missing = new Missing( $this->router );
+            $missing->print_view();
+        }
+        else if( !$this->is_class_open() ) {
+            $closed = new ClassClosed( $this->router );
+            $closed->print_view();
+        }
         else require __DIR__ . '/v_payment.php';
     }
 
     public function submit_enroll_data() {
-        $data = array(
+        $user_exists = false;
+        if( $this->user_id != Null ) $user_exists = true;
+
+        $user_data = array(
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'street' => $this->street,
@@ -92,21 +105,42 @@ class Payment extends Page {
             'zip' => $this->zip,
             'city' => $this->city,
             'phone' => $this->phone,
-            'email' => $this->email,
-            'check_vegi' => (int)isset($_POST['check_vegi'] ), 
-            'check_gluten' => (int)isset($_POST['check_gluten'] ),
-            'check_lactose' => (int)isset($_POST['check_lactose'] ),
-            'check_alc' => (int)isset($_POST['check_alc'] ),
-            'check_vegan' => (int)isset($_POST['check_vegan'] ),
-            'check_custom' => $_POST['input_custom'],
-            'comment' => $_POST['comment'],
-            'id_class_date' => $this->date_id
+            'email' => $this->email
+            /* 'check_custom' => $_POST['input_custom'], */
+            /* 'comment' => $_POST['comment'], */
+            /* 'id_class_date' => $this->date_id */
         );
-        if( !isset( $_SESSION['user_id'] ) ) $_SESSION['user_id'] = array();
-        if( array_key_exists( $this->date_id, $_SESSION['user_id'] ) )
-            $this->db->updateByUid( 'user', $data, $_SESSION['user_id'][$this->date_id] );
+        // create new or update user
+        if( $user_exists ) {
+            $this->db->updateByUid( 'user', $user_data, $this->user_id );
+            $this->db->updateUserClassDates( $this->user_id, $this->date_id, $_POST['input_custom'], $_POST['comment'] );
+        }
         else {
-            $_SESSION['user_id'][$this->date_id] = $this->db->insert( "user", $data );
+            $this->user_id = $this->db->insert( "user", $user_data );
+            if( isset( $_SESSION['user_id'] ) ) $_SESSION['user_id'][$this->date_id] = $this->user_id;
+            else $_SESSION['user_id'] = array( $this->date_id => $this->user_id );
+            $this->db->insert( 'user_class_dates', array(
+                'id_user' => $this->user_id,
+                'id_class_dates' => $this->date_id,
+                'check_custom' => $_POST['input_custom'],
+                'comment' => $_POST['comment'] )
+            );
+        }
+        $foods = $this->db->selectTable( 'food' );
+        foreach( $foods as $food ) {
+            $id_food = intVal( $food['id'] );
+            $food_idx = 'check_' . $id_food;
+            if( $user_exists ) {
+                $this->db->updateUserClassDatesFood( $this->user_id, $this->date_id, $id_food, (int)isset( $_POST[$food_idx] ) );
+            }
+            else {
+                $this->db->insert( "user_class_dates_food", array(
+                    'id_class_dates' => $this->date_id,
+                    'id_user' => $this->user_id,
+                    'id_food' => $id_food,
+                    'is_checked' => (int)isset( $_POST[$food_idx] ) )
+                );
+            }
         }
     }
 }

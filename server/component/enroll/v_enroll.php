@@ -67,49 +67,7 @@
                             <label>Email</label>
                             <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" value="<?php echo $this->email; ?>" required>
                         </div>
-                        <div class="form-group mb-0">
-                            <label for="inputFood">Ich esse und trinke</label>
-                            <div class="form-row">
-                                <div class="form-group col-lg-2 col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="vegetarisch" name="check_vegi"<?php echo $this->check_vegi; ?>>
-                                        <label class="form-check-label">vegetarisch</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-2 col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="glutenfrei" name="check_gluten"<?php echo $this->check_gluten; ?>>
-                                        <label class="form-check-label">glutenfrei</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-2 col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="lactosefrei" name="check_lactose"<?php echo $this->check_lactose; ?>>
-                                        <label class="form-check-label">lactosefrei</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-2 col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="alkoholfrei" name="check_alc"<?php echo $this->check_alc; ?>>
-                                        <label class="form-check-label">alkoholfrei</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-2 col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="vegan" name="check_vegan"<?php echo $this->check_vegan; ?>>
-                                        <label class="form-check-label">vegan</label>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-2 col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" name="check_custom"<?php echo $this->check_custom; ?>>
-                                        <label class="form-check-label">
-                                            <input type="text" class="form-control form-check-control" name="input_custom" placeholder="anderes" value="<?php echo $this->input_custom; ?>">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $this->print_check_list(); ?>
                         <div class="form-group">
                             <label for="contactContent">Bemerkung</label>
                             <textarea class="form-control" name="comment" rows="3"><?php echo $this->comment; ?></textarea>

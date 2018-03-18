@@ -1,20 +1,25 @@
 <?php
 session_start();
-require "./server/service/router.php";
-require "./server/service/pflanzenlaborDbMapper.php";
-require "./server/service/globals.php";
-require "./server/component/home/home.php";
-require "./server/component/contact/contact.php";
-require "./server/component/contact_send/contact_send.php";
-require "./server/component/impressum/impressum.php";
-require "./server/component/disclaimer/disclaimer.php";
-require "./server/component/agb/agb.php";
-require "./server/component/me/me.php";
-require "./server/component/404/404.php";
-require "./server/component/classes/classes.php";
-require "./server/component/class/class.php";
-require "./server/component/enroll/enroll.php";
-require "./server/component/payment/payment.php";
+require_once "./server/service/router.php";
+require_once "./server/service/pflanzenlaborDbMapper.php";
+require_once "./server/service/globals.php";
+require_once "./server/service/check_payment.php";
+require_once "./server/component/home/home.php";
+require_once "./server/component/contact/contact.php";
+require_once "./server/component/contact_send/contact_send.php";
+require_once "./server/component/impressum/impressum.php";
+require_once "./server/component/disclaimer/disclaimer.php";
+require_once "./server/component/agb/agb.php";
+require_once "./server/component/me/me.php";
+require_once "./server/component/classes/classes.php";
+require_once "./server/component/class/class.php";
+require_once "./server/component/enroll/enroll.php";
+require_once "./server/component/payment/payment.php";
+require_once "./server/component/thanks/thanks.php";
+require_once "./server/component/invalid/invalid.php";
+require_once "./server/component/404/404.php";
+require_once "./server/component/class_closed/class_closed.php";
+require_once "./server/component/pending/pending.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -48,9 +53,34 @@ $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
 }, 'enroll');
 $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new Payment( $router, $db, intval( $id ) );
-    $page->submit_enroll_data();
+    if( $page->is_class_open() ) $page->submit_enroll_data();
     $page->print_view();
 }, 'payment');
+$router->map( 'POST', '/danke', function( $router, $db ) {
+    $check = new CheckPayment( $db, 2, $_POST['date_id'] );
+    $page = new Thanks( $router, $check );
+    if( $check->is_class_open() ) {
+        if( $check->enroll_user() )
+            $check->send_mail();
+    }
+    $page->print_view();
+}, 'thanks');
+$router->map( 'GET', '/danke', function( $router, $db ) {
+    $check = new CheckPayment( $db, 1, $_GET['item_number'] );
+    $check->check_pending();
+    $page = new Thanks( $router, $check );
+    $page->print_view();
+}, 'thanks_get');
+$router->map( 'POST', '/check', function( $router, $db ) {
+    $check = new CheckPayment( $db, 1, $_POST['item_number'] );
+    if( $check->is_date_existing() ) {
+        if( $check->check_paypal() )
+            if( $check->enroll_user( true ) )
+                $check->send_mail();
+    }
+    // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
+    header("HTTP/1.1 200 OK");
+});
 $router->map( 'GET', '/impressum', function( $router, $db ) {
     $page = new Impressum( $router );
     $page->print_view();
@@ -70,25 +100,6 @@ $router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
 }, 'send');
 // match current request url
 $router->update_route();
-?>
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
-<head>
-<title>Pflanzenlabor</title>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<meta name="DC.creator" content="Simon Maurer" />
-<meta name="DC.contributor" content="Giovina Nicolai" />
-<meta name="DC.title" content="Pflanzenlabor" />
-<meta name="DC.date" content="2018-01-27" />
-<meta name="DC.language" content="de" />
-<link rel="stylesheet" type="text/css" href="<?php echo $router->get_asset_path("/plugin/bootstrap/css/bootstrap.min.css"); ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo $router->get_asset_path("/css/main.css"); ?>" />
-<script src="<?php echo $router->get_asset_path("/plugin/jquery/jquery.min.js"); ?>" type="text/javascript"></script>
-<script src="<?php echo $router->get_asset_path("/js/main.js"); ?>" type="text/javascript"></script>
-</head>
-<body>
-<?php
 
 // call closure or throw 404 status
 if( $router->route && is_callable( $router->route['target'] ) ) {
@@ -100,5 +111,3 @@ if( $router->route && is_callable( $router->route['target'] ) ) {
     $page->print_view();
 }
 ?>
-</body>
-</html>

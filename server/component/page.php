@@ -17,7 +17,12 @@ class Page {
         $this->footer = new Footer( $router );
     }
 
+    protected function print_header() {
+        require __DIR__ . '/v_header.php';
+    }
+
     protected function print_nav() {
+        $this->print_header();
         $this->nav->print_view();
     }
 
