@@ -78,19 +78,8 @@ class Payment extends Page {
     }
 
     public function print_view() {
-        if( !$this->is_valid() ) {
-            $invalid = new Invalid( $this->router );
-            $iinvalid->print_view();
-        }
-        else if( !$this->is_date_existing() ) {
-            $missing = new Missing( $this->router );
-            $missing->print_view();
-        }
-        else if( !$this->is_class_open() ) {
-            $closed = new ClassClosed( $this->router );
-            $closed->print_view();
-        }
-        else require __DIR__ . '/v_payment.php';
+        $state = $this->get_display_state( $this->invalid, $this->na, false, ( $this->open <= 0 ) );
+        $this->print_view_page( $state, __DIR__ . '/v_payment.php' );
     }
 
     public function submit_enroll_data() {

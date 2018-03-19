@@ -13,11 +13,11 @@ class CheckPayment {
     private $open = 0;
     private $na = true;
     private $invalid = true;
-    private $pending = false;
+    private $pending = true;
 
-    function __construct( $db, $payment_type, $date_id ) {
+    function __construct( $db, $payment_type, $date_variable, $date_key ) {
         $this->payment_type = $payment_type;
-        $this->date_id = $date_id;
+        $this->date_id = $this->get_date_id( $date_variable, $date_key);
         if( $this->date_id == Null ) return;
         $this->user_id = $this->get_user_id( $this->date_id );
         if( $this->user_id == Null ) return;
@@ -41,6 +41,25 @@ class CheckPayment {
                 $this->class_cost = $cost['content'];
             }
         }
+    }
+
+    public function get_display_state( $mask ) {
+        const $invalid = 0x01;
+        const $missing = 0x02;
+        const $pending = 0x04;
+        const $closed = 0x08;
+        if( $this->invalid && ( $invalid & $mask ) ) return $invalid;
+        if( $this->na && ( $missing & $mask ) ) return $missing;
+        if( $this->pending && ( $pending & $mask ) ) return $pending;
+        if( ( $this->open <= 0 ) && ( $closed & $mask ) ) return $closed;
+        return 0;
+    }
+
+    private function get_date_id( $variable, $key ) {
+        if( isset( $variable[$key] ) )
+            return $variable[$key];
+        else
+            return Null;
     }
 
     private function get_user_id( $date_id ) {
@@ -67,8 +86,8 @@ class CheckPayment {
     }
 
     public function check_pending() {
-        if( $this->user['is_payed'] != '1' )
-            $this->pending = true;
+        if( $this->user['is_payed'] == '1' )
+            $this->pending = false;
     }
 
     public function send_mail() {
@@ -117,9 +136,7 @@ class CheckPayment {
     public function enroll_user( $is_payed = false ) {
         if( $this->db->incrementUserCount( $this->date_id ) ) {
             $this->db->markUserEnrolled( $this->user_id, $this->date_id,
-                $this->payment_type, false );
-            if( $is_payed )
-                $this->db->setPayed( $this->user_id, $this->date_id );
+                $this->payment_type, $is_payed );
 
             return true;
         }

@@ -11,7 +11,6 @@ class Enroll extends Page {
 
     private $db;
     private $open = 0;
-    private $na = true;
     private $date;
     private $date_id;
     private $class_name;
@@ -20,17 +19,18 @@ class Enroll extends Page {
     private $user_id = Null;
 
     function __construct( $router, $dbMapper, $id ) {
-        parent::__construct( $router );
+        parent::__construct( $router, 0x0A );
         $this->db = $dbMapper;
         $this->date_id = $id;
         $date = $dbMapper->getClassDate( $id );
         if( $date ) {
-            $this->na = false;
+            $this->clear_state_missing();
             $this->date = $date['date'];
             $this->class_name = $date['name'];
             $this->class_img = $date['img'];
             $this->class_id = $date['id_class'];
             $this->open = $date['places_max'] - $date['places_booked'];
+            if( $this->open > 0 ) $this->clear_state_closed();
         }
         $this->first_name = "";
         $this->last_name = "";
@@ -67,29 +67,13 @@ class Enroll extends Page {
         }
     }
 
-    public function is_class_open() {
-        return ( $this->open > 0 );
-    }
-
-    public function is_date_existing() {
-        return ( !$this->na );
-    }
-
     private function print_check_list() {
         $checks = new Checks( $this->db, $this->user_id, $this->date_id, $this->input_custom );
         $checks->print_view();
     }
 
     public function print_view() {
-        if( !$this->is_date_existing() ) {
-            $missing = new Missing( $this->router );
-            $missing->print_view();
-        }
-        else if( !$this->is_class_open() ) {
-            $closed = new ClassClosed( $this->router );
-            $closed->print_view();
-        }
-        else require __DIR__ . '/v_enroll.php';
+        $this->print_view_page( __DIR__ . '/v_enroll.php' );
     }
 }
 

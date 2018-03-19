@@ -59,8 +59,8 @@ class ClassPage extends Page {
     }
 
     public function print_view() {
-        if( $this->na ) require __DIR__ . '/../404/v_404.php';
-        else require __DIR__ . '/v_class.php';
+        $state = $this->get_display_state( false, $this->na, false, false );
+        $this->print_view_page( $state, __DIR__ . '/v_class.php' );
     }
 }
 

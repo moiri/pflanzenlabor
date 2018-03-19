@@ -57,7 +57,8 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
-    $check = new CheckPayment( $db, 2, $_POST['date_id'] );
+    // thanks after bill payment
+    $check = new CheckPayment( $db, 2, $_POST, 'date_id' );
     $page = new Thanks( $router, $check );
     if( $check->is_class_open() ) {
         if( $check->enroll_user() )
@@ -66,13 +67,15 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
     $page->print_view();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
-    $check = new CheckPayment( $db, 1, $_GET['item_number'] );
+    // thanks after paypal payment
+    $check = new CheckPayment( $db, 1, $_GET, 'item_number' );
     $check->check_pending();
     $page = new Thanks( $router, $check );
     $page->print_view();
 }, 'thanks_get');
 $router->map( 'POST', '/check', function( $router, $db ) {
-    $check = new CheckPayment( $db, 1, $_POST['item_number'] );
+    // check paypal payment
+    $check = new CheckPayment( $db, 1, $_POST, 'item_number' );
     if( $check->is_date_existing() ) {
         if( $check->check_paypal() )
             if( $check->enroll_user( true ) )

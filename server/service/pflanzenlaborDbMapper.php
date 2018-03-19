@@ -297,22 +297,6 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::updateUserClassDatesFood: ".$e->getMessage();
         }
     }
-
-    function setPayed( $id_user, $id_date ) {
-        try {
-            $sql = "UPDATE user_class_dates
-                SET is_payed = 1
-                WHERE id_user = :id_user AND id_class_dates = :id_date";
-            $stmt = $this->dbh->prepare( $sql );
-            return $stmt->execute( array(
-                ':id_user' => $id_user,
-                ':id_date' => $id_date )
-            );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::setPayed: ".$e->getMessage();
-        }
-    }
 }
 
 ?>
