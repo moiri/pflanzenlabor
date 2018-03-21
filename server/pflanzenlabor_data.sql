@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2018 at 11:56 PM
+-- Generation Time: Mar 21, 2018 at 08:50 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
--- PHP Version: 7.0.25-0ubuntu0.16.04.1
+-- PHP Version: 7.0.28-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -34,19 +34,19 @@ INSERT INTO `classes` (`id`, `name`, `subtitle`, `description`, `img`, `img_desc
 -- Dumping data for table `class_dates`
 --
 
-INSERT INTO `class_dates` (`id`, `id_class`, `date`, `places_max`, `places_booked`) VALUES
-(0000000001, 0000000001, '2018-03-25', 8, 0),
-(0000000002, 0000000001, '2018-03-31', 8, 0),
-(0000000003, 0000000001, '2018-04-07', 8, 0),
-(0000000004, 0000000002, '2018-05-06', 8, 0),
-(0000000005, 0000000002, '2018-05-12', 8, 0),
-(0000000006, 0000000002, '2018-05-19', 8, 0),
-(0000000007, 0000000003, '2018-06-03', 8, 0),
-(0000000008, 0000000003, '2018-06-09', 8, 0),
-(0000000009, 0000000003, '2018-06-16', 8, 0),
-(0000000010, 0000000004, '2018-07-24', 8, 0),
-(0000000011, 0000000004, '2018-07-21', 8, 0),
-(0000000012, 0000000004, '2018-07-29', 8, 0);
+INSERT INTO `class_dates` (`id`, `id_class`, `date`, `paypal_key`, `places_max`, `places_booked`) VALUES
+(0000000001, 0000000001, '2018-03-25', 'XK6GASLQVMTXJ', 8, 6),
+(0000000002, 0000000001, '2018-03-31', 'GDUVY3AYW4YMQ', 8, 2),
+(0000000003, 0000000001, '2018-04-07', '6RXNK4TJQKRR8', 8, 0),
+(0000000004, 0000000002, '2018-05-06', 'NEF4L65HURBYE', 8, 0),
+(0000000005, 0000000002, '2018-05-12', 'VC55W5XG9WQKE', 8, 0),
+(0000000006, 0000000002, '2018-05-19', 'XS3T9DZ9EX38E', 8, 0),
+(0000000007, 0000000003, '2018-06-03', 'P4MM47HGPRLXW', 8, 0),
+(0000000008, 0000000003, '2018-06-09', '3Y9SKQTEX68SY', 8, 0),
+(0000000009, 0000000003, '2018-06-16', '394H5JR8FGWBJ', 8, 0),
+(0000000010, 0000000004, '2018-07-14', '6B8DL6MZA8HEC', 8, 0),
+(0000000011, 0000000004, '2018-07-21', 'TLWUQ8EYA7UPG', 8, 0),
+(0000000012, 0000000004, '2018-07-29', '3PGN268BP58LG', 8, 0);
 
 --
 -- Dumping data for table `class_section`
@@ -65,6 +65,25 @@ INSERT INTO `class_section` (`id`, `id_class`, `id_section`) VALUES
 
 INSERT INTO `class_type` (`id`, `name`) VALUES
 (0000000001, 'Pflanzenausflug');
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`id`, `name`) VALUES
+(0000000001, 'vegetarisch'),
+(0000000002, 'glutenfrei'),
+(0000000003, 'lactosefrei'),
+(0000000004, 'alkoholfrei'),
+(0000000005, 'vegan');
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `type`) VALUES
+(0000000001, 'PayPal'),
+(0000000002, 'Bill');
 
 --
 -- Dumping data for table `sections`

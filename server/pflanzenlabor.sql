@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2018 at 11:56 PM
+-- Generation Time: Mar 21, 2018 at 08:49 PM
 -- Server version: 5.7.21-0ubuntu0.16.04.1
--- PHP Version: 7.0.25-0ubuntu0.16.04.1
+-- PHP Version: 7.0.28-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -49,6 +49,7 @@ CREATE TABLE `class_dates` (
   `id` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'increments automatically, do not touch this',
   `id_class` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'the unique id of a class',
   `date` date NOT NULL COMMENT 'the date of the class',
+  `paypal_key` varchar(20) NOT NULL COMMENT 'the button id from paypal',
   `places_max` smallint(6) NOT NULL DEFAULT '8' COMMENT 'maximal available places',
   `places_booked` smallint(6) NOT NULL DEFAULT '0' COMMENT 'slots that are already booked'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='contains all dates of classes. Each date creates an instance of the linked class.';
@@ -75,6 +76,28 @@ CREATE TABLE `class_type` (
   `id` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'increments automatically, do not touch this',
   `name` varchar(100) NOT NULL COMMENT 'name of the class type'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='class types serve as tags to group classes that are similar in some aspects';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `food`
+--
+
+CREATE TABLE `food` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'increments automatically, do not touch this',
+  `name` varchar(100) NOT NULL COMMENT 'different types of food incompatibilities'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `type` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -112,6 +135,54 @@ CREATE TABLE `section_type` (
   `type` varchar(100) NOT NULL COMMENT 'depending on the chosen type, the content of a section is interpreted differently. This is useful to have some control over the apperance of the text.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='this is a bit tricky: this table must rarely be modified. It is used to indicate how the content of a section wil be displayed.';
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `street` varchar(100) NOT NULL,
+  `street_number` varchar(10) NOT NULL,
+  `zip` varchar(10) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `phone` varchar(25) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_class_dates`
+--
+
+CREATE TABLE `user_class_dates` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_user` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_class_dates` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_payment` int(10) UNSIGNED ZEROFILL DEFAULT NULL,
+  `is_payed` tinyint(1) NOT NULL DEFAULT '0',
+  `check_custom` varchar(100) DEFAULT NULL,
+  `comment` longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_class_dates_food`
+--
+
+CREATE TABLE `user_class_dates_food` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'increments automatically, do not touch this',
+  `id_user` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'primary id of the class_dates table',
+  `id_class_dates` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_food` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'primary id of the food table',
+  `is_checked` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -145,6 +216,18 @@ ALTER TABLE `class_type`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `food`
+--
+ALTER TABLE `food`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sections`
 --
 ALTER TABLE `sections`
@@ -163,6 +246,30 @@ ALTER TABLE `section_title`
 --
 ALTER TABLE `section_type`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_class_dates`
+--
+ALTER TABLE `user_class_dates`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_class_dates` (`id_class_dates`),
+  ADD KEY `id_payment` (`id_payment`);
+
+--
+-- Indexes for table `user_class_dates_food`
+--
+ALTER TABLE `user_class_dates_food`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_food` (`id_food`),
+  ADD KEY `id_class_dates` (`id_class_dates`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -189,6 +296,16 @@ ALTER TABLE `class_section`
 ALTER TABLE `class_type`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `food`
+--
+ALTER TABLE `food`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
@@ -203,6 +320,21 @@ ALTER TABLE `section_title`
 --
 ALTER TABLE `section_type`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_class_dates`
+--
+ALTER TABLE `user_class_dates`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_class_dates_food`
+--
+ALTER TABLE `user_class_dates_food`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this';
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
