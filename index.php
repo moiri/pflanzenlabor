@@ -57,7 +57,9 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
-    $check = new CheckPayment( $db, 2, $_POST['date_id'] );
+    $date_id = $_POST['date_id'];
+    $user_id = $_SESSION['user_id'][$date_id];
+    $check = new CheckPayment( $db, 2, $date_id, $user_id );
     $page = new Thanks( $router, $check );
     if( $check->is_class_open() ) {
         if( $check->enroll_user() )
@@ -66,17 +68,21 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
     $page->print_view();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
-    $check = new CheckPayment( $db, 1, $_GET['item_number'] );
+    $date_id = $_GET['item_number'];
+    $user_id = $_SESSION['user_id'][$date_id];
+    $check = new CheckPayment( $db, 1, $date_id, $user_id );
     $check->check_pending();
     $page = new Thanks( $router, $check );
     $page->print_view();
 }, 'thanks_get');
 $router->map( 'POST', '/check', function( $router, $db ) {
-    $check = new CheckPayment( $db, 1, $_POST['item_number'] );
+    $date_id = $_POST['item_number'];
+    $user_id = $_POST['custom'];
+    $check = new CheckPayment( $db, 1, $date_id, $user_id );
     if( $check->is_date_existing() ) {
-        if( $check->check_paypal() )
-            if( $check->enroll_user( true ) )
-                $check->send_mail();
+        $payed = $check->check_paypal();
+        if( $check->enroll_user( $payed ) && $payed )
+            $check->send_mail();
     }
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
     header("HTTP/1.1 200 OK");

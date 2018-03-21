@@ -15,12 +15,10 @@ class CheckPayment {
     private $invalid = true;
     private $pending = false;
 
-    function __construct( $db, $payment_type, $date_id ) {
+    function __construct( $db, $payment_type, $date_id, $user_id ) {
         $this->payment_type = $payment_type;
         $this->date_id = $date_id;
-        if( $this->date_id == Null ) return;
-        $this->user_id = $this->get_user_id( $this->date_id );
-        if( $this->user_id == Null ) return;
+        $this->user_id = $user_id;
 
         $this->db = $db;
         $this->user = $db->selectByUid( 'user', $this->user_id );
@@ -28,7 +26,7 @@ class CheckPayment {
         if( !$this->user || !$user_specs ) return;
 
         $this->invalid = false; // all is in order
-        /* unset( $_SESSION['user_id'][$this->date_id] ); */
+        unset( $_SESSION['user_id'][$this->date_id] );
         $this->user['comment'] = $user_specs['comment'];
         $this->user['check_custom'] = $user_specs['check_custom'];
         $this->user['is_payed'] = $user_specs['is_payed'];
@@ -51,7 +49,7 @@ class CheckPayment {
     }
 
     public function is_class_open() {
-        return ( $this->open > 0 );
+        return ( ( $this->payment_type == 1 ) || ( $this->open > 0 ) );
     }
 
     public function is_date_existing() {
@@ -106,7 +104,7 @@ class CheckPayment {
         $headers[] = "MIME-Version: 1.0";
         $headers[] = "Content-type: text/plain; charset=utf-8";
         $headers[] = "From: {$from}";
-        /* $headers[] = "Bcc: {$bcc}"; */
+        $headers[] = "Bcc: {$bcc}";
         $headers[] = "Reply-To: {$from}";
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
@@ -129,7 +127,7 @@ class CheckPayment {
     public function check_paypal() {
         $ipn = new PaypalIPN();
         // Use the sandbox endpoint during testing.
-        $ipn->useSandbox();
+        /* $ipn->useSandbox(); */
         return $ipn->verifyIPN();
     }
 }

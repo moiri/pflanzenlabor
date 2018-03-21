@@ -91,14 +91,13 @@
         </div>
         <form method="post" target="_top">
             <input type="hidden" name="cmd" value="_s-xclick">
-            <!--<input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">-->
-            <input type="hidden" name="hosted_button_id" value="GE9RJW3VYXDXS">
+            <input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">
             <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+            <input type="hidden" name="custom" value="<?php echo $_SESSION['user_id'][$this->date_id]; ?>"/>
             <input type="hidden" name="type" value="">
             <div class="form-group mb-0">
                 <button formaction="<?php echo $this->router->generate('thanks'); ?>" type="submit" class="btn btn-primary">auf Rechnung</button>
-                <!--<button formaction="https://www.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary">mit PayPal</button>-->
-                <button formaction="https://www.sandbox.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary">mit PayPal</button>
+                <button formaction="https://www.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary">mit PayPal</button>
             </div>
         </form>
     </div>
