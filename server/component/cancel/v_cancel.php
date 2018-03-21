@@ -6,10 +6,13 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h1>Ausgebucht</h1>
-                    <h2>Der Kurs "<?php echo $this->class_name; ?>" vom <?php echo $this->date; ?> ist ausgebucht.</h2>
+                    <h1>Zahlung abgebrochen</h1>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
         </div>
     </div>
     <div class="row mt-3">

@@ -20,6 +20,7 @@ require_once "./server/component/invalid/invalid.php";
 require_once "./server/component/404/404.php";
 require_once "./server/component/class_closed/class_closed.php";
 require_once "./server/component/pending/pending.php";
+require_once "./server/component/cancel/cancel.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -87,6 +88,10 @@ $router->map( 'POST', '/check', function( $router, $db ) {
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
     header("HTTP/1.1 200 OK");
 });
+$router->map( 'GET', '/abbruch', function( $router, $db ) {
+    $page = new Cancel( $router );
+    $page->print_view();
+}, 'cancel');
 $router->map( 'GET', '/impressum', function( $router, $db ) {
     $page = new Impressum( $router );
     $page->print_view();
