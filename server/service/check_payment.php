@@ -64,6 +64,10 @@ class CheckPayment {
         return ( !$this->pending );
     }
 
+    public function is_paypal() {
+        return ( $this->paymenet_type == 1 );
+    }
+
     public function check_pending() {
         if( $this->user['is_payed'] != '1' )
             $this->pending = true;

@@ -58,6 +58,7 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
+    // payed by bill
     $date_id = $_POST['date_id'];
     $user_id = $_SESSION['user_id'][$date_id];
     $check = new CheckPayment( $db, 2, $date_id, $user_id );
@@ -69,6 +70,7 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
     $page->print_view();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
+    // payed by paypal
     $date_id = $_GET['item_number'];
     $user_id = $_SESSION['user_id'][$date_id];
     $check = new CheckPayment( $db, 1, $date_id, $user_id );
@@ -77,6 +79,7 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     $page->print_view();
 }, 'thanks_get');
 $router->map( 'POST', '/check', function( $router, $db ) {
+    // payed by paypal
     $date_id = $_POST['item_number'];
     $user_id = $_POST['custom'];
     $check = new CheckPayment( $db, 1, $date_id, $user_id );

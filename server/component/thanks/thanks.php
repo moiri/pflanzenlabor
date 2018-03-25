@@ -13,6 +13,10 @@ class Thanks extends Page {
         $this->check = $check;
     }
 
+    private function is_paypal() {
+        return $this->check->is_paypal();
+    }
+
     public function print_view() {
         if( !$this->check->is_valid() ) {
             $invalid = new Invalid( $this->router );
