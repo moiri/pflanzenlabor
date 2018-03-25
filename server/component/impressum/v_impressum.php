@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <dl class="row mb-0">
                         <dt class="col-md-3 col-lg-2">Logo</dt>
-                        <dd class="col-md-9 col-lg-10">Luca Nicolai, <a href="www.opak.cc">opak – grafik &amp; illustration</a></dd>
+                        <dd class="col-md-9 col-lg-10">Luca Nicolai, <a href="http://www.opak.cc">opak – grafik &amp; illustration</a></dd>
                         <dt class="col-md-3 col-lg-2">Webseite</dt>
                         <dd class="col-md-9 col-lg-10">Simon Maurer</dd>
                         <dt class="col-md-3 col-lg-2">Illustrationen</dt>
