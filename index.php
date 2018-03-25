@@ -27,7 +27,7 @@ $dbMapper->setDbLocale('de_CH');
 
 // map homepage
 $view_path = '/server/view';
-$router->setBasePath('/pflanzenlabor');
+$router->setBasePath(BASE_PATH);
 $router->map( 'GET', '/', function( $router, $db ) {
     $page = new Home( $router, $db );
     $page->print_view();
