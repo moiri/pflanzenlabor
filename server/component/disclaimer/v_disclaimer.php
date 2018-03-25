@@ -19,8 +19,8 @@ Dennoch sind Fehler nicht auszuschliessen.
                 <h5 class="card-header">Urheberrecht</h5>
                 <div class="card-body">
 <p>S&auml;mtliche Inhalte, welche nicht von Giovina Nicolai erstellt wurden unterliegen dem Urheberrecht der entsprechenden Person.</p>
-Illustrationen von Giovina Nicolai k&ouml;nnen unter folgenden Konditionen weiterverwendet werden (<a href="https://creativecommons.org">Creative Commons</a>):
-<p class="text-center mb-0 mt-3"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="<?php echo $this->router->get_asset_path("/img/by-nc-sa.svg"); ?>" class="img-fluid" alt="Creative Commons"></a></p>
+Illustrationen von Giovina Nicolai k&ouml;nnen unter folgenden Konditionen weiterverwendet werden (<a href="https://creativecommons.org" rel="noopener noreferrer" target="_blank">Creative Commons</a>):
+<p class="text-center mb-0 mt-3"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener noreferrer" target="_blank"><img src="<?php echo $this->router->get_asset_path("/img/by-nc-sa.svg"); ?>" class="img-fluid" alt="Creative Commons"></a></p>
                 </div>
             </div>
         </div>

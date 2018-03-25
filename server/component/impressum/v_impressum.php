@@ -34,13 +34,13 @@
                 <div class="card-body">
                     <dl class="row mb-0">
                         <dt class="col-md-3 col-lg-2">Logo</dt>
-                        <dd class="col-md-9 col-lg-10">Luca Nicolai, <a href="http://www.opak.cc">opak – grafik &amp; illustration</a></dd>
+                        <dd class="col-md-9 col-lg-10">Luca Nicolai, <a href="http://www.opak.cc" rel="noopener noreferrer" target="_blank">opak – grafik &amp; illustration</a></dd>
                         <dt class="col-md-3 col-lg-2">Webseite</dt>
                         <dd class="col-md-9 col-lg-10">Simon Maurer</dd>
                         <dt class="col-md-3 col-lg-2">Illustrationen</dt>
                         <dd class="col-md-9 col-lg-10">Giovina Nicolai</dd>
                         <dt class="col-md-3 col-lg-2">Disclaimer</dt>
-                        <dd class="col-md-9 col-lg-10 mb-0"><a href="http://www.bag.ch/impressum-generator">Impressum-Generator</a> und <a href="http://creativecommons.org">Creative Commons</a></dd>
+                        <dd class="col-md-9 col-lg-10 mb-0"><a href="http://www.bag.ch/impressum-generator" rel="noopener noreferrer" target="_blank">Impressum-Generator</a> und <a href="http://creativecommons.org" rel="noopener noreferrer" target="_blank">Creative Commons</a></dd>
                     </dl>
                 </div>
             </div>
