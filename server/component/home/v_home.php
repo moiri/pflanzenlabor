@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="lead text-center">
-Pflanzen in ihrem natürlichem Umfeld kennen lernen &ndash; mit allen Sinnen.
+Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
                     </div>
                 </div>
             </div>

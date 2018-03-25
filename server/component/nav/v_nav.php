@@ -15,7 +15,7 @@
                     <a class="nav-link <?php echo $this->get_active_css( 'contact' ); ?>" href="<?php echo $this->router->generate( 'contact' ); ?>">Kontakt</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo $this->get_active_css( 'me' ); ?>" href="<?php echo $this->router->generate( 'me' ); ?>">&Uuml;ber Mich</a>
+                    <a class="nav-link <?php echo $this->get_active_css( 'me' ); ?>" href="<?php echo $this->router->generate( 'me' ); ?>">&Uuml;ber mich</a>
                 </li>
             </ul>
         </div>

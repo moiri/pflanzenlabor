@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1>Disclaimer</h1>
-Die gesammte Arbeit im Pflanzenlabor giovina nicolai wird mit gr&ouml;sster Sorgfalt gemacht.
+Die gesamte Arbeit im Pflanzenlabor giovina nicolai wird mit gr&ouml;sster Sorgfalt gemacht.
 Dennoch sind Fehler nicht auszuschliessen.
                 </div>
             </div>
