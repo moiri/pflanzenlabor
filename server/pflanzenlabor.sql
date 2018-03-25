@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 21, 2018 at 08:49 PM
--- Server version: 5.7.21-0ubuntu0.16.04.1
--- PHP Version: 7.0.28-0ubuntu0.16.04.1
+-- Generation Time: Mar 25, 2018 at 12:17 PM
+-- Server version: 5.7.20-19-log
+-- PHP Version: 5.5.38-1~dotdeb+7.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pflanzenlabor`
+-- Database: `u146415db1`
 --
 
 -- --------------------------------------------------------
@@ -33,7 +35,7 @@ CREATE TABLE `classes` (
   `description` longtext NOT NULL COMMENT 'a verbose description of the class',
   `img` varchar(100) NOT NULL COMMENT 'name of the small list image to be displayed',
   `img_desc` varchar(100) DEFAULT NULL COMMENT 'name of the image to be displayed in the description text',
-  `id_type` int(11) NOT NULL COMMENT 'id of the class type (e.g Pflanzenausflug)',
+  `id_type` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'id of the class type (e.g Pflanzenausflug)',
   `place` varchar(200) NOT NULL COMMENT 'where does the class take place (e.g. Umgebung Bern)',
   `time` varchar(100) NOT NULL COMMENT 'how long does the class last (e.g 10:00 - 16:00)',
   `pdf` varchar(100) DEFAULT NULL COMMENT 'name of the pdf file to be downloaded'
@@ -62,7 +64,7 @@ CREATE TABLE `class_dates` (
 
 CREATE TABLE `class_section` (
   `id` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'increments automatically, do not touch this',
-  `id_class` int(11) UNSIGNED ZEROFILL NOT NULL COMMENT 'refers to a class',
+  `id_class` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'refers to a class',
   `id_section` int(10) UNSIGNED ZEROFILL NOT NULL COMMENT 'refers to a section'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -280,61 +282,120 @@ ALTER TABLE `user_class_dates_food`
 --
 ALTER TABLE `classes`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `class_dates`
 --
 ALTER TABLE `class_dates`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `class_section`
 --
 ALTER TABLE `class_section`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `class_type`
 --
 ALTER TABLE `class_type`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `section_title`
 --
 ALTER TABLE `section_title`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `section_type`
 --
 ALTER TABLE `section_type`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user_class_dates`
 --
 ALTER TABLE `user_class_dates`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `user_class_dates_food`
 --
 ALTER TABLE `user_class_dates_food`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this';
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT COMMENT 'increments automatically, do not touch this', AUTO_INCREMENT=26;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `classes`
+--
+ALTER TABLE `classes`
+  ADD CONSTRAINT `classes_fk_id_type` FOREIGN KEY (`id_type`) REFERENCES `class_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `class_dates`
+--
+ALTER TABLE `class_dates`
+  ADD CONSTRAINT `class_dates_fk_id_class` FOREIGN KEY (`id_class`) REFERENCES `classes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `class_section`
+--
+ALTER TABLE `class_section`
+  ADD CONSTRAINT `class_section_fk_id_class` FOREIGN KEY (`id_class`) REFERENCES `classes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `class_section_fk_id_section` FOREIGN KEY (`id_section`) REFERENCES `sections` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `sections`
+--
+ALTER TABLE `sections`
+  ADD CONSTRAINT `sections_fk_id_section_title` FOREIGN KEY (`id_section_title`) REFERENCES `section_title` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `sections_fk_id_section_type` FOREIGN KEY (`id_section_type`) REFERENCES `section_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `user_class_dates`
+--
+ALTER TABLE `user_class_dates`
+  ADD CONSTRAINT `user_class_dates_fk_id_class_dates` FOREIGN KEY (`id_class_dates`) REFERENCES `class_dates` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user_class_dates_fk_id_payment` FOREIGN KEY (`id_payment`) REFERENCES `payment` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user_class_dates_fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `user_class_dates_food`
+--
+ALTER TABLE `user_class_dates_food`
+  ADD CONSTRAINT `user_class_dates_food_fk_id_class_dates` FOREIGN KEY (`id_class_dates`) REFERENCES `class_dates` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user_class_dates_food_fk_id_food` FOREIGN KEY (`id_food`) REFERENCES `food` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `user_class_dates_food_fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
