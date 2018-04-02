@@ -44,7 +44,7 @@ Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
                         <a class="text-dark" href="<?php echo $this->router->generate('me'); ?>">
                             <img class="card-img-top" src="./img/startpage-me_400x400.png" alt="Photo Giovina Nicolai">
                             <div class="card-body">
-                                <h3 class="card-title">&Uuml;ber Mich</h3>
+                                <h3 class="card-title">&Uuml;ber mich</h3>
                             </div>
                         </a>
                     </div>
