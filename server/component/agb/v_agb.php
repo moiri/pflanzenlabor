@@ -62,7 +62,7 @@ Die R&uuml;ckverg&uuml;tung findet in Form eines Kursgutscheines statt.
             <div class="card">
                 <h5 class="card-header">Absage eines Kurses</h5>
                 <div class="card-body">
-Wird ein Kurs wegen zu geringer Teilnehmerzahl nicht durchgef&uuml;hrt, erhalten angemeldete Personen vor dem vorgesehenen Kursbeginn eine schriftliche Absage.
+Wird ein Kurs wegen zu geringer Teilnehmerzahl nicht durchgef&uuml;hrt, erhalten angemeldete Personen vor dem vorgesehenen Kursbeginn eine Absage per E-Mail oder SMS.
 In diesem Fall wird das Pflanzenlabor bem&uuml;ht sein, den Betroffenen eine Ausweichl&ouml;sung anzubieten.
                 </div>
             </div>
@@ -73,8 +73,9 @@ In diesem Fall wird das Pflanzenlabor bem&uuml;ht sein, den Betroffenen eine Aus
             <div class="card">
                 <h5 class="card-header">Ausfall eines Kurses</h5>
                 <div class="card-body">
-F&auml;llt ein Kurs wegen Krankheit oder Unfall der Kursleitung aus, hat die teilnehmende Person Anspruch auf Ersatz.
-Ein finanzieller Anspruch kann nicht geltend gemacht werden.
+F&auml;llt ein Kurs wegen Krankheit oder Unfall der Kursleitung oder wegen zu schlechtem Wetter aus, werden die angemeldeten Personen so schnell wie m&ouml;glich informiert.
+In diesem Fall wird das Pflanzenlabor bem&uuml;ht sein, den Betroffenen eine Ausweichl&ouml;sung anzubieten.
+
                 </div>
             </div>
         </div>
