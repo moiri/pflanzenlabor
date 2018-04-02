@@ -27,11 +27,18 @@ class ContactSend extends Page {
         $from = $name . " <" . strip_tags( $_POST['email'] ) . ">";
         $subject = strip_tags( $_POST['subject'] );
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
-        $headers = "From: " . $from;
-        if( isset( $_POST['self'] ) )
-            $headers .= "\r\nCC: " .$from;
 
-        mail($to,$subject,$txt,$headers);
+        $headers   = array();
+        $headers[] = "MIME-Version: 1.0";
+        $headers[] = "Content-type: text/plain; charset=utf-8";
+        $headers[] = "From: {$from}";
+        if( isset( $_POST['self'] ) )
+            $headers[] = "CC: " .$from;
+        $headers[] = "Reply-To: {$from}";
+        $headers[] = "Subject: {$subject}";
+        $headers[] = "X-Mailer: PHP/".phpversion();
+
+        mail( $to, $subject, $txt, implode( "\r\n", $headers ) );
     }
 
     public function print_view() {
