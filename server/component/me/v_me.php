@@ -14,8 +14,8 @@
     <div class="row mt-3">
         <div class="container">
             <div class="row row-eq-height">
-                <div class="col pr-md-0">
-                    <div class="card h-100">
+                <div class="col pr-md-0 d-flex">
+                    <div class="card w-100">
                         <div class="card-body">
 Giovina Nicolai ist Dipl. Drogistin HF, Galenikerin und Bierbrauerin.
 Sie ist in einer Berner Apotheke für die Herstellung von Arzneimitteln verantwortlich und ist Prüfungsexpertin für Galenik an der Höheren Fachschule für Drogistinnen und Drogisten.
@@ -26,8 +26,8 @@ Heute gibt sie ihr umfassendes Wissen über Pflanzen, deren Vorkommen und Wirkun
                         </div>
                     </div>
                 </div>
-                <div class="col-auto d-none d-md-block">
-                    <div class="card">
+                <div class="col-auto d-none d-md-block d-flex">
+                    <div class="card w-100">
                         <div class="card-body">
                     <img class="" src="<?php echo $this->router->get_asset_path( "/img/me-galium_400x600.png" ); ?>" alt="Giovina Nicolai" width="200">
                         </div>
