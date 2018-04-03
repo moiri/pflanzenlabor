@@ -23,7 +23,6 @@ class ContactSend extends Page {
         $this->p_title = "Formular versendet";
         $this->p_description = "Vielen Dank, das Kontaktformular wurde versendet.";
         $to = "info@pflanzenlabor.ch";
-        $to = "moirelein@hotmail.com";
         $name = strip_tags( $_POST['name'] );
         $from = $name . " <" . strip_tags( $_POST['email'] ) . ">";
         $subject = strip_tags( $_POST['subject'] );
