@@ -11,7 +11,9 @@ class Disclaimer extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_disclaimer.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_disclaimer.php';
+        } );
     }
 }
 

@@ -21,8 +21,9 @@ class ContactSend extends Page {
             return;
         }
         $this->p_title = "Formular versendet";
-        $this->p_description = "Das Kontaktformular wurde versendet.";
+        $this->p_description = "Vielen Dank, das Kontaktformular wurde versendet.";
         $to = "info@pflanzenlabor.ch";
+        $to = "moirelein@hotmail.com";
         $name = strip_tags( $_POST['name'] );
         $from = $name . " <" . strip_tags( $_POST['email'] ) . ">";
         $subject = strip_tags( $_POST['subject'] );
@@ -42,7 +43,9 @@ class ContactSend extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_contact_send.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_contact_send.php';
+        } );
     }
 }
 

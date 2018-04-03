@@ -11,7 +11,9 @@ class Invalid extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_invalid.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_invalid.php';
+        } );
     }
 }
 

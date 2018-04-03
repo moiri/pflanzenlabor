@@ -65,7 +65,7 @@ class CheckPayment {
     }
 
     public function is_paypal() {
-        return ( $this->paymenet_type == 1 );
+        return ( $this->payment_type == 1 );
     }
 
     public function check_pending() {
@@ -81,8 +81,8 @@ class CheckPayment {
         $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
-        $subject = "Pflanzenlabor: Deine Anmedlung zum Pflanzenausflug";
-        $txt = "Vielen Dank " . $user['first_name'] . " für deine Anmeldung zum Pflanzenausflug über den " . $course['name']. " vom " . $course['date'] . ".\n";
+        $subject = "Pflanzenlabor: Deine Anmedlung zur Pflanzenexkursion";
+        $txt = "Vielen Dank " . $user['first_name'] . " für deine Anmeldung zur Pflanzenexkursion " . $course['name']. " vom " . $course['date'] . ".\n";
         $txt .= "\n";
         $txt .= "Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.\n";
         if( $this->payment_type == 2 ) {
@@ -95,7 +95,7 @@ class CheckPayment {
         $txt .= ", " . $user['zip'] . " " . $user['city'] . "\n";
         $txt .= " Email: " . $user['email'] . "\n";
         $txt .= " Telefon: " . $user['phone'] . "\n";
-        $txt .= " Essen: " . $checks->get_food_string() . "\n";
+        $txt .= " Diät: " . $checks->get_food_string() . "\n";
         $txt .= " Bemerkung: " . $user['comment'] . "\n";
         $txt .= "\n";
         $txt .= "Bei Fragen oder Anregungen kannst du mich gerne per Email (info@pflanzenlabor.ch) oder via Web Formular (www.pflanzenlabor.ch/kontakt) erreichen.\n";
@@ -137,9 +137,3 @@ class CheckPayment {
 }
 
 ?>
-
-
-
-
-
-

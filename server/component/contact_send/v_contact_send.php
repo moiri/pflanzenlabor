@@ -1,4 +1,3 @@
-<?php $this->print_header(); ?>
 <div class="container-fluid">
     <div class="row">
         <?php $this->print_nav(); ?>
@@ -8,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1><?php echo $this->p_title; ?></h1>
-                    <p><?php $this->p_description; ?></p>
+                    <p><?php echo $this->p_description; ?></p>
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-<?php $this->print_header(); ?>
 <div class="container-fluid">
     <div class="row">
         <?php $this->print_nav(); ?>
@@ -18,8 +17,8 @@
                 <div class="col pr-md-0 d-flex">
                     <div class="card w-100">
                         <div class="card-body">
-Giovina Nicolai ist Dipl. Drogistin HF, Galenikerin und Bierbrauerin.
-Sie ist in einer Berner Apotheke für die Herstellung von Arzneimitteln verantwortlich und ist Prüfungsexpertin für Galenik an der Höheren Fachschule für Drogistinnen und Drogisten, Neuch&acirc;tel.
+<p>Giovina Nicolai ist Dipl. Drogistin HF, Galenikerin und Bierbrauerin.
+Sie ist in einer Berner Apotheke für die Herstellung von Arzneimitteln verantwortlich und ist Prüfungsexpertin für Galenik an der Höheren Fachschule für Drogistinnen und Drogisten, Neuch&acirc;tel.</p>
 In Bern aufgewachsen und wohnhaft, interessierte sie sich schon früh für Pflanzen und die Naturheilkunde und bildete sich über die Jahre in Pflanzenwissen, Pharmatechnologie und Kosmetikherstellung weiter.
 In einem dreijährigen Aufenthalt in London widmete sie sich einer besonderen Pflanze, dem Hopfen, und erlernte den Beruf der Bierbrauerin.
 Sie braute selbst und gab Kurse im Bierbrauen.

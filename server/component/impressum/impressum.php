@@ -11,7 +11,9 @@ class Impressum extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_impressum.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_impressum.php';
+        } );
     }
 }
 

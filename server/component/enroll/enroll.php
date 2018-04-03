@@ -89,7 +89,9 @@ class Enroll extends Page {
             $closed = new ClassClosed( $this->router );
             $closed->print_view();
         }
-        else require __DIR__ . '/v_enroll.php';
+        else $this->print_page( function() {
+            require __DIR__ . '/v_enroll.php';
+        } );
     }
 }
 
