@@ -61,7 +61,9 @@ class Classes extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_classes.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_classes.php';
+        } );
     }
 }
 

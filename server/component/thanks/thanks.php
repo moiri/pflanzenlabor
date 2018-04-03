@@ -34,14 +34,10 @@ class Thanks extends Page {
             $closed = new ClassClosed( $this->router );
             $closed->print_view();
         }
-        else require __DIR__ . '/v_thanks.php';
+        else $this->print_page( function() {
+            require __DIR__ . '/v_thanks.php';
+        } );
     }
 }
 
 ?>
-
-
-
-
-
-

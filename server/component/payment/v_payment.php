@@ -1,4 +1,3 @@
-<?php $this->print_header(); ?>
 <div class="container-fluid">
     <div class="row">
         <?php $this->print_nav(); ?>
@@ -69,7 +68,7 @@
     </div>
     <div class="card-body">
         <dl class="row mb-0">
-            <dt class="col-12">Essen und Trinken</dt>
+            <dt class="col-12">Di&auml;t</dt>
             <dd class="col-12"><?php echo $this->get_food_string(); ?></dd>
             <dt class="col-12">Bemerkung</dt>
             <dd class="col-12"><?php echo $this->comment; ?></dd>

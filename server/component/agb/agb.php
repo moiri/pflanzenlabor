@@ -11,7 +11,9 @@ class AGB extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_agb.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_agb.php';
+        } );
     }
 }
 

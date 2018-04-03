@@ -90,7 +90,9 @@ class Payment extends Page {
             $closed = new ClassClosed( $this->router );
             $closed->print_view();
         }
-        else require __DIR__ . '/v_payment.php';
+        else $this->print_page( function() {
+            require __DIR__ . '/v_payment.php';
+        } );
     }
 
     public function submit_enroll_data() {
@@ -146,9 +148,3 @@ class Payment extends Page {
 }
 
 ?>
-
-
-
-
-
-

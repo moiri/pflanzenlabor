@@ -1,4 +1,3 @@
-<?php $this->print_header(); ?>
 <div class="container-fluid">
     <div class="row">
         <?php $this->print_nav(); ?>

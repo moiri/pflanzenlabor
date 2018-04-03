@@ -71,8 +71,12 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal
-    $date_id = $_GET['item_number'];
-    $user_id = $_SESSION['user_id'][$date_id];
+    $date_id = null;
+    $user_id = null;
+    if( isset( $_SESSION['user_id'] ) && array_key_exists( $date_id, $_SESSION['user_id'] ) )
+        $user_id = $_SESSION['user_id'][$date_id];
+    if( isset( $_GET['item_number'] ) )
+        $date_id = $_GET['item_number'];
     $check = new CheckPayment( $db, 1, $date_id, $user_id );
     $check->check_pending();
     $page = new Thanks( $router, $check );

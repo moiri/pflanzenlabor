@@ -1,4 +1,3 @@
-<?php $this->print_header(); ?>
 <div class="container-fluid">
     <div class="row">
         <?php $this->print_nav(); ?>
@@ -6,8 +5,8 @@
     <div class="row">
         <div class="container mb-3">
             <div class="row row-eq-height">
-                <div class="col pr-md-0">
-                    <div class="card h-100">
+                <div class="col pr-md-0 d-flex">
+                    <div class="card w-100">
                         <div class="card-body">
                             <h1>Anmeldung zum Kurs <?php echo $this->class_name; ?></h1>
                             <h2>vom <?php echo $this->date; ?></h2>

@@ -24,7 +24,7 @@ class Checks {
             $str .= $food['name'] . ', ';
         }
         if( $this->input_custom != "" ) $str .= $this->input_custom;
-        else if( $str == "" ) $str = "nichts spezielles";
+        else if( $str == "" ) $str = "keine Diät";
         else $str = substr( $str, 0, -2 );
         return $str;
     }

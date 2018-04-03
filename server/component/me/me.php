@@ -11,7 +11,9 @@ class Me extends Page {
     }
 
     public function print_view() {
-        require __DIR__ . '/v_me.php';
+        $this->print_page( function() {
+            require __DIR__ . '/v_me.php';
+        } );
     }
 }
 
