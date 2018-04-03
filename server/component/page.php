@@ -22,7 +22,6 @@ class Page {
     }
 
     protected function print_nav() {
-        $this->print_header();
         $this->nav->print_view();
     }
 
