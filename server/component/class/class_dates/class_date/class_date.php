@@ -29,8 +29,9 @@ class ClassDate {
 
     private function print_badge() {
         if( $this->free_places == 0 ) echo "ausgebucht";
-        else if( $this->free_places == 1 ) echo "1 Platz frei";
-        else echo $this->free_places . " Pl&auml;tze frei";
+        else if( $this->free_places == 1 ) echo "1 freier Platz";
+        else if( $this->free_places <= 3 ) echo $this->free_places . " freie Pl&auml;tze";
+        else echo "freie Pl&auml;tze";
     }
 
     public function print_view() {

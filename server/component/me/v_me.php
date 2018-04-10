@@ -29,7 +29,7 @@ Heute gibt sie ihr umfassendes Wissen über Pflanzen, deren Vorkommen und Wirkun
                 <div class="col-auto d-none d-md-block d-flex">
                     <div class="card w-100">
                         <div class="card-body">
-                    <img class="" src="<?php echo $this->router->get_asset_path( "/img/me-galium_400x600.png" ); ?>" alt="Giovina Nicolai" width="200">
+                    <img class="" src="<?php echo $this->router->get_asset_path( "/img/me_400x400.png" ); ?>" alt="Giovina Nicolai" width="400">
                         </div>
                     </div>
                 </div>
