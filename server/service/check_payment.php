@@ -11,69 +11,65 @@ class CheckPayment {
     private $user = Null;
     private $date = Null;
     private $open = 0;
-    private $na = true;
-    private $invalid = true;
-    private $pending = false;
+    private $na = false;
+    private $invalid = false;
+    private $closed = false;
 
-    function __construct( $db, $payment_type, $date_id, $user_id ) {
-        $this->payment_type = $payment_type;
+    function __construct( $db, $date_id, $user_id = Null ) {
         $this->date_id = $date_id;
-        $this->user_id = $user_id;
+        $this->user_id = ( $user_id == Null ) ? $this->get_uid_from_session( $date_id ) : $user_id;
 
         $this->db = $db;
         $this->user = $db->selectByUid( 'user', $this->user_id );
         $user_specs = $db->getUserDateSpecifics( $this->user_id, $this->date_id );
-        if( !$this->user || !$user_specs ) return;
+        if( !$this->user || !$user_specs ) {
+            $this->invalid = true;
+            return;
+        }
 
-        $this->invalid = false; // all is in order
         unset( $_SESSION['user_id'][$this->date_id] );
         $this->user['comment'] = $user_specs['comment'];
         $this->user['check_custom'] = $user_specs['check_custom'];
         $this->user['is_payed'] = $user_specs['is_payed'];
         $this->date = $db->getClassDate( $this->date_id );
         if( $this->date ) {
-            $this->na = false;
             $this->open = $this->date['places_max'] - $this->date['places_booked'];
+            if( $this->open <= 0 ) $this->closed = true;
             $cost = $db->getClassCost( $this->date['id_class'] );
             if( $cost ) {
                 $this->class_cost = $cost['content'];
             }
         }
+        else $this->na = true;
     }
 
-    private function get_user_id( $date_id ) {
+    public function get_uid_from_session( $date_id ) {
         if( isset( $_SESSION['user_id'] )
-                && ( array_key_exists( $date_id, $_SESSION['user_id'] ) ) )
+                    && array_key_exists( $date_id, $_SESSION['user_id'] ) )
             return $_SESSION['user_id'][$date_id];
         else return Null;
     }
 
-    public function is_class_open() {
-        return ( ( $this->payment_type == 1 ) || ( $this->open > 0 ) );
+    public function update_page_state( $page ) {
+        if( $this->closed && !$page->is_paypal() ) {
+            // allow overbooking with paypal to prevent race conditions
+            $page->set_state_closed();
+        }
+        if( $this->na ) $page->set_state_missing();
+        if( $this->invalid ) $page->set_state_invalid();
+        if( $this->user['is_payed'] != '1' )
+            $page->set_state_pending();
     }
 
     public function is_date_existing() {
         return ( !$this->na );
     }
 
-    public function is_valid() {
-        return ( !$this->invalid );
-    }
-
     public function is_payed() {
-        return ( !$this->pending );
+        return ( $this->user['is_payed'] == '1' )
     }
 
-    public function is_paypal() {
-        return ( $this->payment_type == 1 );
-    }
-
-    public function check_pending() {
-        if( $this->user['is_payed'] != '1' )
-            $this->pending = true;
-    }
-
-    public function send_mail() {
+    public function send_mail( $is_paypal ) {
         $user = $this->user;
         $course = $this->date;
         $checks = new Checks( $this->db, $this->user_id, $this->date_id, $user['check_custom'] );
@@ -85,7 +81,7 @@ class CheckPayment {
         $txt = "Vielen Dank " . $user['first_name'] . " für deine Anmeldung zur Pflanzenexkursion " . $course['name']. " vom " . $course['date'] . ".\n";
         $txt .= "\n";
         $txt .= "Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.\n";
-        if( $this->payment_type == 2 ) {
+        if( !$is_paypal ) {
             $txt .= "Die Rechnung wird dir bald zugestellt.\n";
             $txt .= "\n";
         }
@@ -116,10 +112,10 @@ class CheckPayment {
         mail( $to, $subject, $txt, implode( "\r\n", $headers ) );
     }
 
-    public function enroll_user( $is_payed = false ) {
+    public function enroll_user( $payment_type, $is_payed = false ) {
         if( $this->db->incrementUserCount( $this->date_id ) ) {
             $this->db->markUserEnrolled( $this->user_id, $this->date_id,
-                $this->payment_type, false );
+                $payment_type, false );
             if( $is_payed )
                 $this->db->setPayed( $this->user_id, $this->date_id );
 

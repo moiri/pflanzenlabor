@@ -10,8 +10,6 @@ require_once __DIR__ . "./../invalid/invalid.php";
 class Payment extends Page {
 
     private $open = 0;
-    private $na = true;
-    private $invalid = true;
     private $user_id = Null;
 
     function __construct( $router, $dbMapper, $id ) {
@@ -20,19 +18,21 @@ class Payment extends Page {
                 || !isset( $_POST['street'] ) || !isset( $_POST['street_number'] )
                 || !isset( $_POST['zip'] ) || !isset( $_POST['city'] )
                 || !isset( $_POST['phone'] ) || !isset( $_POST['email'] ) ) {
+
+            $this->set_state_invalid();
             return;
         }
         if( ( $_POST['first_name'] == "" ) || ( $_POST['last_name'] == "" )
                 || ( $_POST['street'] == "" ) || ( $_POST['street_number'] == "" )
                 || ( $_POST['zip'] == "" ) || ( $_POST['city'] == "" )
                 || ( $_POST['phone'] == "" ) || ( $_POST['email'] == "" ) ) {
+            $this->set_state_invalid();
             return;
         }
 
         if( isset( $_SESSION['user_id'] )
                 && array_key_exists( $id, $_SESSION['user_id'] ) )
             $this->user_id = $_SESSION['user_id'][$id];
-        $this->invalid = false;
         $this->first_name = $_POST['first_name'];
         $this->last_name = $_POST['last_name'];
         $this->street = $_POST['street'];
@@ -47,52 +47,23 @@ class Payment extends Page {
         $this->date_id = $id;
         $date = $dbMapper->getClassDate( $id );
         if( $date ) {
-            $this->na = false;
             $this->date = $date['date'];
             $this->class_name = $date['name'];
             $this->class_cost = "";
             $this->open = $date['places_max'] - $date['places_booked'];
+            if( $this->open <= 0 ) $this->set_state_closed();
             $this->paypal_key = $date['paypal_key'];
             $cost = $dbMapper->getClassCost( $date['id_class'] );
             if( $cost ) {
                 $this->class_cost = $cost['content'];
             }
         }
+        else $this->set_state_missing();
     }
 
     private function get_food_string() {
         $checks = new Checks( $this->db, $this->user_id, $this->date_id, $_POST['input_custom'] );
         return $checks->get_food_string();
-    }
-
-    public function is_class_open() {
-        return ( $this->open > 0 );
-    }
-
-    public function is_date_existing() {
-        return ( !$this->na );
-    }
-
-    public function is_valid() {
-        return ( !$this->invalid );
-    }
-
-    public function print_view() {
-        if( !$this->is_valid() ) {
-            $invalid = new Invalid( $this->router );
-            $iinvalid->print_view();
-        }
-        else if( !$this->is_date_existing() ) {
-            $missing = new Missing( $this->router );
-            $missing->print_view();
-        }
-        else if( !$this->is_class_open() ) {
-            $closed = new ClassClosed( $this->router );
-            $closed->print_view();
-        }
-        else $this->print_page( function() {
-            require __DIR__ . '/v_payment.php';
-        } );
     }
 
     public function submit_enroll_data() {
@@ -144,6 +115,12 @@ class Payment extends Page {
                 );
             }
         }
+    }
+
+    public function print_view() {
+        $this->print_page( function() {
+            require __DIR__ . '/v_payment.php';
+        } );
     }
 }
 

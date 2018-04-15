@@ -9,7 +9,6 @@ require_once __DIR__ . '/class_dates/class_dates.php';
  */
 class ClassPage extends Page {
 
-    private $na = true;
     private $name;
     private $subtitle;
     private $description;
@@ -24,8 +23,7 @@ class ClassPage extends Page {
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router );
         $detail = $dbMapper->getClass( $id );
-        if($detail) {
-            $this->na = false;
+        if( $detail ) {
             $this->class_id = $id;
             $this->db = $dbMapper;
             $this->name = $detail['name'];
@@ -37,6 +35,7 @@ class ClassPage extends Page {
             $this->time = $detail['time'];
             $this->sections = $dbMapper->getClassSections( $id );
         }
+        else $this->set_state_missing();
     }
 
     private function print_description() {
@@ -59,8 +58,7 @@ class ClassPage extends Page {
     }
 
     public function print_view() {
-        if( $this->na ) $this->print_page( __DIR__ . '/../404/v_404.php' );
-        else $this->print_page( function () {
+        $this->print_page( function () {
             require __DIR__ . '/v_class.php';
         } );
     }

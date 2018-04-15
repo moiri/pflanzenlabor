@@ -6,35 +6,19 @@ require_once __DIR__ . '/../page.php';
  */
 class Thanks extends Page {
 
-    private $check = Null;
+    private $is_paypal;
 
-    function __construct( $router, $check ) {
+    function __construct( $router, $payment_type ) {
         parent::__construct( $router );
-        $this->check = $check;
+        $this->is_paypal = ( $payment_type == 1 );
     }
 
-    private function is_paypal() {
-        return $this->check->is_paypal();
+    public function is_paypal() {
+        return $this->is_paypal;
     }
 
     public function print_view() {
-        if( !$this->check->is_valid() ) {
-            $invalid = new Invalid( $this->router );
-            $invalid->print_view();
-        }
-        else if( !$this->check->is_date_existing() ) {
-            $missing = new Missing( $this->router );
-            $missing->print_view();
-        }
-        else if( !$this->check->is_payed() ) {
-            $pending = new PaymentPending( $this->router );
-            $pending->print_view();
-        }
-        else if( !$this->check->is_class_open() ) {
-            $closed = new ClassClosed( $this->router );
-            $closed->print_view();
-        }
-        else $this->print_page( function() {
+        $this->print_page( function() {
             require __DIR__ . '/v_thanks.php';
         } );
     }

@@ -59,8 +59,13 @@ class BaseDBMapper {
      * @param string $locale:    the locale indentifier, e.g. de_CH
      */
     function setDbLocale( $locale ) {
-        $stmt = $this->dbh->prepare( "SET lc_time_names = :locale" );
-        $stmt->execute( array( ':locale' => $locale ) );
+        try {
+            $stmt = $this->dbh->prepare( "SET lc_time_names = :locale" );
+            $stmt->execute( array( ':locale' => $locale ) );
+        }
+        catch(Exception $e ) {
+            if( DEBUG == 1 ) "BaseDbMapper::setDbLocale: ".$e->getMessage();
+        }
     }
 
     /**
