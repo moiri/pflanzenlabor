@@ -54,43 +54,41 @@ $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
 }, 'enroll');
 $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new Payment( $router, $db, intval( $id ) );
-    if( $page->is_class_open() ) $page->submit_enroll_data();
+    if( $page->is_state_ok() ) $page->submit_enroll_data();
     $page->print_view();
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
     // payed by bill
-    $date_id = $_POST['date_id'];
-    $user_id = $_SESSION['user_id'][$date_id];
-    $check = new CheckPayment( $db, 2, $date_id, $user_id );
-    $page = new Thanks( $router, $check );
-    if( $check->is_class_open() ) {
-        if( $check->enroll_user() )
-            $check->send_mail();
+    $payment_type = 2;
+    $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
+    $page = new Thanks( $router, $payment_type );
+    $check = new CheckPayment( $db, $date_id );
+    $check->update_page_state( $page );
+    if( $page->is_state_ok() ) {
+        if( $check->enroll_user( $payment_type )
+            $check->send_mail( $page->is_paypal() );
     }
     $page->print_view();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal
-    $date_id = null;
-    $user_id = null;
-    if( isset( $_SESSION['user_id'] ) && array_key_exists( $date_id, $_SESSION['user_id'] ) )
-        $user_id = $_SESSION['user_id'][$date_id];
-    if( isset( $_GET['item_number'] ) )
-        $date_id = $_GET['item_number'];
-    $check = new CheckPayment( $db, 1, $date_id, $user_id );
-    $check->check_pending();
-    $page = new Thanks( $router, $check );
+    $payment_type = 1;
+    $date_id = ( isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
+    $page = new Thanks( $router, $payment_type );
+    $check = new CheckPayment( $db, $page $date_id );
+    $check->update_page_state( $page );
     $page->print_view();
 }, 'thanks_get');
 $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal
-    $date_id = $_POST['item_number'];
-    $user_id = $_POST['custom'];
-    $check = new CheckPayment( $db, 1, $date_id, $user_id );
+    $payment_type = 1;
+    $date_id = ( isset( $_POST['item_number'] ) ) ? $_POST['item_number'] : Null;
+    $user_id = ( isset( $_POST['custom'] ) ) ? $_POST['custom'] : Null;
+    $check = new CheckPayment( $db, $date_id, $user_id );
     if( $check->is_date_existing() ) {
         $payed = $check->check_paypal();
-        if( $check->enroll_user( $payed ) && $payed )
-            $check->send_mail();
+        if( $check->enroll_user( $payment_type, $payed ) && $payed )
+            $check->send_mail( true );
     }
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
     header("HTTP/1.1 200 OK");

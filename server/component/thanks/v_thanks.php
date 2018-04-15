@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <h1>Vielen Dank!</h1>
 <?php 
-if( $this->is_paypal() )
+if( $this->is_paypal )
     echo "Deine Transaktion wurde abgeschlossen und Du erh&auml;lst per E-Mail eine Bestätigung für deinen Kauf.";
 ?>
 Ich freue mich auf deinen Besuch. Bis bald!
