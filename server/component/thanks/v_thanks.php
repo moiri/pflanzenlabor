@@ -9,7 +9,9 @@
                     <h1>Vielen Dank!</h1>
 <?php 
 if( $this->is_paypal )
-    echo "Deine Transaktion wurde abgeschlossen und Du erh&auml;lst per E-Mail eine Bestätigung für deinen Kauf.";
+    echo "<p>Deine Transaktion wurde abgeschlossen und Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf.</p>";
+else
+    echo "<p>Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf. Die Rechnung wird dir bald zugestellt.</p>";
 ?>
 Ich freue mich auf deinen Besuch. Bis bald!
                 </div>
