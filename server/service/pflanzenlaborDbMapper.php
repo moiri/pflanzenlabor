@@ -36,7 +36,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function markUserEnrolled( $id_user, $id_date, $type, $is_payed ) {
         try {
             $sql = "UPDATE user_class_dates
-                SET id_payment = :type, is_payed = :payed
+                SET id_payment = :type, is_payed = is_payed + :payed, is_booked = is_booked + 1
                 WHERE id_user = :id_user AND id_class_dates = :id_date";
             $stmt = $this->dbh->prepare( $sql );
             return $stmt->execute( array(
@@ -205,7 +205,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
 
     function getUserDateSpecifics( $id_user, $id_date ) {
         try {
-            $sql = "SELECT comment, check_custom, is_payed
+            $sql = "SELECT comment, check_custom, is_payed, is_booked
                 FROM user_class_dates
                 WHERE id_user = :id_user AND id_class_dates = :id_date";
             $stmt = $this->dbh->prepare( $sql );
@@ -214,6 +214,24 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getUserDateSpecifics: ".$e->getMessage();
+        }
+    }
+
+    function getUserId( $email, $first_name, $last_name ) {
+        try {
+            $sql = "SELECT id
+                FROM user
+                WHERE first_name = :first_name AND last_name = :last_name AND email = :email";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array(
+                ':first_name' => $first_name,
+                ':last_name' => $last_name,
+                ':email' => $email
+            ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getUserId: ".$e->getMessage();
         }
     }
 

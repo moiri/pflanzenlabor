@@ -17,17 +17,17 @@ class CheckPayment {
 
     function __construct( $db, $date_id, $user_id = Null ) {
         $this->date_id = $date_id;
-        $this->user_id = ( $user_id == Null ) ? $this->get_uid_from_session( $date_id ) : $user_id;
+        $user = new User( $db );
+        if( $user_id != Null ) $user->set_user_id( $user_id );
 
         $this->db = $db;
-        $this->user = $db->selectByUid( 'user', $this->user_id );
-        $user_specs = $db->getUserDateSpecifics( $this->user_id, $this->date_id );
+        $this->user = $db->selectByUid( 'user', $user->get_user_id() );
+        $user_specs = $db->getUserDateSpecifics( $user->get_user_id(), $this->date_id );
         if( !$this->user || !$user_specs ) {
             $this->invalid = true;
             return;
         }
 
-        unset( $_SESSION['user_id'][$this->date_id] );
         $this->user['comment'] = $user_specs['comment'];
         $this->user['check_custom'] = $user_specs['check_custom'];
         $this->user['is_payed'] = $user_specs['is_payed'];
@@ -43,22 +43,16 @@ class CheckPayment {
         else $this->na = true;
     }
 
-    public function get_uid_from_session( $date_id ) {
-        if( isset( $_SESSION['user_id'] )
-                    && array_key_exists( $date_id, $_SESSION['user_id'] ) )
-            return $_SESSION['user_id'][$date_id];
-        else return Null;
-    }
-
     public function update_page_state( $page ) {
-        if( $this->closed && !$page->is_paypal() ) {
+        if( $this->invalid ) $page->set_state_invalid();
+        else if( $this->na ) $page->set_state_missing();
+        else if( !$this->is_payed() && $page->is_paypal() )
+            // only paypal payment can be pending
+            $page->set_state_pending();
+        else if( $this->closed && !$page->is_paypal() ) {
             // allow overbooking with paypal to prevent race conditions
             $page->set_state_closed();
         }
-        if( $this->na ) $page->set_state_missing();
-        if( $this->invalid ) $page->set_state_invalid();
-        if( $this->user['is_payed'] != '1' )
-            $page->set_state_pending();
     }
 
     public function is_date_existing() {
@@ -66,15 +60,16 @@ class CheckPayment {
     }
 
     public function is_payed() {
-        return ( $this->user['is_payed'] == '1' )
+        return ( $this->user['is_payed'] == '1' );
     }
 
     public function send_mail( $is_paypal ) {
         $user = $this->user;
         $course = $this->date;
-        $checks = new Checks( $this->db, $this->user_id, $this->date_id, $user['check_custom'] );
+        $checks = new Checks( $this->db, $this->user['id'], $this->date_id, $user['check_custom'] );
         $from = "info@pflanzenlabor.ch";
-        $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
+        if( !DEBUG ) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
+        else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
         $subject = "Pflanzenlabor: Deine Anmedlung zur Pflanzenexkursion";
@@ -114,10 +109,10 @@ class CheckPayment {
 
     public function enroll_user( $payment_type, $is_payed = false ) {
         if( $this->db->incrementUserCount( $this->date_id ) ) {
-            $this->db->markUserEnrolled( $this->user_id, $this->date_id,
+            $this->db->markUserEnrolled( $this->user['id'], $this->date_id,
                 $payment_type, false );
             if( $is_payed )
-                $this->db->setPayed( $this->user_id, $this->date_id );
+                $this->db->setPayed( $this->user['id'], $this->date_id );
 
             return true;
         }
@@ -127,7 +122,7 @@ class CheckPayment {
     public function check_paypal() {
         $ipn = new PaypalIPN();
         // Use the sandbox endpoint during testing.
-        /* $ipn->useSandbox(); */
+        if( DEBUG ) $ipn->useSandbox();
         return $ipn->verifyIPN();
     }
 }

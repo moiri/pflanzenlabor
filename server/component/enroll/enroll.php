@@ -48,22 +48,24 @@ class Enroll extends Page {
         $this->check_vegan = "";
         $this->check_custom = "";
         $this->input_custom = "";
-        if( isset( $_SESSION['user_id'] )
-            && array_key_exists( $this->date_id, $_SESSION['user_id'] ) ) {
-            $this->user_id = $_SESSION['user_id'][$this->date_id];
-            $user = $dbMapper->selectByUid( 'user', $this->user_id );
-            $this->first_name = $user['first_name'];
-            $this->last_name = $user['last_name'];
-            $this->street = $user['street'];
-            $this->street_number = $user['street_number'];
-            $this->zip = $user['zip'];
-            $this->city = $user['city'];
-            $this->phone = $user['phone'];
-            $this->email = $user['email'];
-            $user_specs = $dbMapper->getUserDateSpecifics( $this->user_id, $this->date_id );
-            $this->comment = $user_specs['comment'];
-            $this->check_custom = ( $user_specs['check_custom'] != "" ) ? " checked" : "";
-            $this->input_custom = $user_specs['check_custom'];
+        $user = new User( $dbMapper );
+        if( $user->is_user_valid() ) {
+            $this->user_id = $user->get_user_id();
+            $user_data = $user->get_user_data();
+            $this->first_name = $user_data['first_name'];
+            $this->last_name = $user_data['last_name'];
+            $this->street = $user_data['street'];
+            $this->street_number = $user_data['street_number'];
+            $this->zip = $user_data['zip'];
+            $this->city = $user_data['city'];
+            $this->phone = $user_data['phone'];
+            $this->email = $user_data['email'];
+            $user_specs = $user->get_class_enroll_data( $this->date_id );
+            if( $user_specs ) {
+                $this->comment = $user_specs['comment'];
+                $this->check_custom = ( $user_specs['check_custom'] != "" ) ? " checked" : "";
+                $this->input_custom = $user_specs['check_custom'];
+            }
         }
     }
 
