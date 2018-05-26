@@ -10,7 +10,7 @@ class Thanks extends Page {
 
     function __construct( $router, $payment_type ) {
         parent::__construct( $router );
-        $this->is_paypal = ( $payment_type == 1 );
+        $this->is_paypal = ( $payment_type == PAYMENT_PAYPAL );
     }
 
     public function is_paypal() {
