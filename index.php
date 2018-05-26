@@ -1,8 +1,10 @@
 <?php
 session_start();
+require_once "./server/service/user.php";
 require_once "./server/service/router.php";
 require_once "./server/service/pflanzenlaborDbMapper.php";
 require_once "./server/service/globals.php";
+require_once "./server/service/db_globals.php";
 require_once "./server/service/check_payment.php";
 require_once "./server/component/home/home.php";
 require_once "./server/component/contact/contact.php";
@@ -59,35 +61,35 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
     // payed by bill
-    $payment_type = 2;
     $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
-    $page = new Thanks( $router, $payment_type );
-    $check = new CheckPayment( $db, $date_id );
-    $check->update_page_state( $page );
-    if( $page->is_state_ok() ) {
-        if( $check->enroll_user( $payment_type )
-            $check->send_mail( $page->is_paypal() );
+    $page = new Thanks( $router, PAYMENT_BILL );
+    $user = new User( $db );
+    if( !$user->is_user_enrolled( $date_id ) ) {
+        $check = new CheckPayment( $db, $date_id );
+        $check->update_page_state( $page );
+        if( $page->is_state_ok() ) {
+            if( $check->enroll_user( PAYMENT_BILL ) )
+                $check->send_mail( $page->is_paypal() );
+        }
     }
     $page->print_view();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal
-    $payment_type = 1;
-    $date_id = ( isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
-    $page = new Thanks( $router, $payment_type );
-    $check = new CheckPayment( $db, $page $date_id );
+    $date_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
+    $page = new Thanks( $router, PAYMENT_PAYPAL );
+    $check = new CheckPayment( $db, $date_id );
     $check->update_page_state( $page );
     $page->print_view();
 }, 'thanks_get');
 $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal
-    $payment_type = 1;
     $date_id = ( isset( $_POST['item_number'] ) ) ? $_POST['item_number'] : Null;
     $user_id = ( isset( $_POST['custom'] ) ) ? $_POST['custom'] : Null;
     $check = new CheckPayment( $db, $date_id, $user_id );
     if( $check->is_date_existing() ) {
         $payed = $check->check_paypal();
-        if( $check->enroll_user( $payment_type, $payed ) && $payed )
+        if( $check->enroll_user( PAYMENT_PAYPAL, $payed ) && $payed )
             $check->send_mail( true );
     }
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.

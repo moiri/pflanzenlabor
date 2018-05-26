@@ -11,6 +11,7 @@ class Payment extends Page {
 
     private $open = 0;
     private $user_id = Null;
+    private $show_enroll_warning = true;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router );
@@ -30,9 +31,7 @@ class Payment extends Page {
             return;
         }
 
-        if( isset( $_SESSION['user_id'] )
-                && array_key_exists( $id, $_SESSION['user_id'] ) )
-            $this->user_id = $_SESSION['user_id'][$id];
+        $this->user = new User( $dbMapper );
         $this->first_name = $_POST['first_name'];
         $this->last_name = $_POST['last_name'];
         $this->street = $_POST['street'];
@@ -47,6 +46,8 @@ class Payment extends Page {
         $this->date_id = $id;
         $date = $dbMapper->getClassDate( $id );
         if( $date ) {
+            $this->user->update_user_id_from_db( $this->email, $this->first_name, $this->last_name );
+            $this->show_enroll_warning = $this->user->is_user_enrolled( $id );
             $this->date = $date['date'];
             $this->class_name = $date['name'];
             $this->class_cost = "";
@@ -62,14 +63,11 @@ class Payment extends Page {
     }
 
     private function get_food_string() {
-        $checks = new Checks( $this->db, $this->user_id, $this->date_id, $_POST['input_custom'] );
+        $checks = new Checks( $this->db, $this->user->get_user_id(), $this->date_id, $_POST['input_custom'] );
         return $checks->get_food_string();
     }
 
     public function submit_enroll_data() {
-        $user_exists = false;
-        if( $this->user_id != Null ) $user_exists = true;
-
         $user_data = array(
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
@@ -79,42 +77,22 @@ class Payment extends Page {
             'city' => $this->city,
             'phone' => $this->phone,
             'email' => $this->email
-            /* 'check_custom' => $_POST['input_custom'], */
-            /* 'comment' => $_POST['comment'], */
-            /* 'id_class_date' => $this->date_id */
         );
-        // create new or update user
-        if( $user_exists ) {
-            $this->db->updateByUid( 'user', $user_data, $this->user_id );
-            $this->db->updateUserClassDates( $this->user_id, $this->date_id, $_POST['input_custom'], $_POST['comment'] );
-        }
-        else {
-            $this->user_id = $this->db->insert( "user", $user_data );
-            if( isset( $_SESSION['user_id'] ) ) $_SESSION['user_id'][$this->date_id] = $this->user_id;
-            else $_SESSION['user_id'] = array( $this->date_id => $this->user_id );
-            $this->db->insert( 'user_class_dates', array(
-                'id_user' => $this->user_id,
-                'id_class_dates' => $this->date_id,
-                'check_custom' => $_POST['input_custom'],
-                'comment' => $_POST['comment'] )
-            );
-        }
         $foods = $this->db->selectTable( 'food' );
+        $date_data = array(
+            'input_custom' => $_POST['input_custom'],
+            'comment' => $this->comment,
+            'foods' => array()
+        );
         foreach( $foods as $food ) {
-            $id_food = intVal( $food['id'] );
-            $food_idx = 'check_' . $id_food;
-            if( $user_exists ) {
-                $this->db->updateUserClassDatesFood( $this->user_id, $this->date_id, $id_food, (int)isset( $_POST[$food_idx] ) );
-            }
-            else {
-                $this->db->insert( "user_class_dates_food", array(
-                    'id_class_dates' => $this->date_id,
-                    'id_user' => $this->user_id,
-                    'id_food' => $id_food,
-                    'is_checked' => (int)isset( $_POST[$food_idx] ) )
-                );
-            }
+            $food_id = intVal( $food['id'] );
+            $food_idx = 'check_' . $food_id;
+            $date_data['foods'][$food_id] = (int)isset( $_POST[$food_idx] );
         }
+        // create new or update user entry
+        $is_new_user = $this->user->set_user_data( $user_data );
+        // create or update date entry
+        $this->user->set_class_enroll_data( $this->date_id, $date_data );
     }
 
     public function print_view() {

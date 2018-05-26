@@ -86,18 +86,22 @@
         <h5 class="mb-0">Bezahlen</h5>
     </div>
     <div class="card-body">
+<?php
+if( $this->show_enroll_warning )
+    echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
+?>
         <div class="float-right">
             <a href="<?php echo $this->router->generate('enroll', array('id' => $this->date_id)); ?>" class="btn btn-secondary">Zur&uuml;ck</a>
         </div>
-        <form method="post" target="_top">
+        <form method="post" target="_top" <?php echo ( $this->show_enroll_warning ) ? 'class="d-none"' : "";?>>
             <input type="hidden" name="cmd" value="_s-xclick">
             <input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">
             <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
-            <input type="hidden" name="custom" value="<?php echo $_SESSION['user_id'][$this->date_id]; ?>"/>
+            <input type="hidden" name="custom" value="<?php echo $this->user->get_user_id(); ?>"/>
             <input type="hidden" name="type" value="">
             <div class="form-group mb-0">
-                <button formaction="<?php echo $this->router->generate('thanks'); ?>" type="submit" class="btn btn-primary">auf Rechnung</button>
-                <button formaction="https://www.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary">mit PayPal</button>
+            <button formaction="<?php echo $this->router->generate('thanks'); ?>" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>auf Rechnung</button>
+                <button formaction="https://www<?php echo ( DEBUG ) ? ".sandbox" : ""; ?>.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>mit PayPal</button>
             </div>
         </form>
     </div>
