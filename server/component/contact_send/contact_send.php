@@ -22,9 +22,11 @@ class ContactSend extends Page {
         }
         $this->p_title = "Formular versendet";
         $this->p_description = "Vielen Dank, das Kontaktformular wurde versendet.";
-        $to = "info@pflanzenlabor.ch";
+        if( !DEBUG ) $to = "info@pflanzenlabor.ch";
+        else $to = "moirelein@gmail.com.ch";
         $name = strip_tags( $_POST['name'] );
-        $from = $name . " <" . strip_tags( $_POST['email'] ) . ">";
+        $from = "info@pflanzenlabor.ch";
+        $replyTo = $name . " <" . strip_tags( $_POST['email'] ) . ">";
         $subject = strip_tags( $_POST['subject'] );
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
 
@@ -34,7 +36,7 @@ class ContactSend extends Page {
         $headers[] = "From: {$from}";
         if( isset( $_POST['self'] ) )
             $headers[] = "CC: " .$from;
-        $headers[] = "Reply-To: {$from}";
+        $headers[] = "Reply-To: {$replyTo}";
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
