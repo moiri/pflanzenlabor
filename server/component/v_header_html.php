@@ -16,4 +16,6 @@
 <script src="<?php echo $this->router->get_asset_path("/js/main.js"); ?>" type="text/javascript"></script>
 </head>
 <body>
-
+<?php
+    if( DEBUG ) echo '<div class="alert alert-warning" role="alert">Test Mode!</div>';
+?>
