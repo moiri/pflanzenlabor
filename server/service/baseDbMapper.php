@@ -221,6 +221,31 @@ class BaseDBMapper {
             if( DEBUG == 1 ) echo "BaseDbMapper::insert: ".$e->getMessage();
         }
     }
+    /**
+     * Insert multiple rows o values into db table
+     *
+     * @param string $table:    the name of the db table
+     * @param array $cols:      an array of db collumn names
+     * @param array $entries:   a matrix of values
+     * @return inserted id if succeded
+     */
+    function insert_mult($table, $cols, $entries) {
+        try {
+            $data = array();
+            $columnStr = "(" . implode( ',', $cols ) . ")";
+            $valueStr = implode( ',', array_map(function( $entry ) {
+                      return "(" . implode( ',', $entry ) . ")";
+                }, $entries ) );
+            $sql = "INSERT INTO ".$table
+                .$columnStr." VALUES ".$valueStr;
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( $data );
+            return $this->dbh->lastInsertId();
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) echo "BaseDbMapper::insert: ".$e->getMessage();
+        }
+    }
 
     /**
      * Update values in db defined by id
