@@ -32,40 +32,40 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Vorname</label>
-                                <input type="text" class="form-control" name="first_name" placeholder="Max" value="<?php echo $this->first_name; ?>" required>
+                                <input type="text" class="form-control" name="first_name" placeholder="Max" value="<?php echo $this->first_name; ?>" maxlength="100" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Nachname</label>
-                                <input type="text" class="form-control" name="last_name" placeholder="Muster" value="<?php echo $this->last_name; ?>" required>
+                                <input type="text" class="form-control" name="last_name" placeholder="Muster" value="<?php echo $this->last_name; ?>" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-10">
                                 <label>Strasse</label>
-                                <input type="text" class="form-control" name="street" placeholder="Beispielweg" value="<?php echo $this->street; ?>" required>
+                                <input type="text" class="form-control" name="street" placeholder="Beispielweg" value="<?php echo $this->street; ?>" maxlength="100" required>
                             </div>
                             <div class="form-group col-md-2">
                                 <label>Hausnummer</label>
-                                <input type="text" class="form-control" name="street_number" placeholder="1A" value="<?php echo $this->street_number; ?>" required>
+                                <input type="text" class="form-control" name="street_number" placeholder="1A" value="<?php echo $this->street_number; ?>" maxlength="10" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <label>PLZ</label>
-                                <input type="text" class="form-control" name="zip" placeholder="3000" value="<?php echo $this->zip; ?>" required>
+                                <input type="text" class="form-control" name="zip" placeholder="3000" value="<?php echo $this->zip; ?>" maxlength="10" required>
                             </div>
                             <div class="form-group col-md-9">
                                 <label>Ortsname</label>
-                                <input type="text" class="form-control" name="city" placeholder="Beispielstadt" value="<?php echo $this->city; ?>" required>
+                                <input type="text" class="form-control" name="city" placeholder="Beispielstadt" value="<?php echo $this->city; ?>" maxlength="100" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Telefonnummer</label>
-                            <input type="text" class="form-control" name="phone" placeholder="(+41) 079 123 456" value="<?php echo $this->phone; ?>" required>
+                            <input type="text" class="form-control" name="phone" placeholder="(+41) 079 123 456" value="<?php echo $this->phone; ?>" maxlength="25" required>
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" value="<?php echo $this->email; ?>" required>
+                            <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" value="<?php echo $this->email; ?>" maxlength="100" required>
                         </div>
                         <?php $this->print_check_list(); ?>
                         <div class="form-group">
