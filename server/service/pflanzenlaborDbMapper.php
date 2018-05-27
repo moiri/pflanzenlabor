@@ -282,6 +282,36 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
+    function claimVaucher( $id_user, $id_date, $vaucher_code ) {
+        try {
+            $sql = "UPDATE vauchers
+                SET id_user = :id_user, id_date = :id_date
+                WHERE code = :code";
+            $stmt = $this->dbh->prepare( $sql );
+            return $stmt->execute( array(
+                ':id_user' => $id_user,
+                ':id_date' => $id_date,
+                ':code' => $vaucher_code ) );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::claim_vaucher: ".$e->getMessage();
+        }
+    }
+
+    function getVaucher( $vaucher_code ) {
+        try {
+            $sql = "SELECT *
+                FROM vauchers
+                WHERE code = :code";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':code' => $vaucher_code ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getVaucher: ".$e->getMessage();
+        }
+    }
+
     function updateUserClassDates( $id_user, $id_date, $check_custom, $comment ) {
         try {
             $sql = "UPDATE user_class_dates
@@ -313,22 +343,6 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::updateUserClassDatesFood: ".$e->getMessage();
-        }
-    }
-
-    function setPayed( $id_user, $id_date ) {
-        try {
-            $sql = "UPDATE user_class_dates
-                SET is_payed = 1
-                WHERE id_user = :id_user AND id_class_dates = :id_date";
-            $stmt = $this->dbh->prepare( $sql );
-            return $stmt->execute( array(
-                ':id_user' => $id_user,
-                ':id_date' => $id_date )
-            );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::setPayed: ".$e->getMessage();
         }
     }
 }

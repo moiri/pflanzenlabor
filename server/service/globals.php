@@ -4,6 +4,7 @@
  */
 define( 'PAYMENT_PAYPAL', 1 );
 define( 'PAYMENT_BILL', 2 );
+define( 'PAYMENT_VAUCHER', 3 );
 
 /**
  * @brief Page states.

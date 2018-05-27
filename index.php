@@ -60,16 +60,23 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
-    // payed by bill
+    // payed by bill or vaucher
     $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
-    $page = new Thanks( $router, PAYMENT_BILL );
+    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
+    if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
+    else $payment_type = PAYMENT_VAUCHER;
+    $page = new Thanks( $router, $payment_type );
     $user = new User( $db );
     if( !$user->is_user_enrolled( $date_id ) ) {
         $check = new CheckPayment( $db, $date_id );
         $check->update_page_state( $page );
         if( $page->is_state_ok() ) {
-            if( $check->enroll_user( PAYMENT_BILL ) )
-                $check->send_mail( $page->is_paypal() );
+            if( $payment_type == PAYMENT_VAUCHER )
+                $payment_ok = $check->check_vaucher( $vaucher_code, true );
+            else if( $payment_type == PAYMENT_BILL )
+                $payment_ok = true;
+            if( $payment_ok && $check->enroll_user( $payment_type, ($payment_ok && ( $payment_type == PAYMENT_VAUCHER ) ) ) )
+                $check->send_mail( $payment_type );
         }
     }
     $page->print_view();
@@ -90,11 +97,27 @@ $router->map( 'POST', '/check', function( $router, $db ) {
     if( $check->is_date_existing() ) {
         $payed = $check->check_paypal();
         if( $check->enroll_user( PAYMENT_PAYPAL, $payed ) && $payed )
-            $check->send_mail( true );
+            $check->send_mail( PAYMENT_PAYPAL );
     }
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
     header("HTTP/1.1 200 OK");
 });
+$router->map( 'POST', '/gutschein', function( $router, $db ) {
+    header("HTTP/1.1 200 OK");
+    $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
+    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
+    $user = new User( $db );
+    if( !$user->is_user_enrolled( $date_id ) ) {
+        $check = new CheckPayment( $db, $date_id );
+        if( $check->is_date_existing() ) {
+            if( $check->check_vaucher( $vaucher_code ) ) {
+                print '{ "vaucher_valid": true }';
+                return;
+            }
+        }
+    }
+    print '{ "vaucher_valid": false }';
+}, 'vaucher');
 $router->map( 'GET', '/abbruch', function( $router, $db ) {
     $page = new Cancel( $router );
     $page->print_view();

@@ -16,4 +16,21 @@ $(document).ready(function() {
             $(this).find('img:first').attr("src", image_path + image_name);
             $(this).removeClass('border-dark');
         });
+    $('input#vaucher-code').on('keyup blur', function() {
+        if( $(this).val().length == 8 ) {
+            var field = $(this)[0];
+            var $button = $(this).next();
+            $.post( $('#vaucher-url').val(), { date_id: $('#vaucher-date-id').val(), vaucher: $(this).val() }, function( data ) {
+                if( data['vaucher_valid'] ) {
+                    field.setCustomValidity('');
+                    $button.prop('disabled', false);
+                }
+                else {
+                    field.setCustomValidity('Ungültiger Gutschein Code');
+                    $button.prop('disabled', true);
+                }
+
+            }, 'json');
+        }
+    });
 });
