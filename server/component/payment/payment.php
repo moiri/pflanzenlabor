@@ -46,8 +46,6 @@ class Payment extends Page {
         $this->date_id = $id;
         $date = $dbMapper->getClassDate( $id );
         if( $date ) {
-            $this->user->update_user_id_from_db( $this->email, $this->first_name, $this->last_name );
-            $this->show_enroll_warning = $this->user->is_user_enrolled( $id );
             $this->date = $date['date'];
             $this->class_name = $date['name'];
             $this->class_cost = "";
@@ -90,9 +88,9 @@ class Payment extends Page {
             $date_data['foods'][$food_id] = (int)isset( $_POST[$food_idx] );
         }
         // create new or update user entry
-        $is_new_user = $this->user->set_user_data( $user_data );
+        $this->user->set_user_data( $user_data );
         // create or update date entry
-        $this->user->set_class_enroll_data( $this->date_id, $date_data );
+        $this->show_enroll_warning = !$this->user->set_class_enroll_data( $this->date_id, $date_data );
     }
 
     public function print_view() {

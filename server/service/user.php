@@ -19,6 +19,8 @@ class User
     public function set_class_enroll_data( $date_id, $data ) {
         $db_data = $this->get_class_enroll_data( $date_id );
         if( $db_data ) {
+            if( $db_data['is_booked'] == '1' )
+                return false;
             $this->db->updateUserClassDates( $this->get_user_id(),
                 $date_id, $data['input_custom'], $data['comment'] );
             foreach( $data['foods'] as $food_id => $food )
@@ -40,6 +42,7 @@ class User
             $cols = array( 'id_class_dates', 'id_user', 'id_food', 'is_checked' );
             $this->db->insert_mult( "user_class_dates_food", $cols, $entries );
         }
+        return true;
     }
 
     public function get_user_data() {
@@ -49,19 +52,17 @@ class User
     }
 
     public function set_user_data( $user_data ) {
-        $old_user_data = $this->get_user_data();
-        if( $old_user_data &&
-                ( $old_user_data['email'] == $user_data['email'] ) &&
-                ( $old_user_data['first_name'] == $user_data['first_name'] ) &&
-                ( $old_user_data['last_name'] == $user_data['last_name'] ) ) {
+        $old_user_data = $this->db->getUserDataByName( $user_data['email'], $user_data['first_name'], $user_data['last_name'] );
+        if( $old_user_data ) {
             // same user -> update data
+            $this->set_user_id( intval($old_user_data['id']) );
             $this->db->updateByUid( 'user', $user_data, $this->get_user_id() );
-            return false;
+            return true;
         }
         else {
             $user_id = $this->db->insert( "user", $user_data );
             $this->set_user_id( $user_id );
-            return true;
+            return false;
         }
     }
 
@@ -79,12 +80,6 @@ class User
             if( DEBUG ) print "ERROR: no user id set.";
         }
         return $_SESSION['user_id'];
-    }
-
-    public function update_user_id_from_db( $email, $first_name, $last_name ) {
-        $user_id = $this->db->getUserId( $email, $first_name, $last_name );
-        if( $user_id )
-            $this->set_user_id( $user_id );
     }
 
     public function set_user_id( $user_id ) {

@@ -217,9 +217,9 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
-    function getUserId( $email, $first_name, $last_name ) {
+    function getUserDataByName( $email, $first_name, $last_name ) {
         try {
-            $sql = "SELECT id
+            $sql = "SELECT *
                 FROM user
                 WHERE first_name = :first_name AND last_name = :last_name AND email = :email";
             $stmt = $this->dbh->prepare( $sql );
@@ -231,7 +231,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             return $stmt->fetch( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getUserId: ".$e->getMessage();
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getUserDataByName: ".$e->getMessage();
         }
     }
 
