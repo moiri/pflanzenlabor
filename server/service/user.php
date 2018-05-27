@@ -88,9 +88,8 @@ class User
     }
 
     public function set_user_id( $user_id ) {
-        if( $_SESSION['user_id'] != NULL ) {
-            if( DEBUG ) print "WARNING: user id is already set.";
-            return;
+        if( $_SESSION['user_id'] != $user_id ) {
+            if( DEBUG ) print "INFO: Overwriting session user id";
         }
         $_SESSION['user_id'] = $user_id;
     }
