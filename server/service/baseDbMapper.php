@@ -27,7 +27,7 @@ class BaseDBMapper {
         }
         catch(PDOException $e)
         {
-            if( DEBUG == 1 ) "Connection failed: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "Connection failed: ".$e->getMessage();
         }
     }
 
@@ -49,7 +49,7 @@ class BaseDBMapper {
             $stmt->execute( array( ':fk' => $id ) );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "BaseDbMapper::selectTable: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::selectTable: ".$e->getMessage();
         }
     }
 
@@ -64,7 +64,7 @@ class BaseDBMapper {
             $stmt->execute( array( ':locale' => $locale ) );
         }
         catch(Exception $e ) {
-            if( DEBUG == 1 ) "BaseDbMapper::setDbLocale: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::setDbLocale: ".$e->getMessage();
         }
     }
 
@@ -81,7 +81,7 @@ class BaseDBMapper {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "BaseDbMapper::selectTable: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::selectTable: ".$e->getMessage();
         }
     }
 
@@ -100,7 +100,7 @@ class BaseDBMapper {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "BaseDbMapper::selectByFk: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::selectByFk: ".$e->getMessage();
         }
     }
 
@@ -159,7 +159,7 @@ class BaseDBMapper {
             }
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "BaseDbMapper::selectByUidJoin: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::selectByUidJoin: ".$e->getMessage();
         }
     }
 
@@ -272,7 +272,7 @@ class BaseDBMapper {
             return true;
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "BaseDbMapper::updateByUid: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "BaseDbMapper::updateByUid: ".$e->getMessage();
         }
     }
 }
