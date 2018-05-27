@@ -83,13 +83,13 @@ class User
 
     public function update_user_id_from_db( $email, $first_name, $last_name ) {
         $user_id = $this->db->getUserId( $email, $first_name, $last_name );
-        if( $user_id && ( $_SESSION['user_id'] != $user_id['id'] ) )
-            $_SESSION['user_id'] = $user_id['id'];
+        if( $user_id )
+            $this->set_user_id( $user_id );
     }
 
     public function set_user_id( $user_id ) {
         if( $_SESSION['user_id'] != $user_id ) {
-            if( DEBUG ) print "INFO: Overwriting session user id";
+            if( DEBUG ) print "INFO: Overwriting session user id '" . $_SESSION['user_id']. "' with '" . $user_id . "'";
         }
         $_SESSION['user_id'] = $user_id;
     }
