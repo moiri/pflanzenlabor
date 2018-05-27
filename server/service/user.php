@@ -16,8 +16,7 @@ class User
         return $this->db->getUserDateSpecifics( $this->get_user_id(), $date_id );
     }
 
-    public function set_class_enroll_data( $date_id, $data ) {
-        $db_data = $this->get_class_enroll_data( $date_id );
+    public function set_class_enroll_data( $date_id, $data, $db_data ) {
         if( $db_data ) {
             if( $db_data['is_booked'] == '1' )
                 return false;

@@ -100,7 +100,7 @@ if( $this->show_enroll_warning )
             <input type="hidden" name="custom" value="<?php echo $this->user->get_user_id(); ?>"/>
             <input type="hidden" name="type" value="">
             <div class="form-group mb-0">
-            <button formaction="<?php echo $this->router->generate('thanks'); ?>" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>auf Rechnung</button>
+                <button formaction="<?php echo $this->router->generate('thanks'); ?>" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>auf Rechnung</button>
                 <button formaction="https://www<?php echo ( DEBUG ) ? ".sandbox" : ""; ?>.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>mit PayPal</button>
             </div>
         </form>
