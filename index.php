@@ -4,7 +4,7 @@ require_once "./server/service/user.php";
 require_once "./server/service/router.php";
 require_once "./server/service/pflanzenlaborDbMapper.php";
 require_once "./server/service/globals.php";
-require_once "./server/service/db_globals.php";
+require_once "./server/service/globals_untracked.php";
 require_once "./server/service/check_payment.php";
 require_once "./server/component/home/home.php";
 require_once "./server/component/contact/contact.php";
