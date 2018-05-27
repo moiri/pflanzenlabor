@@ -65,7 +65,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             return $stmt->fetch( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "PflanzenlaborDbMapper::getClass: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getClass: ".$e->getMessage();
         }
     }
 
@@ -87,7 +87,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "PflanzenlaborDbMapper::getClassSections: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getClassSections: ".$e->getMessage();
         }
     }
 
@@ -107,7 +107,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) "PflanzenlaborDbMapper::getClasses: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getClasses: ".$e->getMessage();
         }
     }
 
@@ -131,7 +131,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getClassesJoinDates: ".$e->getMessage();
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getClassesJoinDates: ".$e->getMessage();
         }
     }
 
