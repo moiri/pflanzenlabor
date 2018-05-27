@@ -11,7 +11,7 @@ class Payment extends Page {
 
     private $open = 0;
     private $user_id = Null;
-    private $show_enroll_warning = true;
+    private $show_enroll_warning = false;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router );
@@ -42,6 +42,7 @@ class Payment extends Page {
         $this->email = $_POST['email'];
         if( $_POST['comment'] == "" ) $this->comment = "keine Bemerkung";
         else $this->comment = $_POST['comment'];
+        $this->input_custom = $_POST['input_custom'];
         $this->db = $dbMapper;
         $this->date_id = $id;
         $date = $dbMapper->getClassDate( $id );
@@ -61,7 +62,7 @@ class Payment extends Page {
     }
 
     private function get_food_string() {
-        $checks = new Checks( $this->db, $this->user->get_user_id(), $this->date_id, $_POST['input_custom'] );
+        $checks = new Checks( $this->db, $this->user->get_user_id(), $this->date_id, $this->input_custom );
         return $checks->get_food_string();
     }
 
@@ -90,7 +91,12 @@ class Payment extends Page {
         // create new or update user entry
         $this->user->set_user_data( $user_data );
         // create or update date entry
-        $this->show_enroll_warning = !$this->user->set_class_enroll_data( $this->date_id, $date_data );
+        $db_data = $this->user->get_class_enroll_data( $this->date_id );
+        if( !$this->user->set_class_enroll_data( $this->date_id, $date_data, $db_data ) ) {
+            $this->show_enroll_warning = true;
+            $this->comment = $db_data['comment'];
+            $this->input_custom = $db_data['check_custom'];
+        }
     }
 
     public function print_view() {
