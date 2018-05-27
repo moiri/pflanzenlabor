@@ -1,7 +1,4 @@
 <?php
-define( 'DEBUG', 1 );
-define( 'BASE_PATH', '/pflanzenlabor' );
-
 /**
  * @brief the type of payment, e.g, bill or paypal.
  */
