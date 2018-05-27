@@ -93,17 +93,28 @@ if( $this->show_enroll_warning )
         <div class="float-right">
             <a href="<?php echo $this->router->generate('enroll', array('id' => $this->date_id)); ?>" class="btn btn-secondary">Zur&uuml;ck</a>
         </div>
-        <form method="post" target="_top" <?php echo ( $this->show_enroll_warning ) ? 'class="d-none"' : "";?>>
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">
-            <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
-            <input type="hidden" name="custom" value="<?php echo $this->user->get_user_id(); ?>"/>
-            <input type="hidden" name="type" value="">
-            <div class="form-group mb-0">
-                <button formaction="<?php echo $this->router->generate('thanks'); ?>" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>auf Rechnung</button>
-                <button formaction="https://www<?php echo ( DEBUG ) ? ".sandbox" : ""; ?>.paypal.com/cgi-bin/webscr" type="submit" class="btn btn-primary" <?php echo ( $this->show_enroll_warning ) ? "disabled" : "";?>>mit PayPal</button>
-            </div>
-        </form>
+        <div class="<?php echo ( $this->show_enroll_warning ) ? "d-none" : "";?>">
+            <form method="post" action="<?php echo $this->router->generate('thanks'); ?>" class="float-left">
+                <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+                <button type="submit" class="btn btn-primary">auf Rechnung</button>
+            </form>
+            <form method="post" action="https://www<?php echo ( DEBUG ) ? ".sandbox" : ""; ?>.paypal.com/cgi-bin/webscr" target="_top" class="float-left ml-2">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">
+                <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+                <input type="hidden" name="custom" value="<?php echo $this->user->get_user_id(); ?>"/>
+                <input type="hidden" name="type" value="">
+                <button type="submit" class="btn btn-primary">mit PayPal</button>
+            </form>
+            <form method="post" action="<?php echo $this->router->generate('thanks'); ?>">
+                <input id="vaucher-date-id" type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+                <input id="vaucher-url" type="hidden" name="url" value="<?php echo $this->router->generate('vaucher'); ?>">
+                <div class="float-left mt-2 mt-lg-0 ml-lg-2 form-inline">
+                    <input id="vaucher-code" type="text" class="form-control" name="vaucher" placeholder="Gutschein Code" maxlength="20" required>
+                    <button type="submit" class="btn btn-primary" disabled>mit Gutschein</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
         </div>

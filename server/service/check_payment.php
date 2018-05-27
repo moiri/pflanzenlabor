@@ -63,7 +63,7 @@ class CheckPayment {
         return ( $this->user['is_payed'] == '1' );
     }
 
-    public function send_mail( $is_paypal ) {
+    public function send_mail( $payment_type ) {
         $user = $this->user;
         $course = $this->date;
         $checks = new Checks( $this->db, $this->user['id'], $this->date_id, $user['check_custom'] );
@@ -76,7 +76,7 @@ class CheckPayment {
         $txt = "Vielen Dank " . $user['first_name'] . " für deine Anmeldung zur Pflanzenexkursion " . $course['name']. " vom " . $course['date'] . ".\n";
         $txt .= "\n";
         $txt .= "Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.\n";
-        if( !$is_paypal ) {
+        if( $payment_type == PAYMENT_BILL ) {
             $txt .= "Die Rechnung wird dir bald zugestellt.\n";
             $txt .= "\n";
         }
@@ -110,10 +110,7 @@ class CheckPayment {
     public function enroll_user( $payment_type, $is_payed = false ) {
         if( $this->db->incrementUserCount( $this->date_id ) ) {
             $this->db->markUserEnrolled( $this->user['id'], $this->date_id,
-                $payment_type, false );
-            if( $is_payed )
-                $this->db->setPayed( $this->user['id'], $this->date_id );
-
+                $payment_type, $is_payed );
             return true;
         }
         return false;
@@ -124,6 +121,15 @@ class CheckPayment {
         // Use the sandbox endpoint during testing.
         if( DEBUG ) $ipn->useSandbox();
         return $ipn->verifyIPN();
+    }
+
+    public function check_vaucher( $vaucher_code, $claim = false ) {
+        $vaucher = $this->db->getVaucher( $vaucher_code );
+        if( $vaucher && ( $vaucher['claimed'] == '' ) ) {
+            if( $claim ) $this->db->claimVaucher( $this->user['id'], $this->date_id, $vaucher_code );
+            return true;
+        }
+        return false;
     }
 }
 
