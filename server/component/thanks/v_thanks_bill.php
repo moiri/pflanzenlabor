@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-body">
                     <h1>Vielen Dank!</h1>
-                    <p>Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf. Die Rechnung wird dir bald zugestellt.</p>
+                    <p>Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf. Du kannst den Betrag am Kurs bar bezahlen oder ich werde dir vor Ort eine Rechnung mitgeben.</p>
                     Ich freue mich auf deinen Besuch. Bis bald!
                 </div>
             </div>
