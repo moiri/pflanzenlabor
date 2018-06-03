@@ -77,7 +77,7 @@ class CheckPayment {
         $txt .= "\n";
         $txt .= "Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.\n";
         if( $payment_type == PAYMENT_BILL ) {
-            $txt .= "Du kannst den Betrag am Kurs bar bezahlen oder ich werde dir vor Ort eine Rechnung mitgeben.\n"
+            $txt .= "Du kannst den Betrag am Kurs bar bezahlen oder ich werde dir vor Ort eine Rechnung mitgeben.\n";
             $txt .= "\n";
         }
         $txt .= "Du bist unter folgenden Angaben angemeldet:\n";
