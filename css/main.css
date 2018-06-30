@@ -19,6 +19,17 @@ a.navbar-logo {
 a.navbar-logo:hover {
     background-image: url("../img/hov_logo-icon-nav.svg");
 }
+a.navbar-instagram {
+    width: 64px;
+    height: 64px;
+    background-image: url("../img/instagram.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+a.navbar-instagram:hover {
+    background-image: url("../img/hov_instagram.png");
+}
 .form-check-label {
     margin-top: 0.25rem;
     margin-left: 0.5rem;
