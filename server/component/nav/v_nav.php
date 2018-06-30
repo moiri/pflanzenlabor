@@ -17,7 +17,11 @@
                 <li class="nav-item">
                     <a class="nav-link <?php echo $this->get_active_css( 'me' ); ?>" href="<?php echo $this->router->generate( 'me' ); ?>">&Uuml;ber mich</a>
                 </li>
+                <li class="nav-item d-lg-none">
+                    <a class="nav-link" href="https://www.instagram.com/pflanzenlabor" target="_blank">Instagram</a>
+                </li>
             </ul>
+            <a class="navbar-instagram d-lg-flex d-none" href="https://www.instagram.com/pflanzenlabor" target="_blank"></a>
         </div>
     </nav>
 </div>
