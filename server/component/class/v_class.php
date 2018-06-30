@@ -21,6 +21,9 @@
                 </div>
                 <div class="col">
 <?php
+    $this->print_class_dates();
+?>
+<?php
     $this->print_class_sections();
 ?>
                 </div>

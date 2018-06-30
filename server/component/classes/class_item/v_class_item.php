@@ -13,16 +13,7 @@
             </div>
         </a>
     </div>
-    <div class="col mb-1 mb-lg-0 d-lg-flex d-none">
-        <div class="card w-100 mt-1 mt-lg-0">
-            <div class="card-header pb-1">
-                <h5>Anmeldung <?php echo $this->name; ?></h5>
-            </div>
-            <div class="card-body pb-1">
-                <?php
-                    $this->print_date_list();
-                ?>
-            </div>
-        </div>
-    </div>
+    <?php
+        $this->print_class_preview();
+    ?>
 </div>

@@ -30,13 +30,6 @@ class Classes extends Page {
             if( $create_new ) {
                 array_push( $this->classes, array(
                     'id'        => $class_join['id'],
-                    'name'      => $class_join['name'],
-                    'subtitle'  => $class_join['subtitle'],
-                    'desc'      => $class_join['description'],
-                    'img'       => $class_join['img'],
-                    'type'      => $class_join['type'],
-                    'place'     => $class_join['place'],
-                    'time'      => $class_join['time'],
                 ) );
             }
         }
@@ -47,14 +40,7 @@ class Classes extends Page {
             $class_item = new ClassItem(
                 $this->router,
                 $this->db,
-                intval( $class['id'] ),
-                $class['name'],
-                $class['subtitle'],
-                $class['desc'],
-                $class['img'],
-                $class['type'],
-                $class['place'],
-                $class['time']
+                intval( $class['id'] )
             );
             $class_item->print_view();
         }

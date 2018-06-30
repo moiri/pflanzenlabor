@@ -22,6 +22,8 @@ class ClassDates {
         }
     }
 
+    public function has_dates() { return (count($this->dates) > 0) ? true : false; }
+
     public function print_view() {
         require __DIR__ . '/v_class_dates.php';
     }

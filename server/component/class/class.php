@@ -19,6 +19,8 @@ class ClassPage extends Page {
     private $time;
     private $class_id;
     private $db;
+    private $section_dates;
+    private $section_preview;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router );
@@ -33,6 +35,8 @@ class ClassPage extends Page {
             $this->class_type = $detail['c_type'];
             $this->place = $detail['place'];
             $this->time = $detail['time'];
+            $this->section_dates = $dbMapper->getSectionById( $detail['id_section_dates'] );
+            $this->section_preview = $dbMapper->getSectionById( $detail['id_section_preview'] );
             $this->sections = $dbMapper->getClassSections( $id );
         }
         else $this->set_state_missing();
@@ -44,14 +48,20 @@ class ClassPage extends Page {
         $content->print_view();
     }
 
+    private function print_class_dates() {
+        $dates = new ClassDates( $this->router, $this->db, $this->class_id, array('margin-bottom'=>3) );
+        if($dates->has_dates()) {
+            $s = new ClassSection( $this->section_dates['title'], array( $dates, "print_view" ), $this->section_dates['type'] );
+            $s->print_view();
+        }
+        else {
+            $s = new ClassSection( $this->section_preview['title'], $this->section_preview['content'], $this->section_preview['type'] );
+            $s->print_view();
+        }
+    }
+
     private function print_class_sections() {
         foreach( $this->sections as $section ) {
-            if( $section['type'] == "dates" ) {
-                $dates = new ClassDates( $this->router, $this->db, $this->class_id, array('margin-bottom'=>3) );
-                $s = new ClassSection( $section['title'], array( $dates, "print_view" ), $section['type'] );
-                $s->print_view();
-                continue;
-            }
             $s = new ClassSection( $section['title'], $section['content'], $section['type'] );
             $s->print_view();
         }
