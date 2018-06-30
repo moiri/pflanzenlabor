@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . './../../class/class_dates/class_dates.php';
+require __DIR__ . '/class_preview/class_preview.php';
 /**
  * Contact Component Class
  */
@@ -15,24 +15,35 @@ class ClassItem {
     private $type;
     private $place;
     private $time;
-    private $dates;
+    private $id_section_dates;
+    private $id_section_preview;
 
-    function __construct( $router, $db, $id, $name, $subtitle, $desc, $img, $type, $place, $time ) {
+    function __construct( $router, $db, $id ) {
         $this->router = $router;
         $this->db = $db;
         $this->id = $id;
-        $this->name = $name;
-        $this->subtitle = $subtitle;
-        $this->desc = explode('.', $desc)[0] . " (...)";
-        $this->img = $img;
-        $this->type = $type;
-        $this->place = $place;
-        $this->time = $time;
+        $details = $db->getClass( $id );
+        $this->name = $details['name'];
+        $this->subtitle = $details['subtitle'];
+        $this->desc = explode('.', $details['description'])[0] . " (...)";
+        $this->img = $details['img'];
+        $this->type = $details['c_type'];
+        $this->place = $details['place'];
+        $this->time = $details['time'];
+        $this->id_section_dates = $details['id_section_dates'];
+        $this->id_section_preview = $details['id_section_preview'];
     }
 
-    public function print_date_list() {
-        $dates = new ClassDates( $this->router, $this->db, $this->id, array('margin-bottom'=>3) );
-        $dates->print_view();
+    public function print_class_preview() {
+        $preview = new ClassItemPreview(
+            $this->router,
+            $this->db,
+            $this->id,
+            $this->name,
+            $this->id_section_dates,
+            $this->id_section_preview
+        );
+        $preview->print_view();
     }
 
     public function print_view() {

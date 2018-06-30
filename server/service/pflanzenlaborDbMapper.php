@@ -56,7 +56,8 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getClass( $id ) {
         try {
             $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
-                c.place, c.time, c.img_desc, ct.name AS c_type
+                c.place, c.time, c.img_desc, ct.name AS c_type, c.id_section_dates,
+                c.id_section_preview
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
                 WHERE c.id = :id";
@@ -66,6 +67,23 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getClass: ".$e->getMessage();
+        }
+    }
+
+    function getSectionById( $id_section ) {
+        try {
+            $sql = "SELECT s.content, st.title, sy.type
+                FROM sections AS s
+                LEFT JOIN section_title AS st ON st.id = s.id_section_title
+                LEFT JOIN section_type AS sy ON sy.id = s.id_section_type
+                WHERE s.id = :sid
+                ORDER BY st.layout";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':sid' => $id_section ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getSectionById: ".$e->getMessage();
         }
     }
 
@@ -120,12 +138,13 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         try {
             $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
                 c.place, c.time, ct.name AS type, cd.places_max, cd.places_booked,
-                DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date
+                DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
+                c.id_section_dates, c.id_section_preview
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
                 LEFT JOIN class_dates AS cd ON cd.id_class = c.id
-                WHERE date >= CURDATE()
-                ORDER BY cd.date";
+                WHERE c.enabled = 1
+                ORDER BY cd.date < CURDATE(), cd.date >= CURDATE()";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute();
             return $stmt->fetchAll( PDO::FETCH_ASSOC );
