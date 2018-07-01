@@ -15,7 +15,7 @@
                     <a class="nav-link <?php echo $this->get_active_css( 'contact' ); ?>" href="<?php echo $this->router->generate( 'contact' ); ?>">Kontakt</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo $this->get_active_css( 'me' ); ?>" href="<?php echo $this->router->generate( 'me' ); ?>">&Uuml;ber mich</a>
+                    <a class="nav-link <?php echo $this->get_active_css( 'me' ); ?>" href="<?php echo $this->router->generate( 'me' ); ?>">Giovina</a>
                 </li>
                 <li class="nav-item d-lg-none">
                     <a class="nav-link" href="https://www.instagram.com/pflanzenlabor" target="_blank">Instagram</a>
