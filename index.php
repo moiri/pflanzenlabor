@@ -135,7 +135,7 @@ $router->map( 'GET', '/agb', function( $router, $db ) {
     $page = new AGB( $router );
     $page->print_view();
 }, 'agb');
-$router->map( 'GET|POST', '/kontakt/senden', function( $router, $db ) {
+$router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
     $page = new ContactSend( $router );
     $page->send_mail();
     $page->print_view();
