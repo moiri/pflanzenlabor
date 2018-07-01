@@ -40,6 +40,7 @@ class Payment extends Page {
         $this->city = $_POST['city'];
         $this->phone = $_POST['phone'];
         $this->email = $_POST['email'];
+        $this->newsletter = (isset($_POST['newsletter'])) ? true : false;
         if( $_POST['comment'] == "" ) $this->comment = "keine Bemerkung";
         else $this->comment = $_POST['comment'];
         $this->input_custom = $_POST['input_custom'];
@@ -66,6 +67,10 @@ class Payment extends Page {
         return $checks->get_food_string();
     }
 
+    private function get_newsletter_string() {
+        return ($this->newsletter) ? "Ja" : "Nein";
+    }
+
     public function submit_enroll_data() {
         $user_data = array(
             'first_name' => $this->first_name,
@@ -75,7 +80,8 @@ class Payment extends Page {
             'zip' => $this->zip,
             'city' => $this->city,
             'phone' => $this->phone,
-            'email' => $this->email
+            'email' => $this->email,
+            'newsletter' => $this->newsletter
         );
         $foods = $this->db->selectTable( 'food' );
         $date_data = array(

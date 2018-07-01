@@ -51,12 +51,12 @@
     </div>
     <div class="card-body">
         <dl class="row mb-0">
-            <dt class="col-md-3 col-lg-2">Kurs</dt>
-            <dd class="col-md-9 col-lg-10"><?php echo $this->class_name; ?></dd>
-            <dt class="col-md-3 col-lg-2">Datum</dt>
-            <dd class="col-md-9 col-lg-10"><?php echo $this->date; ?></dd>
-            <dt class="col-md-3 col-lg-2">Preis</dt>
-            <dd class="col-md-9 col-lg-10"><?php echo $this->class_cost; ?></dd>
+            <dt class="col-12">Kurs</dt>
+            <dd class="col-12"><?php echo $this->class_name; ?></dd>
+            <dt class="col-12">Datum</dt>
+            <dd class="col-12"><?php echo $this->date; ?></dd>
+            <dt class="col-12">Preis</dt>
+            <dd class="col-12"><?php echo $this->class_cost; ?></dd>
         </dl>
     </div>
 </div>
@@ -72,6 +72,8 @@
             <dd class="col-12"><?php echo $this->get_food_string(); ?></dd>
             <dt class="col-12">Bemerkung</dt>
             <dd class="col-12"><?php echo $this->comment; ?></dd>
+            <dt class="col-12">Newsletter</dt>
+            <dd class="col-12"><?php echo $this->get_newsletter_string(); ?></dd>
         </dl>
     </div>
 </div>

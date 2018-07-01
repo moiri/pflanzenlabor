@@ -88,6 +88,7 @@ class CheckPayment {
         $txt .= " Telefon: " . $user['phone'] . "\n";
         $txt .= " Diät: " . $checks->get_food_string() . "\n";
         $txt .= " Bemerkung: " . $user['comment'] . "\n";
+        $txt .= " Newsletter: " . (($user['newsletter']) ? "Ja" : "Nein") . "\n";
         $txt .= "\n";
         $txt .= "Bei Fragen oder Anregungen kannst du mich gerne per Email (info@pflanzenlabor.ch) oder via Web Formular (www.pflanzenlabor.ch/kontakt) erreichen.\n";
         $txt .= "\n";
