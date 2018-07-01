@@ -20,8 +20,8 @@ a.navbar-logo:hover {
     background-image: url("../img/hov_logo-icon-nav.svg");
 }
 a.navbar-instagram {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     background-image: url("../img/instagram.png");
     background-size: contain;
     background-position: center;
