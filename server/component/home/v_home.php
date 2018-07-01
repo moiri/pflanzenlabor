@@ -18,7 +18,7 @@ Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
     <div class="row">
         <div class="container mt-3">
             <div class="row text-center">
-                <div class="col-md">
+                <div class="col-sm">
                     <div class="card card-link invert-link-img">
                         <a class="text-dark" href="<?php echo $this->router->generate('classes'); ?>">
                             <img class="card-img-top d-none d-md-flex" src="./img/startpage-courses_400x400.png" alt="Bild zum Link Kurse">
@@ -29,8 +29,8 @@ Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
                         </a>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="card card-link invert-link-img mt-3 mt-md-0">
+                <div class="col-sm">
+                    <div class="card card-link invert-link-img mt-3 mt-sm-0">
                         <a class="text-dark" href="<?php echo $this->router->generate('contact'); ?>">
                             <img class="card-img-top img-fluid d-none d-md-flex" src="./img/startpage-contact_400x400.png" alt="">
                             <img class="card-img-top img-fluid d-flex d-md-none" src="./img/hov_startpage-contact_400x400.png" alt="">
@@ -40,13 +40,13 @@ Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
                         </a>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="card card-link invert-link-img mt-3 mt-md-0">
+                <div class="col-sm">
+                    <div class="card card-link invert-link-img mt-3 mt-sm-0">
                         <a class="text-dark" href="<?php echo $this->router->generate('me'); ?>">
                             <img class="card-img-top d-none d-md-flex" src="./img/startpage-me_400x400.png" alt="Photo Giovina Nicolai">
                             <img class="card-img-top d-flex d-md-none" src="./img/hov_startpage-me_400x400.png" alt="Photo Giovina Nicolai">
                             <div class="card-body">
-                                <h3 class="card-title">&Uuml;ber mich</h3>
+                                <h3 class="card-title">Giovina</h3>
                             </div>
                         </a>
                     </div>
