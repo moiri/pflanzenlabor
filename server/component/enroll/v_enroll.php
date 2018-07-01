@@ -72,10 +72,16 @@
                             <label for="contactContent">Bemerkung</label>
                             <textarea class="form-control" name="comment" rows="3"><?php echo $this->comment; ?></textarea>
                         </div>
-                        <div class="form-check mb-3">
+                        <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" name="agb" required>
                             <label class="form-check-label mt-1 ml-2" for="contactSelf">
                             Ich habe die <a href="<?php echo $this->router->generate('agb'); ?>">AGB</a> gelesen und bin einverstanden
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" name="newsletter">
+                            <label class="form-check-label mt-1 ml-2" for="contactSelf">
+                            Ich m&ouml;chte den Newsletter abonnieren
                             </label>
                         </div>
                         <button type="submit" class="btn btn-primary">Zur Kasse</button>
