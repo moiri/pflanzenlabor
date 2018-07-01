@@ -136,10 +136,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassesJoinDates() {
         try {
-            $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
-                c.place, c.time, ct.name AS type, cd.places_max, cd.places_booked,
-                DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
-                c.id_section_dates, c.id_section_preview
+            $sql = "SELECT c.id, c.name, c.subtitle, c.description
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
                 LEFT JOIN class_dates AS cd ON cd.id_class = c.id
