@@ -14,7 +14,7 @@
     <div class="row mt-3">
         <div class="container">
             <div class="row row-eq-height">
-                <div class="col pr-md-0 d-flex">
+                <div class="col pr-md-0 d-flex mb-3">
                     <div class="card w-100">
                         <div class="card-body">
 <p>Giovina Nicolai ist Dipl. Drogistin HF, Galenikerin und Bierbrauerin.
@@ -26,17 +26,17 @@ Heute gibt sie ihr umfassendes Wissen über Pflanzen, deren Vorkommen und Wirkun
                         </div>
                     </div>
                 </div>
-                <div class="col-auto d-none d-md-block d-flex">
+                <div class="col-auto d-none d-md-block d-flex mb-3">
                     <div class="card w-100">
                         <div class="card-body">
-                    <img class="" src="<?php echo $this->router->get_asset_path( "/img/me_400x400.png" ); ?>" alt="Giovina Nicolai" width="400">
+                            <img class="img-fluid" src="<?php echo $this->router->get_asset_path( "/img/me_400x400.png" ); ?>" alt="Giovina Nicolai" width="400px">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row">
         <?php $this->print_footer(); ?>
     </div>
 </div>
