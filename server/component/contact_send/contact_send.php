@@ -6,8 +6,7 @@ require_once __DIR__ . '/../page.php';
  */
 class ContactSend extends Page {
 
-    private $p_title;
-    private $p_description;
+    private $fail = false;
 
     function __construct( $router ) {
         parent::__construct( $router );
@@ -16,14 +15,11 @@ class ContactSend extends Page {
     public function send_mail() {
         if( !isset( $_POST['subject'] ) || !isset( $_POST['content'] )
                 || !isset( $_POST['email'] ) || !isset( $_POST['name'] ) ) {
-            $this->p_title = "Versenden fehlgeschlagen";
-            $this->p_description = "Das Kontaktformular konnte nicht versendet werden.";
+            $this->fail = true;
             return;
         }
-        $this->p_title = "Formular versendet";
-        $this->p_description = "Vielen Dank, das Kontaktformular wurde versendet.";
         if( !DEBUG ) $to = "info@pflanzenlabor.ch";
-        else $to = "moirelein@gmail.com.ch";
+        else $to = "moirelein@gmail.com";
         $name = strip_tags( $_POST['name'] );
         $from = "info@pflanzenlabor.ch";
         $replyTo = $name . " <" . strip_tags( $_POST['email'] ) . ">";
@@ -44,9 +40,14 @@ class ContactSend extends Page {
     }
 
     public function print_view() {
-        $this->print_page( function() {
-            require __DIR__ . '/v_contact_send.php';
-        } );
+        if($this->fail)
+            $this->print_page( function() {
+                require __DIR__ . '/v_contact_send_fail.php';
+            } );
+        else
+            $this->print_page( function() {
+                require __DIR__ . '/v_contact_send.php';
+            } );
     }
 }
 

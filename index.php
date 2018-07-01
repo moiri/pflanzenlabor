@@ -9,6 +9,7 @@ require_once "./server/service/check_payment.php";
 require_once "./server/component/home/home.php";
 require_once "./server/component/contact/contact.php";
 require_once "./server/component/contact_send/contact_send.php";
+require_once "./server/component/contact_newsletter/contact_newsletter.php";
 require_once "./server/component/impressum/impressum.php";
 require_once "./server/component/disclaimer/disclaimer.php";
 require_once "./server/component/agb/agb.php";
@@ -134,11 +135,16 @@ $router->map( 'GET', '/agb', function( $router, $db ) {
     $page = new AGB( $router );
     $page->print_view();
 }, 'agb');
-$router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
+$router->map( 'GET|POST', '/kontakt/senden', function( $router, $db ) {
     $page = new ContactSend( $router );
     $page->send_mail();
     $page->print_view();
 }, 'send');
+$router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
+    $page = new ContactNewsletter( $router );
+    $page->send_mail();
+    $page->print_view();
+}, 'newsletter');
 // match current request url
 $router->update_route();
 

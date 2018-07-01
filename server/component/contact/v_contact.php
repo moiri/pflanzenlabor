@@ -13,19 +13,18 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
             </div>
         </div>
     </div>
-    <div class="row" style="display:none">
+    <div class="row">
         <div class="container mt-3">
             <div class="card">
                 <h5 class="card-header">Newsletter</h5>
                 <div class="card-body">
 <p>Ich möchte über Neuigkeiten des Pflanzenlabor informiert werden.</p>
-                    <form>
+                    <form action="<?php echo $this->router->generate('newsletter'); ?>" method="post">
                         <div class="form-group">
-                            <input type="email" class="form-control" id="newsletterEmail" placeholder="meine.email@beispiel.ch" required>
+                            <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" required>
                         </div>
                         <div class="form-group">
-                            <button type="submit" formaction="/action_page1.php" class="btn btn-primary">Anmelden</button>
-                            <button type="submit" formaction="/action_page2.php" class="btn btn-secondary">Abmelden</button>
+                            <button type="submit" class="btn btn-primary">Anmelden</button>
                         </div>
                     </form>
                 </div>
