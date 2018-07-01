@@ -6,8 +6,8 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h1><?php echo $this->p_title; ?></h1>
-                    <p><?php echo $this->p_description; ?></p>
+                    <h1>Formular versendet</h1>
+                    <p>Vielen Dank, das Kontaktformular wurde versendet.</p>
                 </div>
             </div>
         </div>
