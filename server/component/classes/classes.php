@@ -6,43 +6,23 @@ require_once __DIR__ . '/class_item/class_item.php';
  * Contact Component Class
  */
 class Classes extends Page {
-    private $classes = array();
     private $db;
 
     function __construct( $router, $dbMapper ) {
         parent::__construct( $router );
         $this->db = $dbMapper;
-        $classes_join = $dbMapper->getClassesJoinDates();
-        $this->update_classes_list( $classes_join );
-    }
-
-    // prepare hierarchical array
-    // this is needed because with the joined query it is easy to sort the fields
-    private function update_classes_list( $classes_join ) {
-        foreach( $classes_join as $class_join ) {
-            $create_new = true;
-            foreach( $this->classes as $class ) {
-                if( $class['id'] == $class_join['id'] ) {
-                    $create_new = false;
-                    break;
-                }
-            }
-            if( $create_new ) {
-                array_push( $this->classes, array(
-                    'id'        => $class_join['id'],
-                ) );
-            }
-        }
     }
 
     public function print_class_items() {
-        foreach( $this->classes as $class) {
-            $class_item = new ClassItem(
-                $this->router,
-                $this->db,
-                intval( $class['id'] )
-            );
-            $class_item->print_view();
+        $class_ids = array();
+        $classes = $this->db->getClassesJoinDates();
+        foreach($classes as $class) {
+            $id = intval($class['id']);
+            if(!in_array($id, $class_ids)) {
+                array_push($class_ids, $id);
+                $class_item = new ClassItem( $this->router, $this->db, $id);
+                $class_item->print_view();
+            }
         }
     }
 
