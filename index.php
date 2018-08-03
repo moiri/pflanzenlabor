@@ -69,7 +69,7 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
     $page = new Thanks( $router, $payment_type );
     $user = new User( $db );
     if( !$user->is_user_enrolled( $date_id ) ) {
-        $check = new CheckPayment( $db, $date_id );
+        $check = new CheckPayment( $router, $db, $date_id );
         $check->update_page_state( $page );
         if( $page->is_state_ok() ) {
             if( $payment_type == PAYMENT_VAUCHER )
@@ -86,7 +86,7 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal
     $date_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
     $page = new Thanks( $router, PAYMENT_PAYPAL );
-    $check = new CheckPayment( $db, $date_id );
+    $check = new CheckPayment( $router, $db, $date_id );
     $check->update_page_state( $page );
     $page->print_view();
 }, 'thanks_get');
@@ -94,7 +94,7 @@ $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal
     $date_id = ( isset( $_POST['item_number'] ) ) ? $_POST['item_number'] : Null;
     $user_id = ( isset( $_POST['custom'] ) ) ? $_POST['custom'] : Null;
-    $check = new CheckPayment( $db, $date_id, $user_id );
+    $check = new CheckPayment( $router, $db, $date_id, $user_id );
     if( $check->is_date_existing() ) {
         $payed = $check->check_paypal();
         if( $check->enroll_user( PAYMENT_PAYPAL, $payed ) && $payed )
@@ -109,7 +109,7 @@ $router->map( 'POST', '/gutschein', function( $router, $db ) {
     $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
     $user = new User( $db );
     if( !$user->is_user_enrolled( $date_id ) ) {
-        $check = new CheckPayment( $db, $date_id );
+        $check = new CheckPayment( $router, $db, $date_id );
         if( $check->is_date_existing() ) {
             if( $check->check_vaucher( $vaucher_code ) ) {
                 print '{ "vaucher_valid": true }';

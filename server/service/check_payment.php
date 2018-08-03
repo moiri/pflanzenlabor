@@ -8,6 +8,7 @@ require_once __DIR__ . '/paypalIPN.php';
 class CheckPayment {
 
     private $db = Null;
+    private $router = Null;
     private $user = Null;
     private $date = Null;
     private $open = 0;
@@ -15,7 +16,8 @@ class CheckPayment {
     private $invalid = false;
     private $closed = false;
 
-    function __construct( $db, $date_id, $user_id = Null ) {
+    function __construct( $router, $db, $date_id, $user_id = Null ) {
+        $this->router = $router;
         $this->date_id = $date_id;
         $user = new User( $db );
         if( $user_id != Null ) $user->set_user_id( $user_id );
@@ -66,35 +68,12 @@ class CheckPayment {
     public function send_mail( $payment_type ) {
         $user = $this->user;
         $course = $this->date;
-        $checks = new Checks( $this->db, $this->user['id'], $this->date_id, $user['check_custom'] );
         $from = "info@pflanzenlabor.ch";
         if( !DEBUG ) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
-        $subject = "Pflanzenlabor: Deine Anmedlung zur Pflanzenexkursion";
-        $txt = "Vielen Dank " . $user['first_name'] . " für deine Anmeldung zur Pflanzenexkursion " . $course['name']. " vom " . $course['date'] . ".\n";
-        $txt .= "\n";
-        $txt .= "Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.\n";
-        if( $payment_type == PAYMENT_BILL ) {
-            $txt .= "Du kannst den Betrag am Kurs bar bezahlen oder ich werde dir vor Ort eine Rechnung mitgeben.\n";
-            $txt .= "\n";
-        }
-        $txt .= "Du bist unter folgenden Angaben angemeldet:\n";
-        $txt .= " Name: " . $user['first_name'] . " " . $user['last_name'] . "\n";
-        $txt .= " Adresse: " . $user['street'] . " " . $user['street_number'];
-        $txt .= ", " . $user['zip'] . " " . $user['city'] . "\n";
-        $txt .= " Email: " . $user['email'] . "\n";
-        $txt .= " Telefon: " . $user['phone'] . "\n";
-        $txt .= " Diät: " . $checks->get_food_string() . "\n";
-        $txt .= " Bemerkung: " . $user['comment'] . "\n";
-        $txt .= " Newsletter: " . (($user['newsletter']) ? "Ja" : "Nein") . "\n";
-        $txt .= "\n";
-        $txt .= "Bei Fragen oder Anregungen kannst du mich gerne per Email (info@pflanzenlabor.ch) oder via Web Formular (www.pflanzenlabor.ch/kontakt) erreichen.\n";
-        $txt .= "\n";
-        $txt .= "Ich freue mich dich am Kurs zu sehen,\n";
-        $txt .= "warme Grüsse\n";
-        $txt .= "Giovina Nicolai\n";
+        $subject = "Pflanzenlabor - Deine Anmedlung für: ". $course['type'] . " " . $course['name'];
 
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";
@@ -105,7 +84,37 @@ class CheckPayment {
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
-        mail( $to, $subject, $txt, implode( "\r\n", $headers ) );
+        mail( $to, $subject, $this->get_email_content($payment_type),
+            implode( "\r\n", $headers ) );
+    }
+
+    private function get_email_content($payment_type)
+    {
+        $class_url = $this->router->generate('class',
+            array("id" => intval($this->date['id_class'])));
+        $contact_url = $this->router->generate('contact');
+        $user = $this->user;
+        $course = $this->date;
+        $newsletter = ($user['newsletter'] == 1) ? "Ja" : "Nein";
+        ob_start();
+        include(__DIR__ . "/../email/thanks.php");
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
+    }
+
+    private function print_diet()
+    {
+        if( $this->date['id_type'] == CLASS_TYPE_WALK_ID ) return;
+        $checks = new Checks( $this->db, $this->user['id'], $this->date_id,
+            $this->user['check_custom'] );
+        require __DIR__ . "/../email/tpl_diet.php";
+    }
+
+    private function print_bill($payment_type)
+    {
+        if( $payment_type != PAYMENT_BILL ) return;
+        require __DIR__ . "/../email/tpl_bill.php";
     }
 
     public function enroll_user( $payment_type, $is_payed = false ) {
