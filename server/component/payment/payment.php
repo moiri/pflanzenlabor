@@ -40,10 +40,12 @@ class Payment extends Page {
         $this->city = $_POST['city'];
         $this->phone = $_POST['phone'];
         $this->email = $_POST['email'];
-        $this->newsletter = (isset($_POST['newsletter'])) ? true : false;
+        $this->newsletter = (isset($_POST['newsletter'])) ? 1 : 0;
         if( $_POST['comment'] == "" ) $this->comment = "keine Bemerkung";
         else $this->comment = $_POST['comment'];
-        $this->input_custom = $_POST['input_custom'];
+        $this->input_custom = "";
+        if(isset($_POST['input_custom']))
+            $this->input_custom = $_POST['input_custom'];
         $this->db = $dbMapper;
         $this->date_id = $id;
         $date = $dbMapper->getClassDate( $id );
@@ -60,6 +62,12 @@ class Payment extends Page {
             }
         }
         else $this->set_state_missing();
+    }
+
+    private function print_food()
+    {
+        if(!isset($_POST['input_custom'])) return;
+        require __DIR__ . "/v_food.php";
     }
 
     private function get_food_string() {
@@ -85,7 +93,7 @@ class Payment extends Page {
         );
         $foods = $this->db->selectTable( 'food' );
         $date_data = array(
-            'input_custom' => $_POST['input_custom'],
+            'input_custom' => $this->input_custom,
             'comment' => $this->comment,
             'foods' => array()
         );

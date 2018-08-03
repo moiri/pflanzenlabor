@@ -13,6 +13,7 @@ class Enroll extends Page {
     private $open = 0;
     private $date;
     private $date_id;
+    private $id_type;
     private $class_name;
     private $class_img;
     private $class_id;
@@ -29,6 +30,7 @@ class Enroll extends Page {
             $this->class_img = $date['img'];
             $this->class_id = $date['id_class'];
             $this->open = $date['places_max'] - $date['places_booked'];
+            $this->id_type = $date['id_type'];
             if( $this->open <= 0 ) $this->set_state_closed();
         }
         else $this->set_state_missing();
@@ -70,6 +72,7 @@ class Enroll extends Page {
     }
 
     private function print_check_list() {
+        if( $this->id_type == CLASS_TYPE_WALK_ID ) return;
         $checks = new Checks( $this->db, $this->user_id, $this->date_id, $this->input_custom );
         $checks->print_view();
     }

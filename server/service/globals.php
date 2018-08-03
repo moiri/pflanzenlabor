@@ -18,4 +18,6 @@ define( 'PAGE_STATE_CLOSED', 100 );
 define( 'PAGE_STATE_PENDING', 110 );
 define( 'PAGE_STATE_MISSING', 200 );
 define( 'PAGE_STATE_INVALID', 300 );
+
+define( 'CLASS_TYPE_WALK_ID', 2 );
 ?>
