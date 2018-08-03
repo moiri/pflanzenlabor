@@ -1,7 +1,8 @@
 Vielen Dank <?php echo $user['first_name']; ?> für deine Anmeldung für folgende Veranstaltung:
 <?php echo $course['type']; ?> <?php echo $course['name']; ?> vom <?php echo $course['date']; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $class_url ?>)
 
-Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.<?php $this->print_bill($payment_type); ?> 
+Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.
+<?php $this->print_bill($payment_type); ?>
 
 Du bist unter folgenden Angaben angemeldet:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 
