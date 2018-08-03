@@ -9,10 +9,10 @@
                     <div class="card">
                         <div class="card-body">
                             <small><?php echo $this->class_type; ?> | <?php echo $this->place; ?> | <?php echo $this->time; ?></small>
-                            <h1>
+                            <h2 class="mt-3">
                                 <?php echo $this->name; ?> &ndash;
-                                <small><?php echo $this->subtitle; ?></small>
-                            </h1>
+                                <?php echo $this->subtitle; ?>
+                            </h2>
         <?php
             $this->print_description();
         ?>
