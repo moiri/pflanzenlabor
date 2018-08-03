@@ -8,8 +8,8 @@
                 </div>
                 <div>
                     <small><?php echo $this->type; ?> | <?php echo $this->place; ?> | <?php echo $this->time; ?></small>
-                    <h4><?php echo $this->name; ?> &ndash;
-                        <small><?php echo $this->subtitle; ?></small>
+                    <h4 class="mt-3"><?php echo $this->name; ?> &ndash;
+                        <?php echo $this->subtitle; ?>
                     </h4>
                     <p class="mt-3"><?php echo $this->desc; ?></p>
                 </div>
