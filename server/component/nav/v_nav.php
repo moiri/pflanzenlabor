@@ -12,6 +12,9 @@
                     <a class="nav-link <?php echo $this->get_active_css( 'classes' ); ?>" href="<?php echo $this->router->generate( 'classes' ); ?>">Kurse</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?php echo $this->get_active_css( 'impressions' ); ?>" href="<?php echo $this->router->generate( 'impressions' ); ?>">Impressionen</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?php echo $this->get_active_css( 'contact' ); ?>" href="<?php echo $this->router->generate( 'contact' ); ?>">Kontakt</a>
                 </li>
                 <li class="nav-item">

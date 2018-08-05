@@ -191,6 +191,24 @@ class BaseDBMapper {
     }
 
     /**
+     * Gets a row of a db table by condition
+     *
+     * @param string $sql: query to execute on the db
+     * @return an array with one row or false if no entry was selected
+     */
+    public function queryDbFirst($sql, $fields=array()) {
+        try {
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( $fields );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1) echo "BaseDbMapper::queryDbFirst: ".$e->getMessage();
+            return false;
+        }
+    }
+
+    /**
      * Insert values into db table
      *
      * @param string $table:    the name of the db table

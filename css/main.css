@@ -37,3 +37,6 @@ a.navbar-instagram:hover {
 .form-check-control {
     margin-top: -0.5rem;
 }
+.archive:last-child {
+    margin-bottom: 0 !important;
+}
