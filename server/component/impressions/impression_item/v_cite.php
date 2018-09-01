@@ -1,5 +1,5 @@
-<div class="p-3">
-    <blockquote class="blockquote">
+<div class="card card-body border-0">
+    <blockquote class="blockquote m-auto">
         <p class="mb-0">"<?php echo $content; ?>"</p>
         <footer class="blockquote-footer"><?php echo $name; ?></footer>
     </blockquote>

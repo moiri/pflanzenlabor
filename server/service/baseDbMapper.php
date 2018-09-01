@@ -169,25 +169,16 @@ class BaseDBMapper {
      * @param string $sql: query to execute on the db
      * @return an array with all rows or false if no entry was selected
      */
-    protected function queryDb($sql) {
-        $retValue = false;
-        if($this->debug) $errorQuery = "Error: Invalid mySQL query: ".$sql;
-        else $errorQuery = "Error: Invalid mySQL query!";
-        $result = mysql_query($sql, $this->handle)
-            or die ($errorQuery);
-
-        $num_rows = mysql_num_rows($result);
-        $retValue = array();
-        if($num_rows >= 1) {
-            while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-                array_push($retValue, $row);
-            }
+    public function queryDb($sql, $fields=array()) {
+        try {
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( $fields );
+            return $stmt->fetchAll( PDO::FETCH_ASSOC );
         }
-        else {
-            // no entry
-            $retValue = false;
+        catch(PDOException $e) {
+            if( DEBUG == 1) echo "BaseDbMapper::queryDb: ".$e->getMessage();
+            return false;
         }
-        return $retValue;
     }
 
     /**
