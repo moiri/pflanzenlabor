@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../page.php';
+require_once __DIR__ . '/../contact_newsletter/contact_newsletter.php';
 
 /**
  * Contact Component Class
@@ -25,18 +26,26 @@ class ContactSend extends Page {
         $replyTo = $name . " <" . strip_tags( $_POST['email'] ) . ">";
         $subject = strip_tags( $_POST['subject'] );
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
-
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";
         $headers[] = "Content-type: text/plain; charset=utf-8";
         $headers[] = "From: {$from}";
         if( isset( $_POST['self'] ) )
-            $headers[] = "CC: " .$from;
+            $headers[] = "CC: " .$replyTo;
         $headers[] = "Reply-To: {$replyTo}";
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
         mail( $to, $subject, $txt, implode( "\r\n", $headers ) );
+    }
+
+    public function send_newsletter_mail()
+    {
+        if(isset($_POST['newsletter']))
+        {
+            $nl = new ContactNewsletter($this->router);
+            $nl->send_mail();
+        }
     }
 
     public function print_view() {

@@ -7,6 +7,7 @@ require_once "./server/service/globals.php";
 require_once "./server/service/globals_untracked.php";
 require_once "./server/service/check_payment.php";
 require_once "./server/component/home/home.php";
+require_once "./server/component/newsletter/newsletter.php";
 require_once "./server/component/contact/contact.php";
 require_once "./server/component/contact_send/contact_send.php";
 require_once "./server/component/contact_newsletter/contact_newsletter.php";
@@ -45,7 +46,7 @@ $router->map( 'GET', '/kontakt', function( $router, $db ) {
     $page->print_view();
 }, 'contact');
 $router->map( 'GET', '/newsletter', function( $router, $db ) {
-    $page = new Missing( $router );
+    $page = new Newsletter( $router, $db );
     $page->print_view();
 }, 'newsletter');
 $router->map( 'GET', '/kurse', function( $router, $db ) {
@@ -74,7 +75,11 @@ $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
 }, 'enroll');
 $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new Payment( $router, $db, intval( $id ) );
-    if( $page->is_state_ok() ) $page->submit_enroll_data();
+    if( $page->is_state_ok() )
+    {
+        $page->submit_enroll_data();
+        $page->send_newsletter_mail();
+    }
     $page->print_view();
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
@@ -155,6 +160,7 @@ $router->map( 'GET', '/agb', function( $router, $db ) {
 $router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
     $page = new ContactSend( $router );
     $page->send_mail();
+    $page->send_newsletter_mail();
     $page->print_view();
 }, 'send');
 $router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {

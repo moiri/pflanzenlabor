@@ -3,6 +3,7 @@ require_once __DIR__ . '/../page.php';
 require_once __DIR__ . "./../404/404.php";
 require_once __DIR__ . "./../class_closed/class_closed.php";
 require_once __DIR__ . "./../invalid/invalid.php";
+require_once __DIR__ . '/../contact_newsletter/contact_newsletter.php';
 
 /**
  * Contact Component Class
@@ -62,6 +63,15 @@ class Payment extends Page {
             }
         }
         else $this->set_state_missing();
+    }
+
+    public function send_newsletter_mail()
+    {
+        if(isset($_POST['newsletter']))
+        {
+            $nl = new ContactNewsletter($this->router);
+            $nl->send_mail();
+        }
     }
 
     private function print_food()
