@@ -19,7 +19,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
                 <h5 class="card-header">Newsletter</h5>
                 <div class="card-body">
 <p>Ich möchte über Neuigkeiten des Pflanzenlabor informiert werden.</p>
-                    <form action="<?php echo $this->router->generate('newsletter'); ?>" method="post">
+                    <form action="<?php echo $this->router->generate('request_newsletter'); ?>" method="post">
                         <div class="form-group">
                             <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" required>
                         </div>

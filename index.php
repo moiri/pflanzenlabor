@@ -44,10 +44,14 @@ $router->map( 'GET', '/kontakt', function( $router, $db ) {
     $page = new Contact( $router, $db );
     $page->print_view();
 }, 'contact');
+$router->map( 'GET', '/newsletter', function( $router, $db ) {
+    $page = new Missing( $router );
+    $page->print_view();
+}, 'newsletter');
 $router->map( 'GET', '/kurse', function( $router, $db ) {
     $page = new Classes( $router, $db );
     $page->print_view();
-}, 'classes');
+}, 'courses');
 $router->map( 'GET', '/impressionen', function( $router, $db ) {
     $page = new Impressions( $router, $db );
     $page->print_view();
@@ -56,6 +60,14 @@ $router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
     $page = new ClassPage( $router, $db, intval( $id ) );
     $page->print_view();
 }, 'class');
+$router->map( 'GET', '/packets', function( $router, $db ) {
+    $page = new Missing( $router );
+    $page->print_view();
+}, 'packets');
+$router->map( 'GET', '/vauchers', function( $router, $db ) {
+    $page = new Missing( $router );
+    $page->print_view();
+}, 'vauchers');
 $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
     $page = new Enroll( $router, $db, intval( $id ) );
     $page->print_view();
@@ -149,7 +161,7 @@ $router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
     $page = new ContactNewsletter( $router );
     $page->send_mail();
     $page->print_view();
-}, 'newsletter');
+}, 'request_newsletter');
 // match current request url
 $router->update_route();
 

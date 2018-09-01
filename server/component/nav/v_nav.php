@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link <?php echo $this->get_active_css( 'classes' ); ?>" href="<?php echo $this->router->generate( 'classes' ); ?>">Kurse</a>
+                    <a class="nav-link <?php echo $this->get_active_css( 'courses' ); ?>" href="<?php echo $this->router->generate( 'courses' ); ?>">Kurse</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo $this->get_active_css( 'impressions' ); ?>" href="<?php echo $this->router->generate( 'impressions' ); ?>">Impressionen</a>

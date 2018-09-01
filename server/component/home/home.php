@@ -16,6 +16,11 @@ class Home extends Page {
         $this->class_item = $db->getClassNearest();
     }
 
+    private function print_link($key, $name)
+    {
+        require __DIR__ . '/v_home_link.php';
+    }
+
     private function print_nearest_class_item() {
         $nearest_class_item = new NearestClassItem(
             $this->router,

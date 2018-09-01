@@ -11,6 +11,11 @@ class Footer
         $this->router = $router;
     }
 
+    private function print_icon($key, $name)
+    {
+        require __DIR__ . '/v_footer_icon.php';
+    }
+
     public function get_active_tag( $route_name, $label ) {
         if( $this->router->is_active( $route_name ) )
             return "<strong>" . $label . "</strong>";

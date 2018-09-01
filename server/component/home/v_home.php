@@ -1,65 +1,24 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="container mt-3">
-            <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">
-        </div>
-    </div>
-    <div class="row">
-        <div class="container mt-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="lead text-center">
+<div class="container">
+    <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="lead text-center">
 Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="container mt-3">
-            <div class="row text-center">
-                <div class="col-sm">
-                    <div class="card card-link invert-link-img">
-                        <a class="text-dark" href="<?php echo $this->router->generate('classes'); ?>">
-                            <img class="card-img-top d-none d-xl-flex" src="./img/startpage-courses_400x400.png" alt="Bild zum Link Kurse">
-                            <img class="card-img-top d-flex d-xl-none" src="./img/hov_startpage-courses_400x400.png" alt="Bild zum Link Kurse">
-                            <div class="card-body">
-                                <h3 class="card-title">Kurse</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="card card-link invert-link-img mt-3 mt-sm-0">
-                        <a class="text-dark" href="<?php echo $this->router->generate('contact'); ?>">
-                            <img class="card-img-top img-fluid d-none d-xl-flex" src="./img/startpage-contact_400x400.png" alt="">
-                            <img class="card-img-top img-fluid d-flex d-xl-none" src="./img/hov_startpage-contact_400x400.png" alt="">
-                            <div class="card-body">
-                                <h3 class="card-title">Kontakt</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="card card-link invert-link-img mt-3 mt-sm-0">
-                        <a class="text-dark" href="<?php echo $this->router->generate('me'); ?>">
-                            <img class="card-img-top d-none d-xl-flex" src="./img/startpage-me_400x400.png" alt="Photo Giovina Nicolai">
-                            <img class="card-img-top d-flex d-xl-none" src="./img/hov_startpage-me_400x400.png" alt="Photo Giovina Nicolai">
-                            <div class="card-body">
-                                <h3 class="card-title">Giovina</h3>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="card-deck mt-3 text-center">
+        <?php $this->print_link("courses", "Kurse"); ?>
+        <?php $this->print_link("packets", "Pflanzenp&auml;ckli"); ?>
+        <div class="w-100 d-none d-sm-block d-lg-none"><!-- wrap every 2 on sm--></div>
+        <?php $this->print_link("impressions", "Impressionen"); ?>
+        <div class="w-100 d-none d-lg-block"><!-- wrap every 3 on lg--></div>
+        <?php $this->print_link("vauchers", "Gutscheine"); ?>
+        <div class="w-100 d-none d-sm-block d-lg-none"><!-- wrap every 2 on sm--></div>
+        <?php $this->print_link("me", "Giovina"); ?>
+        <?php $this->print_nearest_class_item(); ?>
     </div>
     <div class="row">
-        <div class="container mt-3">
-            <?php $this->print_nearest_class_item(); ?>
-        </div>
-    </div>
-    <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
 </div>

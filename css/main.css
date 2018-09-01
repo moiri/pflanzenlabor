@@ -1,14 +1,13 @@
-.card-link a {
+.invert-link-img a
+{
     text-decoration: none;
 }
-.card-link a img{
-    padding:2rem;
-    margin-bottom:-2rem;
-}
-a.disabled {
+a.disabled
+{
     pointer-events: none;
 }
-a.navbar-logo {
+a.navbar-logo
+{
     width: 64px;
     height: 64px;
     background-image: url("../img/logo-icon-nav.svg");
@@ -16,10 +15,12 @@ a.navbar-logo {
     background-position: center;
     background-repeat: no-repeat;
 }
-a.navbar-logo:hover {
+a.navbar-logo:hover
+{
     background-image: url("../img/hov_logo-icon-nav.svg");
 }
-a.navbar-instagram {
+.navbar-instagram
+{
     width: 48px;
     height: 48px;
     background-image: url("../img/instagram.png");
@@ -27,16 +28,57 @@ a.navbar-instagram {
     background-position: center;
     background-repeat: no-repeat;
 }
-a.navbar-instagram:hover {
+.navbar-instagram:hover
+{
     background-image: url("../img/hov_instagram.png");
 }
-.form-check-label {
+.form-check-label
+{
     margin-top: 0.25rem;
     margin-left: 0.5rem;
 }
-.form-check-control {
+.form-check-control
+{
     margin-top: -0.5rem;
 }
-.archive:last-child {
+.archive:last-child
+{
     margin-bottom: 0 !important;
+}
+.footer-icon
+{
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.footer-icon-newsletter
+{
+    background-image: url("../img/newsletter.png");
+}
+.footer-icon-link:hover > .footer-icon-newsletter
+{
+    background-image: url("../img/hov_newsletter.png");
+}
+.footer-icon-contact
+{
+    background-image: url("../img/contact.png");
+}
+.footer-icon-link:hover > .footer-icon-contact
+{
+    background-image: url("../img/hov_contact.png");
+}
+.footer-icon-instagram
+{
+    background-image: url("../img/instagram.png");
+}
+.footer-icon-link:hover > .footer-icon-instagram
+{
+    background-image: url("../img/hov_instagram.png");
+}
+.footer-icon-container
+{
+    width: 64px;
+    float: right;
 }
