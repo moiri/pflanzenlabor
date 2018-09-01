@@ -12,19 +12,18 @@
                     <a class="nav-link <?php echo $this->get_active_css( 'courses' ); ?>" href="<?php echo $this->router->generate( 'courses' ); ?>">Kurse</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?php echo $this->get_active_css( 'packets' ); ?>" href="<?php echo $this->router->generate( 'packets' ); ?>">Pflanzenp&auml;ckli</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?php echo $this->get_active_css( 'impressions' ); ?>" href="<?php echo $this->router->generate( 'impressions' ); ?>">Impressionen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?php echo $this->get_active_css( 'contact' ); ?>" href="<?php echo $this->router->generate( 'contact' ); ?>">Kontakt</a>
+                    <a class="nav-link <?php echo $this->get_active_css( 'vauchers' ); ?>" href="<?php echo $this->router->generate( 'vauchers' ); ?>">Gutscheine</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo $this->get_active_css( 'me' ); ?>" href="<?php echo $this->router->generate( 'me' ); ?>">Giovina</a>
                 </li>
-                <li class="nav-item d-lg-none">
-                    <a class="nav-link" href="https://www.instagram.com/pflanzenlabor" target="_blank">Instagram</a>
-                </li>
             </ul>
-            <a class="navbar-instagram d-lg-flex d-none" href="https://www.instagram.com/pflanzenlabor" target="_blank"></a>
         </div>
     </nav>
 </div>
