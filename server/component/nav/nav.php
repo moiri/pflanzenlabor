@@ -23,6 +23,9 @@ class Nav
             if( $id && ( $this->router->generate( 'class', array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
         }
+        else if($uri == $this->router->generate("packets_offer") && $route_name == "packets")
+            return $this->active_css;
+
         return '';
     }
 
