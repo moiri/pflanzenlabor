@@ -26,6 +26,7 @@ require_once "./server/component/class_closed/class_closed.php";
 require_once "./server/component/pending/pending.php";
 require_once "./server/component/cancel/cancel.php";
 require_once "./server/component/impressions/impressions.php";
+require_once "./server/component/packets/packets.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -62,7 +63,7 @@ $router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'class');
 $router->map( 'GET', '/packets', function( $router, $db ) {
-    $page = new Missing( $router );
+    $page = new Packets( $router, $db );
     $page->print_view();
 }, 'packets');
 $router->map( 'GET', '/vauchers', function( $router, $db ) {
