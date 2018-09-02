@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 02, 2018 at 12:43 PM
+-- Generation Time: Sep 02, 2018 at 03:07 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -99,6 +99,22 @@ CREATE TABLE `impressions_fields_type` (
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packets`
+--
+
+CREATE TABLE `packets` (
+  `id` int(11) UNSIGNED ZEROFILL NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` longtext NOT NULL,
+  `img_path` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `position` tinyint(4) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -145,6 +161,12 @@ ALTER TABLE `impressions_fields_type`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `packets`
+--
+ALTER TABLE `packets`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -178,6 +200,11 @@ ALTER TABLE `impressions_fields`
 --
 ALTER TABLE `impressions_fields_type`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `packets`
+--
+ALTER TABLE `packets`
+  MODIFY `id` int(11) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
