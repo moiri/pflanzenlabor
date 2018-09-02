@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 01, 2018 at 10:05 PM
+-- Generation Time: Sep 02, 2018 at 12:43 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.30-0ubuntu0.16.04.1
 
@@ -19,6 +19,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `pflanzenlabor_test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `artists`
+--
+
+CREATE TABLE `artists` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `date` date NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `comment` varchar(500) NOT NULL,
+  `link` varchar(250) NOT NULL,
+  `link_label` varchar(100) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -88,6 +104,12 @@ CREATE TABLE `impressions_fields_type` (
 --
 
 --
+-- Indexes for table `artists`
+--
+ALTER TABLE `artists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `impressions`
 --
 ALTER TABLE `impressions`
@@ -126,6 +148,11 @@ ALTER TABLE `impressions_fields_type`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `artists`
+--
+ALTER TABLE `artists`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `impressions`
 --
