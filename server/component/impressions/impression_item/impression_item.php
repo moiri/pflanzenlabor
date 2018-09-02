@@ -36,6 +36,14 @@ class ImpressionItem {
         $this->description = $item['description'];
     }
 
+    private function print_description()
+    {
+        $lines = explode(PHP_EOL, $this->description);
+        foreach( $lines as $line ) {
+            echo "<p>" . $line . "</p>";
+        }
+    }
+
     private function print_items()
     {
         $sql = "SELECT ic.id, ict.name AS type FROM impressions_content AS ic

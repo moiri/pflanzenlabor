@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="card-body">
-        <p><?php echo $this->description; ?></p>
+        <?php $this->print_description(); ?>
         <div class="card-deck">
             <?php $this->print_items(); ?>
         </div>
