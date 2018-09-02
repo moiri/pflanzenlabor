@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-auto">
+            <div class="col-md-auto mt-md-0 mt-2">
                 <div class="ml-3 float-right border-left pl-3">
                     <a class="text-dark small d-flex" href="<?php echo $this->router->generate('impressum'); ?>"><?php echo $this->get_active_tag("impressum", "Impressum"); ?></a>
                     <a class="text-dark small d-flex" href="<?php echo $this->router->generate('disclaimer'); ?>"><?php echo $this->get_active_tag("disclaimer", "Disclaimer"); ?></a>
