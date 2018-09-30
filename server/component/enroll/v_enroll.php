@@ -84,7 +84,10 @@
                             Ich m&ouml;chte den Newsletter abonnieren
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Zur Kasse</button>
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-primary">Zur Kasse</button>
+                            <a href="<?php echo $this->router->generate('class', array('id' => $this->class_id)); ?>" class="btn btn-secondary ml-auto">Abbrechen</a>
+                        </div>
                     </form>
                 </div>
             </div>
