@@ -56,7 +56,15 @@ Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
     </div>
     <div class="row">
         <div class="container mt-3">
-            <?php $this->print_nearest_class_item(); ?>
+            <!--<?php $this->print_nearest_class_item(); ?>-->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Winterpause</h5>
+                </div>
+                <div class="card-body">
+                    Neue Kurse ab März 2019
+                </div>
+            </div>
         </div>
     </div>
     <div class="row mt-3">
