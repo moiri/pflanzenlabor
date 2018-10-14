@@ -116,6 +116,35 @@ CREATE TABLE `packets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `user_packets_order`
+--
+
+CREATE TABLE `user_packets_order` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_user` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_packets` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_payment` int(10) UNSIGNED ZEROFILL DEFAULT NULL,
+  `is_ordered` tinyint(1) NOT NULL DEFAULT '0',
+  `is_payed` tinyint(1) NOT NULL DEFAULT '0',
+  `comment` varchar(500) DEFAULT NULL,
+  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `vaucher_types`
+--
+
+CREATE TABLE `vaucher_types` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` longtext NOT NULL,
+  `img_path` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `position` int(4) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -167,6 +196,21 @@ ALTER TABLE `packets`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_packets_order`
+--
+ALTER TABLE `user_packets_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_packets` (`id_packets`),
+  ADD KEY `id_payment` (`id_payment`);
+
+--
+-- Indexes for table `vaucher_types`
+--
+ALTER TABLE `vaucher_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -205,6 +249,16 @@ ALTER TABLE `impressions_fields_type`
 --
 ALTER TABLE `packets`
   MODIFY `id` int(11) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `user_packets_order`
+--
+ALTER TABLE `user_packets_order`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `vaucher_types`
+--
+ALTER TABLE `vaucher_types`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

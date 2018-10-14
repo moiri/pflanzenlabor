@@ -22,13 +22,13 @@ require_once "./server/component/payment/payment.php";
 require_once "./server/component/thanks/thanks.php";
 require_once "./server/component/invalid/invalid.php";
 require_once "./server/component/404/404.php";
-require_once "./server/component/soon/soon_vaucher.php";
 require_once "./server/component/class_closed/class_closed.php";
 require_once "./server/component/pending/pending.php";
 require_once "./server/component/cancel/cancel.php";
 require_once "./server/component/impressions/impressions.php";
 require_once "./server/component/packets/packets.php";
 require_once "./server/component/packets_offer/packets_offer.php";
+require_once "./server/component/vauchers/vauchers.php";
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -73,9 +73,13 @@ $router->map( 'GET', '/paeckli_angebot', function( $router, $db ) {
     $page->print_view();
 }, 'packets_offer');
 $router->map( 'GET', '/gutscheine', function( $router, $db ) {
-    $page = new SoonVaucher( $router );
+    $page = new Vauchers( $router, $db );
     $page->print_view();
 }, 'vauchers');
+$router->map( 'GET', '/kaufen/[i:id]', function( $router, $db, $id ) {
+    $page = new Missing( $router );
+    $page->print_view();
+}, 'vauchers_enroll');
 $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
     $page = new Enroll( $router, $db, intval( $id ) );
     $page->print_view();
