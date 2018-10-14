@@ -10,6 +10,7 @@ require_once __DIR__ . '/../contact_newsletter/contact_newsletter.php';
  */
 abstract class Payment extends Page {
 
+    protected $paypal_key;
     protected $id_item;
     protected $db;
     protected $user;
@@ -83,6 +84,21 @@ abstract class Payment extends Page {
         );
         // create new or update user entry
         $this->user->set_user_data( $user_data );
+    }
+
+    protected function print_paypal()
+    {
+        require __DIR__ . '/v_paypal.php';
+    }
+
+    protected function print_bill()
+    {
+        require __DIR__ . '/v_bill.php';
+    }
+
+    protected function print_back($keyword)
+    {
+        require __DIR__ . '/v_back.php';
     }
 
     abstract public function submit_enroll_data();

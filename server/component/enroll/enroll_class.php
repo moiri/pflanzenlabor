@@ -24,7 +24,7 @@ class EnrollClass extends Enroll {
             $this->date = $date['date'];
             $this->class_name = $date['name'];
             $this->class_img = $date['img'];
-            $this->class_id = $date['id_class'];
+            $this->class_id = intval($date['id_class']);
             $this->open = $date['places_max'] - $date['places_booked'];
             $this->id_type = $date['id_type'];
             if( $this->open <= 0 ) $this->set_state_closed();

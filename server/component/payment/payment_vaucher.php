@@ -9,7 +9,6 @@ class PaymentVaucher extends Payment {
 
     private $vaucher_name = "";
     private $vaucher_price = "";
-    private $paypal_key = "";
 
     private $delivery_first_name = "";
     private $delivery_last_name = "";

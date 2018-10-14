@@ -119,21 +119,9 @@
 if( $this->show_enroll_warning )
     echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
 ?>
-        <div class="float-right">
-            <a href="<?php echo $this->router->generate('vauchers_enroll', array('id' => $this->id_item)); ?>" class="btn btn-secondary">Zur&uuml;ck</a>
-        </div>
-        <form method="post" action="<?php echo $this->router->generate('thanks'); ?>" class="float-left">
-            <input type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
-            <button type="submit" class="btn btn-primary">auf Rechnung</button>
-        </form>
-        <form method="post" action="https://www<?php echo ( DEBUG ) ? ".sandbox" : ""; ?>.paypal.com/cgi-bin/webscr" target="_top" class="float-left ml-2">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">
-            <input type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
-            <input type="hidden" name="custom" value="<?php echo $this->user->get_user_id(); ?>"/>
-            <input type="hidden" name="type" value="">
-            <button type="submit" class="btn btn-primary">mit PayPal</button>
-        </form>
+        <?php $this->print_back("vauchers_enroll"); ?>
+        <?php $this->print_bill(); ?>
+        <?php $this->print_paypal(); ?>
     </div>
 </div>
         </div>
