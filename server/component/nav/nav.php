@@ -33,6 +33,13 @@ class Nav
             else if($uri == $this->router->generate("packets_offer"))
                 return $this->active_css;
         }
+        else if($route_name == "vauchers")
+        {
+            $id = $this->router->get_route_param( 'id' );
+            if( $id && ( $this->router->generate( 'vauchers_enroll',
+                    array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+        }
 
         return '';
     }

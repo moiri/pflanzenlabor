@@ -193,13 +193,28 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getPacket( $id ) {
         try
         {
-            $sql = "SELECT name, img_path, price FROM packets WHERE id = :id";
+            $sql = "SELECT name, img_path, price FROM packets
+                WHERE id = :id AND enabled = 1";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( array( ':id' => $id ) );
             return $stmt->fetch( PDO::FETCH_ASSOC );
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getPacket: ".$e->getMessage();
+        }
+    }
+
+    function getVaucherType( $id ) {
+        try
+        {
+            $sql = "SELECT name, img_path, price FROM vaucher_types
+                WHERE id = :id AND enabled = 1";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id' => $id ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getVaucher: ".$e->getMessage();
         }
     }
 
