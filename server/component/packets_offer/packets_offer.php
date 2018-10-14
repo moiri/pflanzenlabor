@@ -15,16 +15,16 @@ class PacketsOffer extends Page {
 
     private function print_items()
     {
-        $sql = "SELECT name, description, img_path, price FROM packets
+        $sql = "SELECT id, name, description, img_path, price FROM packets
             WHERE enabled = 1
             ORDER BY position";
         $items = $this->db->queryDb($sql);
         foreach($items as $item)
-            $this->print_item($item['name'], $item['img_path'], $item['price'],
-                $item['description']);
+            $this->print_item(intval($item['id']), $item['name'],
+                $item['img_path'], $item['price'], $item['description']);
     }
 
-    private function print_item($title, $img, $price, $text)
+    private function print_item($id, $title, $img, $price, $text)
     {
         require __DIR__ . '/v_packets_offer_item.php';
     }

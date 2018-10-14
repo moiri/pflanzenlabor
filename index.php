@@ -17,7 +17,8 @@ require_once "./server/component/agb/agb.php";
 require_once "./server/component/me/me.php";
 require_once "./server/component/classes/classes.php";
 require_once "./server/component/class/class.php";
-require_once "./server/component/enroll/enroll.php";
+require_once "./server/component/enroll/enroll_class.php";
+require_once "./server/component/enroll/enroll_packet.php";
 require_once "./server/component/payment/payment.php";
 require_once "./server/component/thanks/thanks.php";
 require_once "./server/component/invalid/invalid.php";
@@ -71,12 +72,16 @@ $router->map( 'GET', '/paeckli_angebot', function( $router, $db ) {
     $page = new PacketsOffer( $router, $db );
     $page->print_view();
 }, 'packets_offer');
+$router->map( 'GET', '/paeckli_anmeldung/[i:id]', function( $router, $db, $id ) {
+    $page = new EnrollPacket( $router, $db, intval($id) );
+    $page->print_view();
+}, 'packets_enroll');
 $router->map( 'GET', '/gutscheine', function( $router, $db ) {
     $page = new Missing( $router );
     $page->print_view();
 }, 'vauchers');
 $router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
-    $page = new Enroll( $router, $db, intval( $id ) );
+    $page = new EnrollClass( $router, $db, intval( $id ) );
     $page->print_view();
 }, 'enroll');
 $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {

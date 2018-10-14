@@ -20,11 +20,19 @@ class Nav
         if( $route_name == "courses" ) {
             // handle special case "/class/:id"
             $id = $this->router->get_route_param( 'id' );
-            if( $id && ( $this->router->generate( 'class', array( 'id' => $id ) ) == $uri ) )
+            if( $id && ( $this->router->generate( 'class',
+                    array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
         }
-        else if($uri == $this->router->generate("packets_offer") && $route_name == "packets")
-            return $this->active_css;
+        else if($route_name == "packets")
+        {
+            $id = $this->router->get_route_param( 'id' );
+            if( $id && ( $this->router->generate( 'packets_enroll',
+                    array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if($uri == $this->router->generate("packets_offer"))
+                return $this->active_css;
+        }
 
         return '';
     }

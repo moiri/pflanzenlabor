@@ -45,4 +45,16 @@ $(document).ready(function() {
             }, 'json');
         }
     });
+    $('input[name="bill-dito"]').on('change', function() {
+        if($(this).prop("checked"))
+            $('#bill-address').addClass('d-none');
+        else
+            $('#bill-address').removeClass('d-none');
+    });
+    $('input[name="gift-dito"]').on('change', function() {
+        if($(this).prop("checked"))
+            $('#gift-address').addClass('d-none');
+        else
+            $('#gift-address').removeClass('d-none');
+    });
 });
