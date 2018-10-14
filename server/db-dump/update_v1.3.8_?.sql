@@ -131,6 +131,20 @@ CREATE TABLE `user_packets_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `vaucher_types`
+--
+
+CREATE TABLE `vaucher_types` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` longtext NOT NULL,
+  `img_path` varchar(100) NOT NULL,
+  `price` varchar(100) NOT NULL,
+  `position` int(4) NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -191,6 +205,12 @@ ALTER TABLE `user_packets_order`
   ADD KEY `id_payment` (`id_payment`);
 
 --
+-- Indexes for table `vaucher_types`
+--
+ALTER TABLE `vaucher_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -233,6 +253,11 @@ ALTER TABLE `packets`
 -- AUTO_INCREMENT for table `user_packets_order`
 --
 ALTER TABLE `user_packets_order`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `vaucher_types`
+--
+ALTER TABLE `vaucher_types`
   MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
