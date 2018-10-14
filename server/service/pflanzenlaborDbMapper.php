@@ -190,6 +190,19 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
+    function getPacket( $id ) {
+        try
+        {
+            $sql = "SELECT name, img_path, price FROM packets WHERE id = :id";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array( ':id' => $id ) );
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getPacket: ".$e->getMessage();
+        }
+    }
+
     function checkUserFood( $id_user, $id_date, $id_food ) {
         try {
             $sql = "SELECT is_checked

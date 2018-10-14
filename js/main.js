@@ -45,16 +45,22 @@ $(document).ready(function() {
             }, 'json');
         }
     });
-    $('input[name="bill-dito"]').on('change', function() {
+    $('input[name^="dito"]').on('change', function() {
+        var names = $(this).prop("name").split('-');
+        var $card = $('#' + names[1] + '-address');
         if($(this).prop("checked"))
-            $('#bill-address').addClass('d-none');
+        {
+            $card.addClass('d-none');
+            $card.find('input').each(function () {
+                $(this).removeAttr("required");
+            })
+        }
         else
-            $('#bill-address').removeClass('d-none');
-    });
-    $('input[name="gift-dito"]').on('change', function() {
-        if($(this).prop("checked"))
-            $('#gift-address').addClass('d-none');
-        else
-            $('#gift-address').removeClass('d-none');
+        {
+            $card.removeClass('d-none');
+            $card.find('input').each(function () {
+                $(this).addAttr("required");
+            })
+        }
     });
 });

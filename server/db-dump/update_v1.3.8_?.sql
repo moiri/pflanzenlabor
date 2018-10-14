@@ -116,6 +116,21 @@ CREATE TABLE `packets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `user_packets_order`
+--
+
+CREATE TABLE `user_packets_order` (
+  `id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_user` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_packets` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `id_payment` int(10) UNSIGNED ZEROFILL DEFAULT NULL,
+  `is_ordered` tinyint(1) NOT NULL DEFAULT '0',
+  `is_payed` tinyint(1) NOT NULL DEFAULT '0',
+  `comment` varchar(500) DEFAULT NULL,
+  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -167,6 +182,15 @@ ALTER TABLE `packets`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_packets_order`
+--
+ALTER TABLE `user_packets_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_packets` (`id_packets`),
+  ADD KEY `id_payment` (`id_payment`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -206,6 +230,11 @@ ALTER TABLE `impressions_fields_type`
 ALTER TABLE `packets`
   MODIFY `id` int(11) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `user_packets_order`
+--
+ALTER TABLE `user_packets_order`
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
+--
 -- Constraints for dumped tables
 --
 
@@ -228,6 +257,13 @@ ALTER TABLE `impressions_content`
 ALTER TABLE `impressions_fields`
   ADD CONSTRAINT `fk_impressions_fields_id_impressions_content` FOREIGN KEY (`id_impressions_content`) REFERENCES `impressions_content` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_impressions_fields_id_type` FOREIGN KEY (`id_type`) REFERENCES `impressions_fields_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_packets_order`
+--
+ALTER TABLE `user_packets_order`
+  ADD CONSTRAINT `fk_user_packets_order_id_packets` FOREIGN KEY (`id_packets`) REFERENCES `packets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_user_packets_order_id_payment` FOREIGN KEY (`id_payment`) REFERENCES `payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -92,23 +92,23 @@ if( $this->show_enroll_warning )
     echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
 ?>
         <div class="float-right">
-            <a href="<?php echo $this->router->generate('enroll', array('id' => $this->date_id)); ?>" class="btn btn-secondary">Zur&uuml;ck</a>
+            <a href="<?php echo $this->router->generate('enroll', array('id' => $this->id_item)); ?>" class="btn btn-secondary">Zur&uuml;ck</a>
         </div>
         <div class="<?php echo ( $this->show_enroll_warning ) ? "d-none" : "";?>">
             <form method="post" action="<?php echo $this->router->generate('thanks'); ?>" class="float-left">
-                <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+                <input type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
                 <button type="submit" class="btn btn-primary">auf Rechnung</button>
             </form>
             <form method="post" action="https://www<?php echo ( DEBUG ) ? ".sandbox" : ""; ?>.paypal.com/cgi-bin/webscr" target="_top" class="float-left ml-2">
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="<?php echo $this->paypal_key; ?>">
-                <input type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+                <input type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
                 <input type="hidden" name="custom" value="<?php echo $this->user->get_user_id(); ?>"/>
                 <input type="hidden" name="type" value="">
                 <button type="submit" class="btn btn-primary">mit PayPal</button>
             </form>
             <form method="post" action="<?php echo $this->router->generate('thanks'); ?>">
-                <input id="vaucher-date-id" type="hidden" name="date_id" value="<?php echo $this->date_id; ?>">
+                <input id="vaucher-date-id" type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
                 <input id="vaucher-url" type="hidden" name="url" value="<?php echo $this->router->generate('vaucher'); ?>">
                 <div class="float-left mt-2 mt-lg-0 ml-lg-2 form-inline">
                     <input id="vaucher-code" type="text" class="form-control" name="vaucher" placeholder="Gutschein Code" maxlength="20" required>

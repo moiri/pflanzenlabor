@@ -25,43 +25,43 @@
     </div>
     <div class="row">
         <div class="container">
-            <form action="<?php echo $this->router->generate('payment', array('id' => $this->id_item)); ?>" method="post">
+            <form action="<?php echo $this->router->generate('packets_payment', array('id' => $this->id_item)); ?>" method="post">
                 <div class="card mb-3">
-                    <h5 class="card-header">Lieferadresse</h5>
+                    <h5 class="card-header">Rechungsadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_delivery(); ?>
+                        <?php $this->print_main_address(); ?>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name="bill-dito" checked>
+                            <input class="form-check-input" type="checkbox" value="" name="dito-delivery">
                             <label class="form-check-label mt-1 ml-2">
-                                Verwende als Rechungsadresse
+                                Verwende als Lieferadresse
                             </label>
                         </div>
                         <div class="form-check <?php echo $display; ?>">
-                            <input class="form-check-input" type="checkbox" value="" name="gift-dito">
+                            <input class="form-check-input" type="checkbox" value="" name="dito-gift">
                             <label class="form-check-label mt-1 ml-2" for="contactSelf">
                                 Verwende als Geschenkadresse
                             </label>
                         </div>
                     </div>
                 </div>
-                <div id="bill-address" class="card mb-3 d-none">
-                    <h5 class="card-header">Rechungsadresse</h5>
+                <div id="delivery-address" class="card mb-3">
+                    <h5 class="card-header">Lieferadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_bill(); ?>
+                        <?php $this->print_other_address("delivery-"); ?>
                     </div>
                 </div>
                 <div id="gift-address" class="card mb-3 <?php echo $display; ?>">
                     <h5 class="card-header">Geschenkadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_gift(); ?>
+                        <?php $this->print_other_address("gift-", $this->is_gift); ?>
                     </div>
                 </div>
                 <div class="card mb-3 <?php echo $display; ?>">
                     <h5 class="card-header">Geschenknachricht</h5>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="contactContent">Nachricht auf der Geschenkskarte</label>
-                            <textarea class="form-control" name="comment" rows="3"></textarea>
+                            <label for="contactContent">Nachricht auf der Geschenkskarte (maximal 500 Zeichen)</label>
+                            <textarea class="form-control" name="comment" rows="3" maxlength=500></textarea>
                         </div>
                     </div>
                 </div>
