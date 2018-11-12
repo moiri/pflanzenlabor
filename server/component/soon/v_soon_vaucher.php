@@ -17,7 +17,7 @@
                 <p>direkt per Email (info@pflanzenlabor.ch) oder über das <a href="<?php echo $this->router->generate('contact'); ?>">Kontaktformular</a> zu bestellen.</p>
             </div>
         </div>
-        <div class="col-lg-auto mb-3 h-100">
+        <div class="col-lg-auto d-none d-lg-block mb-3 h-100">
             <div class="card card-body">
                 <img class="img-fluid mx-auto" src="<?php echo $this->router->get_asset_path( "/img/busy_400x400.png" ); ?>" alt="Busy Bee" width="200px">
             </div>
