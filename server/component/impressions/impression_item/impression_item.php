@@ -92,7 +92,7 @@ class ImpressionItem {
 
     private function print_img($img, $caption="")
     {
-        $url = $this->router->get_asset_path("/img/" . $img);
+        $url = $this->router->get_asset_path("/img/impressions/" . $img);
         require __DIR__ . "/v_img.php";
     }
 

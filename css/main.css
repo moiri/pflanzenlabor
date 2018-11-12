@@ -10,27 +10,14 @@ a.navbar-logo
 {
     width: 64px;
     height: 64px;
-    background-image: url("../img/logo-icon-nav.svg");
+    background-image: url("../img/nav/logo-icon-light.svg");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 }
 a.navbar-logo:hover
 {
-    background-image: url("../img/hov_logo-icon-nav.svg");
-}
-.navbar-instagram
-{
-    width: 48px;
-    height: 48px;
-    background-image: url("../img/instagram.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.navbar-instagram:hover
-{
-    background-image: url("../img/hov_instagram.png");
+    background-image: url("../img/nav/hov_logo-icon-light.svg");
 }
 .form-check-label
 {
@@ -55,27 +42,27 @@ a.navbar-logo:hover
 }
 .footer-icon-newsletter
 {
-    background-image: url("../img/newsletter.png");
+    background-image: url("../img/footer/newsletter.png");
 }
 .footer-icon-link:hover > .footer-icon-newsletter
 {
-    background-image: url("../img/hov_newsletter.png");
+    background-image: url("../img/footer/hov_newsletter.png");
 }
 .footer-icon-contact
 {
-    background-image: url("../img/contact.png");
+    background-image: url("../img/footer/contact.png");
 }
 .footer-icon-link:hover > .footer-icon-contact
 {
-    background-image: url("../img/hov_contact.png");
+    background-image: url("../img/footer/hov_contact.png");
 }
 .footer-icon-instagram
 {
-    background-image: url("../img/instagram.png");
+    background-image: url("../img/footer/instagram.png");
 }
 .footer-icon-link:hover > .footer-icon-instagram
 {
-    background-image: url("../img/hov_instagram.png");
+    background-image: url("../img/footer/hov_instagram.png");
 }
 .footer-icon-container
 {
