@@ -8,9 +8,11 @@
     <div class="row row-eq-height mt-3">
         <div class="col mb-3">
             <div class="card card-body h-100">
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Scelerisque eu ultrices vitae auctor eu augue. Erat velit scelerisque in dictum non consectetur. Donec adipiscing tristique risus nec. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Amet mattis vulputate enim nulla aliquet porttitor. Vitae tempus quam pellentesque nec nam aliquam sem. Neque viverra justo nec ultrices. Volutpat odio facilisis mauris sit amet massa vitae. Nunc sed blandit libero volutpat sed cras ornare arcu dui.</p>
-
-<p>Mi eget mauris pharetra et ultrices neque ornare aenean euismod. Senectus et netus et malesuada. Diam vel quam elementum pulvinar etiam non. Faucibus a pellentesque sit amet porttitor eget dolor. Diam vel quam elementum pulvinar etiam. Mauris in aliquam sem fringilla ut morbi tincidunt augue. At quis risus sed vulputate odio. In eu mi bibendum neque. Eget duis at tellus at urna condimentum mattis. Nam at lectus urna duis convallis convallis. Posuere sollicitudin aliquam ultrices sagittis orci. Aliquam eleifend mi in nulla posuere sollicitudin.</p>
+                <p>Mit dem Planzenpäckli hast du die Gelegenheit eine Pflanze Schritt für Schritt kennen zu lernen und das mit all deinen Sinnen!</p>
+                <p>Mit einem Jahresabo wird dir all zwei Monate ein Päckli per Post nach Hause geschickt. Darin befinden sich vier Kuverts. Mit jedem Kuvert erfährst du etwas mehr über eine bestimmte Pflanze.</p>
+                <p>Gestartet wird mit dem Erfahren über deine Sinne – Mit einem Tee, ohne dass du weisst was für ein Kraut es ist. Danach hast du die Gelegenheit dich mit dieser Pflanze durch ein Ausmalbild auseinanderzusetzen. Im dritten Kuvert erfährst du, um welche Pflanze es sich handelt und kannst verschiedene Infos darüber lesen. Schlussendlich, im vierten Kuvert, erhälst du vertiefte Infos sowie eine künstlerische Interpretation dieser Pflanze.</p>
+                <p>So kannst du regelmässig eine neue Pflanze kennenlernen – Zuerst Vorurteilslos mit deinen Sinnen, gefolgt von konzentriertem Wissen.</p>
+                <p>Interessiert? Dann klicke auf untenstehenden Knopf um das aktuelle Angebot anzusehen.</p>
                 <a href="<?php echo $this->router->generate("packets_offer"); ?>" class="btn btn-primary">Zum Angebot</a>
             </div>
         </div>
