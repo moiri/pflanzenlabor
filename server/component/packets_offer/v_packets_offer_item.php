@@ -10,7 +10,7 @@
             <?php echo $text; ?>
         </div>
         <div class="col col-md-auto order-md-2">
-            <a href="<?php echo $this->router->generate("packets_offer"); ?>" class="btn btn-primary w-100 mb-3">Kaufen</a>
+<!--            <a href="<?php echo $this->router->generate("packets_offer"); ?>" class="btn btn-primary w-100 mb-3">Kaufen</a>-->
             <button type="button" class="btn btn-outline-secondary btn-sm w-100" disabled><?php echo $price; ?></button>
         </div>
     </div>
