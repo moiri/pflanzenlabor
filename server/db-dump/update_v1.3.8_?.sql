@@ -127,7 +127,19 @@ CREATE TABLE `user_packets_order` (
   `is_ordered` tinyint(1) NOT NULL DEFAULT '0',
   `is_payed` tinyint(1) NOT NULL DEFAULT '0',
   `comment` varchar(500) DEFAULT NULL,
-  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `order_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `d_first_name` varchar(100) NOT NULL,
+  `d_last_name` varchar(100) NOT NULL,
+  `d_street` varchar(100) NOT NULL,
+  `d_street_number` varchar(10) NOT NULL,
+  `d_zip` varchar(10) NOT NULL,
+  `d_city` varchar(100) NOT NULL,
+  `g_first_name` varchar(100) NOT NULL,
+  `g_last_name` varchar(100) NOT NULL,
+  `g_street` varchar(100) NOT NULL,
+  `g_street_number` varchar(10) NOT NULL,
+  `g_zip` varchar(10) NOT NULL,
+  `g_city` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

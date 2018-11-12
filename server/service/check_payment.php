@@ -23,6 +23,7 @@ class CheckPayment {
         if( $user_id != Null ) $user->set_user_id( $user_id );
 
         $this->db = $db;
+        // ditch this for class - bill is already done with is_user_enrolled()
         $this->user = $db->selectByUid( 'user', $user->get_user_id() );
         $user_specs = $db->getUserDateSpecifics( $user->get_user_id(), $this->date_id );
         if( !$this->user || !$user_specs ) {

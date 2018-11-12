@@ -59,7 +59,7 @@ $(document).ready(function() {
         {
             $card.removeClass('d-none');
             $card.find('input').each(function () {
-                $(this).addAttr("required");
+                $(this).attr("required", "");
             })
         }
     });

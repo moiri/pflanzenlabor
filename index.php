@@ -121,7 +121,7 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
 }, 'payment');
 $router->map( 'POST', '/danke', function( $router, $db ) {
     // payed by bill or vaucher
-    $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
+    $date_id = isset( $_POST['item_id'] ) ? $_POST['item_id'] : Null;
     $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
     if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
     else $payment_type = PAYMENT_VAUCHER;
@@ -142,7 +142,7 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
     $page->print_view();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
-    // payed by paypal
+    // payed by paypal return from PayPal Page
     $date_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
     $page = new Thanks( $router, PAYMENT_PAYPAL );
     $check = new CheckPayment( $router, $db, $date_id );
@@ -150,7 +150,7 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     $page->print_view();
 }, 'thanks_get');
 $router->map( 'POST', '/check', function( $router, $db ) {
-    // payed by paypal
+    // payed by paypal IPN requiest
     $date_id = ( isset( $_POST['item_number'] ) ) ? $_POST['item_number'] : Null;
     $user_id = ( isset( $_POST['custom'] ) ) ? $_POST['custom'] : Null;
     $check = new CheckPayment( $router, $db, $date_id, $user_id );

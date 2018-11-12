@@ -29,11 +29,12 @@ class EnrollPacket extends Enroll {
             $this->city);
     }
 
-    private function print_other_address($prefix, $skip = false)
+    private function print_other_address($prefix, $is_required = true,
+        $skip = false)
     {
         if($skip) return;
-        $this->print_name("", "", $prefix);
-        $this->print_address("", "", "", "", $prefix);
+        $this->print_name("", "", $prefix, $is_required);
+        $this->print_address("", "", "", "", $prefix, $is_required);
     }
 
     public function print_view() {

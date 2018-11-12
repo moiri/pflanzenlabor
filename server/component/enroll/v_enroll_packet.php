@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <?php $this->print_main_address(); ?>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name="dito-delivery">
+                            <input class="form-check-input" type="checkbox" value="" name="dito-delivery" checked>
                             <label class="form-check-label mt-1 ml-2">
                                 Verwende als Lieferadresse
                             </label>
@@ -44,16 +44,16 @@
                         </div>
                     </div>
                 </div>
-                <div id="delivery-address" class="card mb-3">
+                <div id="delivery-address" class="card mb-3 d-none">
                     <h5 class="card-header">Lieferadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_other_address("delivery-"); ?>
+                        <?php $this->print_other_address("delivery-", false); ?>
                     </div>
                 </div>
                 <div id="gift-address" class="card mb-3 <?php echo $display; ?>">
                     <h5 class="card-header">Geschenkadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_other_address("gift-", $this->is_gift); ?>
+                        <?php $this->print_other_address("gift-", true, $this->is_gift); ?>
                     </div>
                 </div>
                 <div class="card mb-3 <?php echo $display; ?>">

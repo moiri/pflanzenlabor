@@ -82,6 +82,24 @@ class PaymentPacket extends Payment {
     }
 
     private function submit_packet_data() {
+        $packet_data = array(
+            'id_user'           => $_SESSION['user_id'],
+            'id_packets'        => $this->id_item,
+            'comment'           => $this->comment,
+            'd_first_name'      => $this->delivery_first_name,
+            'd_last_name'       => $this->delivery_last_name,
+            'd_street'          => $this->delivery_street,
+            'd_street_number'   => $this->delivery_street_number,
+            'd_zip'             => $this->delivery_zip,
+            'd_city'            => $this->delivery_city,
+            'g_first_name'      => $this->gift_first_name,
+            'g_last_name'       => $this->gift_last_name,
+            'g_street'          => $this->gift_street,
+            'g_street_number'   => $this->gift_street_number,
+            'g_zip'             => $this->gift_zip,
+            'g_city'            => $this->gift_city,
+        );
+        $this->db->insert("user_packets_order", $packet_data);
     }
 
     public function submit_enroll_data() {

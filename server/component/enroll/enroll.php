@@ -37,13 +37,17 @@ abstract class Enroll extends Page {
         }
     }
 
-    protected function print_name($first_name, $last_name, $prefix = "")
+    protected function print_name($first_name, $last_name, $prefix = "",
+        $is_required = true)
     {
+        $required = $is_required ? "required" : "";
         require __DIR__ . '/v_name.php';
     }
 
-    protected function print_address($street, $street_number, $zip, $city, $prefix = "")
+    protected function print_address($street, $street_number, $zip, $city,
+        $prefix = "", $is_required = true)
     {
+        $required = $is_required ? "required" : "";
         require __DIR__ . '/v_address.php';
     }
 
