@@ -25,6 +25,15 @@ class NearestClassItem {
         $this->date = $date;
     }
 
+    private function print_nearest_item_content()
+    {
+        if($this->id != null)
+            require __DIR__ . '/v_nearest_class_item_content.php';
+        else
+            require __DIR__ . '/v_nearest_class_item_na.php';
+
+    }
+
     public function print_view() {
         require __DIR__ . '/v_nearest_class_item.php';
     }
