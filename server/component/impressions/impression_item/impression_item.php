@@ -81,7 +81,7 @@ class ImpressionItem {
     private function print_link()
     {
         if($this->id_class == null || !$this->is_class_enabled) return;
-        $url = $this->router->generate("class", array("id" => $this->id));
+        $url = $this->router->generate("class", array("id" => $this->id_class));
         require __DIR__ . "/v_link.php";
     }
 
