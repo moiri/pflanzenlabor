@@ -81,7 +81,7 @@ class ImpressionItem {
     private function print_link()
     {
         if($this->id_class == null || !$this->is_class_enabled) return;
-        $url = $this->router->generate("class", array("id" => $this->id));
+        $url = $this->router->generate("class", array("id" => $this->id_class));
         require __DIR__ . "/v_link.php";
     }
 
@@ -92,7 +92,7 @@ class ImpressionItem {
 
     private function print_img($img, $caption="")
     {
-        $url = $this->router->get_asset_path("/img/" . $img);
+        $url = $this->router->get_asset_path("/img/assets/impressions/" . $img);
         require __DIR__ . "/v_img.php";
     }
 

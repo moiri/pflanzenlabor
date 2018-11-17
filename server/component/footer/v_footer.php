@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col">
                 <div class="media">
-                    <img class="middle float-left mr-3 align-self-center" src="<?php echo $this->router->get_asset_path("/img/logo-icon.svg"); ?>" alt="Logo Knospe" width="64" height="64">
+                    <img class="middle float-left mr-3 align-self-center" src="<?php echo $this->router->get_asset_path("/img/footer/logo-icon-dark.svg"); ?>" alt="Logo Knospe" width="64" height="64">
                     <div class="media-body">
                         <blockquote class="blockquote mb-0">
                             <p class="mb-0">Nature is not a place to visit. It is home.</p>
