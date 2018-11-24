@@ -5,7 +5,8 @@ require_once "./server/service/router.php";
 require_once "./server/service/pflanzenlaborDbMapper.php";
 require_once "./server/service/globals.php";
 require_once "./server/service/globals_untracked.php";
-require_once "./server/service/check_payment.php";
+require_once "./server/service/check_payment_packet.php";
+require_once "./server/service/check_payment_class.php";
 require_once "./server/component/home/home.php";
 require_once "./server/component/newsletter/newsletter.php";
 require_once "./server/component/contact/contact.php";
@@ -119,6 +120,46 @@ $router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
     }
     $page->print_view();
 }, 'payment');
+$router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
+    function($router, $db, $item) {
+        // payed by bill or vaucher
+        $payment_id = isset( $_POST['payment_id'] ) ? $_POST['payment_id'] : Null;
+        $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
+        if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
+        else $payment_type = PAYMENT_VAUCHER;
+        $page = new Thanks( $router, $payment_type );
+        $user = new User( $db );
+        if($user->is_user_valid())
+        {
+            $check = null;
+            $uid = $user->get_user_id();
+            if($item === "paeckli")
+                $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
+            else if($item === "kurs")
+                $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
+            else if($item === "gutschein")
+                $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
+            if($check && $check->is_item_valid())
+            {
+                if(!$check->is_open())
+                    $page->set_state_closed();
+            }
+            else
+                $page->set_state_na();
+        }
+        else
+            $page->set_state_invalid();
+        if($page->is_state_ok()) {
+            if($payment_type == PAYMENT_VAUCHER)
+                $payment_ok = $check->check_vaucher($vaucher_code, true);
+            else if($payment_type == PAYMENT_BILL)
+                $payment_ok = true;
+            if($payment_ok && $check->enroll_user($payment_type,
+                    ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
+                $check->send_mail($user->get_user_data(), $payment_type);
+        }
+        $page->print_view();
+    }, 'thanks');
 $router->map( 'POST', '/danke', function( $router, $db ) {
     // payed by bill or vaucher
     $date_id = isset( $_POST['item_id'] ) ? $_POST['item_id'] : Null;
@@ -140,7 +181,7 @@ $router->map( 'POST', '/danke', function( $router, $db ) {
         }
     }
     $page->print_view();
-}, 'thanks');
+}, 'thanks_');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
     $date_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;

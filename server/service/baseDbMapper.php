@@ -224,7 +224,7 @@ class BaseDBMapper {
                 ." (".$columnStr.") VALUES(".$valueStr.")";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( $data );
-            return $this->dbh->lastInsertId();
+            return intval($this->dbh->lastInsertId());
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) echo "BaseDbMapper::insert: ".$e->getMessage();
@@ -257,6 +257,48 @@ class BaseDBMapper {
     }
 
     /**
+     * Update values in db defined by one or several ids.
+     *
+     * @param string $table
+     *  The name of the db table.
+     * @param array $entries
+     *  An associative array of db entries e.g. $["colname1"] = "foo".
+     * @param array $ids
+     *  An associative array of where conditions e.g WHERE $key = $value. The
+     *  conditions are concatenated with AND.
+     * @retval bool
+     *  true if succeded, false otherwise.
+     */
+    public function updateByIds($table, $entries, $ids) {
+        try {
+            $data = array();
+            $where_cond = "";
+            $first = true;
+            foreach($ids as $key => $value) {
+                $data[':' . $key] = $value;
+                if($first) $where_cond = " WHERE $key = :$key";
+                else $where_cond .= " AND $key = :$key";
+                $first = false;
+            }
+            $insertStr = "";
+            foreach($entries as $i => $value) {
+                $id = ":".$i;
+                $insertStr .= $i."=".$id.", ";
+                $data[$id] = $value;
+            }
+            $insertStr = rtrim($insertStr, ", ");
+            $sql = "UPDATE ".$table." SET ".$insertStr.$where_cond;
+            $stmt = $this->dbh->prepare($sql);
+            $stmt->execute($data);
+            return $stmt->rowCount();
+        }
+        catch(PDOException $e) {
+            if(DEBUG == 1) echo "BaseDb::update_by_ids: ".$e->getMessage();
+            return false;
+        }
+    }
+
+    /**
      * Update values in db defined by id
      *
      * @param string $table:    the name of the db table
@@ -282,6 +324,7 @@ class BaseDBMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) echo "BaseDbMapper::updateByUid: ".$e->getMessage();
+            return false;
         }
     }
 }

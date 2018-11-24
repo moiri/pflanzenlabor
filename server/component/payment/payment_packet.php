@@ -49,26 +49,29 @@ class PaymentPacket extends Payment {
             if(isset($_POST['delivery-city']))
                 $this->delivery_city = $_POST['delivery-city'];
         }
-        $this->gift_first_name = $this->first_name;
-        $this->gift_last_name = $this->last_name;
-        $this->gift_street = $this->street;
-        $this->gift_street_number = $this->street_number;
-        $this->gift_zip = $this->zip;
-        $this->gift_city = $this->city;
-        if(!isset($_POST['dito-gift']))
+        if($this->has_gift_address())
         {
-            if(isset($_POST['gift-first_name']))
-                $this->gift_first_name = $_POST['gift-first_name'];
-            if(isset($_POST['gift-last_name']))
-                $this->gift_last_name = $_POST['gift-last_name'];
-            if(isset($_POST['gift-street']))
-                $this->gift_street = $_POST['gift-street'];
-            if(isset($_POST['gift-street_number']))
-                $this->gift_street_number = $_POST['gift-street_number'];
-            if(isset($_POST['gift-zip']))
-                $this->gift_zip = $_POST['gift-zip'];
-            if(isset($_POST['gift-city']))
-                $this->gift_city = $_POST['gift-city'];
+            $this->gift_first_name = $this->first_name;
+            $this->gift_last_name = $this->last_name;
+            $this->gift_street = $this->street;
+            $this->gift_street_number = $this->street_number;
+            $this->gift_zip = $this->zip;
+            $this->gift_city = $this->city;
+            if(!isset($_POST['dito-gift']))
+            {
+                if(isset($_POST['gift-first_name']))
+                    $this->gift_first_name = $_POST['gift-first_name'];
+                if(isset($_POST['gift-last_name']))
+                    $this->gift_last_name = $_POST['gift-last_name'];
+                if(isset($_POST['gift-street']))
+                    $this->gift_street = $_POST['gift-street'];
+                if(isset($_POST['gift-street_number']))
+                    $this->gift_street_number = $_POST['gift-street_number'];
+                if(isset($_POST['gift-zip']))
+                    $this->gift_zip = $_POST['gift-zip'];
+                if(isset($_POST['gift-city']))
+                    $this->gift_city = $_POST['gift-city'];
+            }
         }
 
         if( $_POST['comment'] == "" ) $this->comment = "keine Bemerkung";
@@ -99,7 +102,12 @@ class PaymentPacket extends Payment {
             'g_zip'             => $this->gift_zip,
             'g_city'            => $this->gift_city,
         );
-        $this->db->insert("user_packets_order", $packet_data);
+        $this->id_order = $this->db->insert("user_packets_order", $packet_data);
+    }
+
+    private function has_gift_address()
+    {
+        return in_array($this->id_item, GIFT_PACKET_IDS);
     }
 
     public function submit_enroll_data() {
@@ -109,7 +117,7 @@ class PaymentPacket extends Payment {
 
     public function print_view() {
         $this->print_page( function() {
-            $display = ($this->id_item == 2 || $this->id_item == 4) ? "d-none" : "";
+            $display = $this->has_gift_address() ? "" : "d-none";
             require __DIR__ . '/v_payment_packet.php';
         } );
     }

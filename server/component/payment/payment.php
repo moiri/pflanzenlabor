@@ -12,6 +12,7 @@ abstract class Payment extends Page {
 
     protected $paypal_key;
     protected $id_item;
+    protected $id_order = null;
     protected $db;
     protected $user;
 
@@ -91,7 +92,7 @@ abstract class Payment extends Page {
         require __DIR__ . '/v_paypal.php';
     }
 
-    protected function print_bill()
+    protected function print_bill($id)
     {
         require __DIR__ . '/v_bill.php';
     }

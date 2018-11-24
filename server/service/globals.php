@@ -20,4 +20,5 @@ define( 'PAGE_STATE_MISSING', 200 );
 define( 'PAGE_STATE_INVALID', 300 );
 
 define( 'CLASS_TYPE_WALK_ID', 2 );
+define( 'GIFT_PACKET_IDS', array(6, 8) );
 ?>
