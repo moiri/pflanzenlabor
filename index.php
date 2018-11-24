@@ -127,7 +127,7 @@ $router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
         $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
         if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
         else $payment_type = PAYMENT_VAUCHER;
-        $page = new Thanks( $router, $payment_type );
+        $page = new Thanks( $router, $payment_type, $item );
         $user = new User( $db );
         if($user->is_user_valid())
         {
@@ -145,7 +145,7 @@ $router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
                     $page->set_state_closed();
             }
             else
-                $page->set_state_na();
+                $page->set_state_missing();
         }
         else
             $page->set_state_invalid();

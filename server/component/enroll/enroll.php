@@ -23,7 +23,7 @@ abstract class Enroll extends Page {
         parent::__construct( $router );
         $this->db = $dbMapper;
         $this->id_item = $id;
-        $this->user = new User( $dbMapper );
+        $this->user = new User($dbMapper);
         if( $this->user->is_user_valid() ) {
             $user_data = $this->user->get_user_data();
             $this->first_name = $user_data['first_name'];

@@ -1,4 +1,6 @@
-Vielen Dank <?php echo $user['first_name']; ?> für deine Bestellung für das Pflanzenpäckli Abo:
+Hallo <?php echo $user['first_name']; ?>
+
+Vielen Dank für deine Bestellung des Pflanzenpäckli Abos:
 <?php echo $this->packet_name; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $packet_url ?>)
 
 Rechnungsadresse:
@@ -10,7 +12,6 @@ Lieferadresse:
     Adresse: <?php echo $this->delivery_street; ?> <?php echo $this->delivery_street_number; ?>, <?php echo $this->delivery_zip; ?> <?php echo $this->delivery_city; ?> 
 
 <?php $this->print_gift_address(); ?>
-
 Kontakt:
     Email: <?php echo $user['email']; ?> 
     Telefon: <?php echo $user['phone']; ?> 

@@ -7,10 +7,13 @@ require_once __DIR__ . '/../page.php';
 class Thanks extends Page {
 
     private $is_paypal;
+    private $payment_type;
+    private $item_type;
 
-    function __construct( $router, $payment_type ) {
-        parent::__construct( $router );
+    function __construct($router, $payment_type, $item) {
+        parent::__construct($router);
         $this->payment_type = $payment_type;
+        $this->item_type = $item;
     }
 
     public function is_paypal() {
@@ -19,12 +22,19 @@ class Thanks extends Page {
 
     public function print_view() {
         $this->print_page( function() {
-            if( $this->payment_type == PAYMENT_PAYPAL )
-                require __DIR__ . '/v_thanks_paypal.php';
-            else if( $this->payment_type == PAYMENT_BILL )
-                require __DIR__ . '/v_thanks_bill.php';
-            else if( $this->payment_type == PAYMENT_VAUCHER )
-                require __DIR__ . '/v_thanks_vaucher.php';
+            if($this->item_type === "kurs")
+            {
+                if( $this->payment_type == PAYMENT_PAYPAL )
+                    require __DIR__ . '/v_thanks_paypal.php';
+                else if( $this->payment_type == PAYMENT_BILL )
+                    require __DIR__ . '/v_thanks_bill.php';
+                else if( $this->payment_type == PAYMENT_VAUCHER )
+                    require __DIR__ . '/v_thanks_vaucher.php';
+            }
+            else if($this->item_type === "paeckli")
+            {
+                require __DIR__ . '/v_thanks_packet.php';
+            }
         } );
     }
 }
