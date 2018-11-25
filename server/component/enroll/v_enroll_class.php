@@ -16,7 +16,7 @@
                 <div class="col-auto d-none d-md-block">
                     <div class="card">
                         <div class="card-body">
-                    <img class="" src="<?php echo $this->router->get_asset_path("/img/hov_" . $this->class_img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>" height="150" width="150">
+                    <img class="" src="<?php echo $this->router->get_asset_path("/img/assets/course/hov_" . $this->class_img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>" height="150" width="150">
                         </div>
                     </div>
                 </div>
