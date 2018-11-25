@@ -25,15 +25,19 @@ class Thanks extends Page {
             if($this->item_type === "kurs")
             {
                 if( $this->payment_type == PAYMENT_PAYPAL )
-                    require __DIR__ . '/v_thanks_paypal.php';
+                    require __DIR__ . '/v_thanks_course_paypal.php';
                 else if( $this->payment_type == PAYMENT_BILL )
-                    require __DIR__ . '/v_thanks_bill.php';
+                    require __DIR__ . '/v_thanks_course_bill.php';
                 else if( $this->payment_type == PAYMENT_VAUCHER )
-                    require __DIR__ . '/v_thanks_vaucher.php';
+                    require __DIR__ . '/v_thanks_course_vaucher.php';
             }
             else if($this->item_type === "paeckli")
             {
                 require __DIR__ . '/v_thanks_packet.php';
+            }
+            else if($this->item_type === "gutschein")
+            {
+                require __DIR__ . '/v_thanks_vaucher.php';
             }
         } );
     }

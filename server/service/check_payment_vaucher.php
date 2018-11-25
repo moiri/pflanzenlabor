@@ -2,13 +2,13 @@
 require_once __DIR__ . '/check_payment.php';
 
 /**
- * Specific Check Payment Class for Packets
+ * Specific Check Payment Class for Vauchers
  */
-class CheckPaymentPacket extends CheckPayment {
+class CheckPaymentVaucher extends CheckPayment {
 
     private $item_id;
-    private $packet_name;
-    private $packet_price;
+    private $vaucher_name;
+    private $vaucher_price;
     private $comment;
 
     private $delivery_first_name = "";
@@ -18,21 +18,14 @@ class CheckPaymentPacket extends CheckPayment {
     private $delivery_zip = "";
     private $delivery_city = "";
 
-    private $gift_first_name = "";
-    private $gift_last_name = "";
-    private $gift_street = "";
-    private $gift_street_number = "";
-    private $gift_zip = "";
-    private $gift_city = "";
-
     function __construct($router, $db, $item_id, $uid) {
         parent::__construct($router, $db, $uid);
         $this->item_id = $item_id;
-        $packet = $this->db->getPacket($item_id);
-        if($packet && isset($_SESSION['order_data']))
+        $vaucher = $this->db->getVaucherType($item_id);
+        if($vaucher && isset($_SESSION['order_data']))
         {
-            $this->packet_name = $packet['name'];
-            $this->packet_price = $packet['price'];
+            $this->vaucher_name = $vaucher['name'];
+            $this->vaucher_price = $vaucher['price'];
         }
         else
             $this->na = true;
@@ -47,12 +40,6 @@ class CheckPaymentPacket extends CheckPayment {
             $this->delivery_street_number = $_SESSION['order_data']['d_street_number'];
             $this->delivery_zip = $_SESSION['order_data']['d_zip'];
             $this->delivery_city = $_SESSION['order_data']['d_city'];
-            $this->gift_first_name = $_SESSION['order_data']['g_first_name'];
-            $this->gift_last_name = $_SESSION['order_data']['g_last_name'];
-            $this->gift_street = $_SESSION['order_data']['g_street'];
-            $this->gift_street_number = $_SESSION['order_data']['g_street_number'];
-            $this->gift_zip = $_SESSION['order_data']['g_zip'];
-            $this->gift_city = $_SESSION['order_data']['g_city'];
         }
     }
 
@@ -60,13 +47,14 @@ class CheckPaymentPacket extends CheckPayment {
     {
         if($_SESSION['order_data'] === false) return false;
         $order_data = $_SESSION['order_data'];
+        $vaucher_id = $this->create_vaucher_code();
         $order_data['id_user'] = $_SESSION['user_id'];
-        $order_data['id_packets'] = $this->item_id;
+        $order_data['id_vauchers'] = $vaucher_id;
         $order_data['is_payed'] = (int)$is_payed;
         $order_data['id_payment'] = $payment_type;
         $_SESSION['order_data'] = false;
 
-        return $this->db->insert("user_packets_order", $order_data);
+        return $this->db->insert("user_vauchers_order", $order_data);
     }
 
     public function is_open()
@@ -85,7 +73,7 @@ class CheckPaymentPacket extends CheckPayment {
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
-        $subject = "Pflanzenlabor - Deine Bestellung fürs Pflanzenpäckli Abo: ". $this->packet_name;
+        $subject = "Pflanzenlabor - Dein Gutschein Kauf: ". $this->vaucher_name;
 
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";
@@ -100,21 +88,34 @@ class CheckPaymentPacket extends CheckPayment {
             implode( "\r\n", $headers ) );
     }
 
+    private function create_random_string($length = 6) {
+        $str = "";
+        $characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+        $max = count($characters) - 1;
+        for ($i = 0; $i < $length; $i++) {
+            $rand = mt_rand(0, $max);
+            $str .= $characters[$rand];
+        }
+        return $str;
+    }
+
+    private function create_vaucher_code()
+    {
+        return $this->db->insert("vauchers", array(
+            'id_vaucher_type' => $this->item_id,
+            'code' => $this->create_random_string(8),
+        ));
+    }
+
     private function get_email_content($user, $payment_type)
     {
-        $packet_url = $this->router->generate('packets');
+        $vaucher_url = $this->router->generate('vauchers');
         $contact_url = $this->router->generate('contact');
         $newsletter = ($user['newsletter'] == 1) ? "Ja" : "Nein";
         ob_start();
-        include(__DIR__ . "/../email/thanks_packet.php");
+        include(__DIR__ . "/../email/thanks_vaucher.php");
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
-    }
-
-    private function print_gift_address()
-    {
-        if(in_array($this->item_id, GIFT_PACKET_IDS))
-            require __DIR__ . "/../email/tpl_gift_address.php";
     }
 }

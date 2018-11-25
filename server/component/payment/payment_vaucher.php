@@ -9,6 +9,7 @@ class PaymentVaucher extends Payment {
 
     private $vaucher_name = "";
     private $vaucher_price = "";
+    private $comment = "";
 
     private $delivery_first_name = "";
     private $delivery_last_name = "";
@@ -55,6 +56,15 @@ class PaymentVaucher extends Payment {
     }
 
     private function submit_vaucher_data() {
+        $_SESSION['order_data'] = array(
+            'comment'           => $this->comment,
+            'd_first_name'      => $this->delivery_first_name,
+            'd_last_name'       => $this->delivery_last_name,
+            'd_street'          => $this->delivery_street,
+            'd_street_number'   => $this->delivery_street_number,
+            'd_zip'             => $this->delivery_zip,
+            'd_city'            => $this->delivery_city,
+        );
     }
 
     public function submit_enroll_data() {

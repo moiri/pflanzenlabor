@@ -7,6 +7,7 @@ require_once "./server/service/globals.php";
 require_once "./server/service/globals_untracked.php";
 require_once "./server/service/check_payment_packet.php";
 require_once "./server/service/check_payment_class.php";
+require_once "./server/service/check_payment_vaucher.php";
 require_once "./server/component/home/home.php";
 require_once "./server/component/newsletter/newsletter.php";
 require_once "./server/component/contact/contact.php";

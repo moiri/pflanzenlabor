@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         <?php $this->print_nav(); ?>
     </div>
@@ -42,32 +42,12 @@
             </div>
         </div>
     </div>
-    <div class="row <?php echo $display; ?>">
-        <div class="container mb-3">
-            <div class="row row-eq-height">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header ">
-                            <h5 class="mb-0">Geschenkadresse</h5>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $this->delivery_first_name . " " . $this->delivery_last_name; ?></br>
-                            <?php echo $this->delivery_street . " " . $this->delivery_street_number; ?></br>
-                            <?php echo $this->delivery_zip . " " . $this->delivery_city; ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header ">
-                            <h5 class="mb-0">Geschenknachricht</h5>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $this->comment; ?></br>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">Geschenknachricht</h5>
+        </div>
+        <div class="card-body">
+            <?php echo $this->comment; ?></br>
         </div>
     </div>
     <div class="row">
@@ -108,22 +88,18 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="container">
-<div class="card">
-    <div class="card-header ">
-        <h5 class="mb-0">Bezahlen</h5>
-    </div>
-    <div class="card-body">
-<?php
-if( $this->show_enroll_warning )
-    echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
-?>
-        <?php $this->print_back("vauchers_enroll"); ?>
-        <?php $this->print_bill(); ?>
-        <?php $this->print_paypal(); ?>
-    </div>
-</div>
+    <div class="card">
+        <div class="card-header ">
+            <h5 class="mb-0">Bezahlen</h5>
+        </div>
+        <div class="card-body">
+    <?php
+    if( $this->show_enroll_warning )
+        echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
+    ?>
+            <?php $this->print_back("vauchers_enroll"); ?>
+            <?php $this->print_bill($this->id_item, "gutschein"); ?>
+            <?php $this->print_paypal(); ?>
         </div>
     </div>
     <div class="row mt-3">

@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-body">
                     <h1>Vielen Dank!</h1>
-                    <p>Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf.</p>
-                    Der Gutschein wird in Kürze per Post an die Lieferadresse versendet.
+                    <p>Der Gutschein wurde eingelöst und Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf.</p>
+                    Ich freue mich auf deinen Besuch. Bis bald!
                 </div>
             </div>
         </div>

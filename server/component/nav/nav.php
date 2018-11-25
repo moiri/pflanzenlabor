@@ -53,8 +53,15 @@ class Nav
         else if($route_name == "vauchers")
         {
             $id = $this->router->get_route_param( 'id' );
+            $item = $this->router->get_route_param( 'item' );
             if( $id && ( $this->router->generate( 'vauchers_enroll',
                     array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if( $id && ( $this->router->generate( 'vauchers_payment',
+                    array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if( $item && ( $this->router->generate( 'thanks',
+                    array( 'item' => 'gutschein' ) ) == $uri ) )
                 return $this->active_css;
         }
 

@@ -16,7 +16,7 @@
                 <div class="col-auto d-none d-md-block">
                     <div class="card">
                         <div class="card-body">
-                    <img class="" src="<?php echo $this->router->get_asset_path("/img/assets/" . $this->vaucher_img); ?>" alt="Bild zum Kurs <?php echo $this->vaucher_name; ?>" height="100" width="100">
+                    <img class="" src="<?php echo $this->router->get_asset_path("/img/assets/" . $this->vaucher_img); ?>" alt="Bild zum Gutschein <?php echo $this->vaucher_name; ?>" height="100" width="100">
                         </div>
                     </div>
                 </div>
@@ -31,25 +31,25 @@
                     <div class="card-body">
                         <?php $this->print_main_address(); ?>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name="dito-delivery">
+                            <input class="form-check-input" type="checkbox" value="" name="dito-delivery" checked>
                             <label class="form-check-label mt-1 ml-2">
                                 Verwende als Lieferadresse
                             </label>
                         </div>
                     </div>
                 </div>
-                <div id="delivery-address" class="card mb-3">
+                <div id="delivery-address" class="card mb-3 d-none">
                     <h5 class="card-header">Lieferadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_other_address("delivery-"); ?>
+                        <?php $this->print_other_address("delivery-", false); ?>
                     </div>
                 </div>
-                <div class="card mb-3 <?php echo $display; ?>">
+                <div class="card mb-3">
                     <h5 class="card-header">Geschenknachricht</h5>
                     <div class="card-body">
                         <div class="form-group">
                             <label for="contactContent">Nachricht auf dem Gutschein (maximal 500 Zeichen)</label>
-                            <textarea class="form-control" name="comment" rows="3" maxlength=500></textarea>
+                            <textarea class="form-control" name="comment" rows="3" maxlength=500><?php echo (isset($_SESSION['order_data'])) ? $_SESSION['order_data']['comment'] : ""; ?></textarea>
                         </div>
                     </div>
                 </div>

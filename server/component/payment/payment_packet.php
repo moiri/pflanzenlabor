@@ -8,6 +8,7 @@ class PaymentPacket extends Payment {
 
     private $packet_name = "";
     private $packet_price = "";
+    private $comment = "";
 
     private $delivery_first_name = "";
     private $delivery_last_name = "";
