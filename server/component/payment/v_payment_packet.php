@@ -120,7 +120,7 @@ if( $this->show_enroll_warning )
     echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
 ?>
         <?php $this->print_back("packets_enroll"); ?>
-        <?php $this->print_bill($this->id_item); ?>
+        <?php $this->print_bill($this->id_item, "paeckli"); ?>
         <?php $this->print_paypal(); ?>
     </div>
 </div>

@@ -41,6 +41,7 @@ $dbMapper->setDbLocale('de_CH');
 // map homepage
 $view_path = '/server/view';
 $router->setBasePath(BASE_PATH);
+// Main Pages
 $router->map( 'GET', '/', function( $router, $db ) {
     $page = new Home( $router, $db );
     $page->print_view();
@@ -49,6 +50,27 @@ $router->map( 'GET', '/giovina', function( $router, $db ) {
     $page = new Me( $router );
     $page->print_view();
 }, 'me');
+$router->map( 'GET', '/abbruch', function( $router, $db ) {
+    $page = new Cancel( $router );
+    $page->print_view();
+}, 'cancel');
+$router->map( 'GET', '/impressum', function( $router, $db ) {
+    $page = new Impressum( $router );
+    $page->print_view();
+}, 'impressum');
+$router->map( 'GET', '/disclaimer', function( $router, $db ) {
+    $page = new Disclaimer( $router );
+    $page->print_view();
+}, 'disclaimer');
+$router->map( 'GET', '/agb', function( $router, $db ) {
+    $page = new AGB( $router );
+    $page->print_view();
+}, 'agb');
+$router->map( 'GET', '/impressionen', function( $router, $db ) {
+    $page = new Impressions( $router, $db );
+    $page->print_view();
+}, 'impressions');
+// Contact Pages
 $router->map( 'GET', '/kontakt', function( $router, $db ) {
     $page = new Contact( $router, $db );
     $page->print_view();
@@ -57,18 +79,40 @@ $router->map( 'GET', '/newsletter', function( $router, $db ) {
     $page = new Newsletter( $router, $db );
     $page->print_view();
 }, 'newsletter');
+$router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
+    $page = new ContactSend( $router );
+    $page->send_mail();
+    $page->send_newsletter_mail();
+    $page->print_view();
+}, 'send');
+$router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
+    $page = new ContactNewsletter( $router );
+    $page->send_mail();
+    $page->print_view();
+}, 'request_newsletter');
+// Course Pages
 $router->map( 'GET', '/kurse', function( $router, $db ) {
     $page = new Classes( $router, $db );
     $page->print_view();
 }, 'courses');
-$router->map( 'GET', '/impressionen', function( $router, $db ) {
-    $page = new Impressions( $router, $db );
-    $page->print_view();
-}, 'impressions');
 $router->map( 'GET', '/kurse/[i:id]', function( $router, $db, $id ) {
     $page = new ClassPage( $router, $db, intval( $id ) );
     $page->print_view();
 }, 'class');
+$router->map( 'GET', '/kurse_anmeldung/[i:id]', function( $router, $db, $id ) {
+    $page = new EnrollClass( $router, $db, intval( $id ) );
+    $page->print_view();
+}, 'enroll');
+$router->map( 'POST', '/kurse_bezahlung/[i:id]', function( $router, $db, $id ) {
+    $page = new PaymentClass( $router, $db, intval( $id ) );
+    if( $page->is_state_ok() )
+    {
+        $page->submit_enroll_data();
+        $page->send_newsletter_mail();
+    }
+    $page->print_view();
+}, 'payment');
+// Packets Pages
 $router->map( 'GET', '/paeckli', function( $router, $db ) {
     $page = new Packets( $router, $db );
     $page->print_view();
@@ -90,6 +134,7 @@ $router->map( 'POST', '/paeckli_bezahlung/[i:id]', function( $router, $db, $id )
     }
     $page->print_view();
 }, 'packets_payment');
+// Vauchers Pages
 $router->map( 'GET', '/gutscheine', function( $router, $db ) {
     $page = new Vauchers( $router, $db );
     $page->print_view();
@@ -107,19 +152,23 @@ $router->map( 'POST', '/gutschein_bezahlung/[i:id]', function( $router, $db, $id
     }
     $page->print_view();
 }, 'vauchers_payment');
-$router->map( 'GET', '/anmeldung/[i:id]', function( $router, $db, $id ) {
-    $page = new EnrollClass( $router, $db, intval( $id ) );
-    $page->print_view();
-}, 'enroll');
-$router->map( 'POST', '/bezahlung/[i:id]', function( $router, $db, $id ) {
-    $page = new PaymentClass( $router, $db, intval( $id ) );
-    if( $page->is_state_ok() )
-    {
-        $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+$router->map( 'POST', '/gutschein', function( $router, $db ) {
+    header("HTTP/1.1 200 OK");
+    $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
+    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
+    $user = new User( $db );
+    if( !$user->is_user_enrolled( $date_id ) ) {
+        $check = new CheckPayment( $router, $db, $date_id );
+        if( $check->is_date_existing() ) {
+            if( $check->check_vaucher( $vaucher_code ) ) {
+                print '{ "vaucher_valid": true }';
+                return;
+            }
+        }
     }
-    $page->print_view();
-}, 'payment');
+    print '{ "vaucher_valid": false }';
+}, 'vaucher');
+// Thanks Pages
 $router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
     function($router, $db, $item) {
         // payed by bill or vaucher
@@ -160,28 +209,6 @@ $router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
         }
         $page->print_view();
     }, 'thanks');
-$router->map( 'POST', '/danke', function( $router, $db ) {
-    // payed by bill or vaucher
-    $date_id = isset( $_POST['item_id'] ) ? $_POST['item_id'] : Null;
-    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
-    if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
-    else $payment_type = PAYMENT_VAUCHER;
-    $page = new Thanks( $router, $payment_type );
-    $user = new User( $db );
-    if( !$user->is_user_enrolled( $date_id ) ) {
-        $check = new CheckPayment( $router, $db, $date_id );
-        $check->update_page_state( $page );
-        if( $page->is_state_ok() ) {
-            if( $payment_type == PAYMENT_VAUCHER )
-                $payment_ok = $check->check_vaucher( $vaucher_code, true );
-            else if( $payment_type == PAYMENT_BILL )
-                $payment_ok = true;
-            if( $payment_ok && $check->enroll_user( $payment_type, ($payment_ok && ( $payment_type == PAYMENT_VAUCHER ) ) ) )
-                $check->send_mail( $payment_type );
-        }
-    }
-    $page->print_view();
-}, 'thanks_');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
     $date_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
@@ -190,6 +217,7 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     $check->update_page_state( $page );
     $page->print_view();
 }, 'thanks_get');
+// Check Paypal
 $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal IPN requiest
     $date_id = ( isset( $_POST['item_number'] ) ) ? $_POST['item_number'] : Null;
@@ -203,49 +231,6 @@ $router->map( 'POST', '/check', function( $router, $db ) {
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
     header("HTTP/1.1 200 OK");
 });
-$router->map( 'POST', '/gutschein', function( $router, $db ) {
-    header("HTTP/1.1 200 OK");
-    $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
-    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
-    $user = new User( $db );
-    if( !$user->is_user_enrolled( $date_id ) ) {
-        $check = new CheckPayment( $router, $db, $date_id );
-        if( $check->is_date_existing() ) {
-            if( $check->check_vaucher( $vaucher_code ) ) {
-                print '{ "vaucher_valid": true }';
-                return;
-            }
-        }
-    }
-    print '{ "vaucher_valid": false }';
-}, 'vaucher');
-$router->map( 'GET', '/abbruch', function( $router, $db ) {
-    $page = new Cancel( $router );
-    $page->print_view();
-}, 'cancel');
-$router->map( 'GET', '/impressum', function( $router, $db ) {
-    $page = new Impressum( $router );
-    $page->print_view();
-}, 'impressum');
-$router->map( 'GET', '/disclaimer', function( $router, $db ) {
-    $page = new Disclaimer( $router );
-    $page->print_view();
-}, 'disclaimer');
-$router->map( 'GET', '/agb', function( $router, $db ) {
-    $page = new AGB( $router );
-    $page->print_view();
-}, 'agb');
-$router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
-    $page = new ContactSend( $router );
-    $page->send_mail();
-    $page->send_newsletter_mail();
-    $page->print_view();
-}, 'send');
-$router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
-    $page = new ContactNewsletter( $router );
-    $page->send_mail();
-    $page->print_view();
-}, 'request_newsletter');
 // match current request url
 $router->update_route();
 

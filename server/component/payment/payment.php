@@ -92,7 +92,7 @@ abstract class Payment extends Page {
         require __DIR__ . '/v_paypal.php';
     }
 
-    protected function print_bill($id)
+    protected function print_bill($id, $target)
     {
         require __DIR__ . '/v_bill.php';
     }

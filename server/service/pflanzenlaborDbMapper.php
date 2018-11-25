@@ -36,7 +36,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function markUserEnrolled( $id_user, $id_date, $type, $is_payed ) {
         try {
             $sql = "UPDATE user_class_dates
-                SET id_payment = :type, is_payed = is_payed + :payed, is_booked = is_booked + 1
+                SET id_payment = :type, is_payed = :payed, is_booked = 1
                 WHERE id_user = :id_user AND id_class_dates = :id_date";
             $stmt = $this->dbh->prepare( $sql );
             return $stmt->execute( array(

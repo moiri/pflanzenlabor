@@ -45,8 +45,11 @@ class CheckPaymentClass extends CheckPayment
 
     public function enroll_user($payment_type, $is_payed = false)
     {
+        if(isset($_SESSION['is_enrolled']) && $_SESSION['is_enrolled'] === true)
+            return false;
         if($this->db->incrementUserCount($this->item_id))
         {
+            $_SESSION['is_enrolled'] = true;
             $this->db->markUserEnrolled($this->user_id, $this->item_id,
                 $payment_type, $is_payed);
             return true;
@@ -65,7 +68,6 @@ class CheckPaymentClass extends CheckPayment
     }
 
     public function send_mail($user, $payment_type) {
-        $course = $this->date;
         $from = "info@pflanzenlabor.ch";
         if( !DEBUG ) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
         else $bcc = "";

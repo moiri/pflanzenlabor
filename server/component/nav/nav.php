@@ -19,16 +19,33 @@ class Nav
         $uri = $_SERVER['REQUEST_URI'];
         if( $route_name == "courses" ) {
             // handle special case "/class/:id"
+            $item = $this->router->get_route_param( 'item' );
             $id = $this->router->get_route_param( 'id' );
             if( $id && ( $this->router->generate( 'class',
                     array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            if( $id && ( $this->router->generate( 'enroll',
+                    array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if( $id && ( $this->router->generate( 'payment',
+                    array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if( $item && ( $this->router->generate( 'thanks',
+                    array( 'item' => 'kurs' ) ) == $uri ) )
                 return $this->active_css;
         }
         else if($route_name == "packets")
         {
             $id = $this->router->get_route_param( 'id' );
+            $item = $this->router->get_route_param( 'item' );
             if( $id && ( $this->router->generate( 'packets_enroll',
                     array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if( $id && ( $this->router->generate( 'packets_payment',
+                    array( 'id' => $id ) ) == $uri ) )
+                return $this->active_css;
+            else if( $item && ( $this->router->generate( 'thanks',
+                    array( 'item' => 'paeckli' ) ) == $uri ) )
                 return $this->active_css;
             else if($uri == $this->router->generate("packets_offer"))
                 return $this->active_css;
