@@ -22,7 +22,7 @@ class CheckPaymentVaucher extends CheckPayment {
         parent::__construct($router, $db, $uid);
         $this->item_id = $item_id;
         $vaucher = $this->db->getVaucherType($item_id);
-        if($vaucher && isset($_SESSION['order_data']))
+        if($vaucher && isset($_SESSION['vaucher_order_data']))
         {
             $this->vaucher_name = $vaucher['name'];
             $this->vaucher_price = $vaucher['price'];
@@ -30,29 +30,29 @@ class CheckPaymentVaucher extends CheckPayment {
         else
             $this->na = true;
 
-        if(isset($_SESSION['order_data'])
-                && $_SESSION['order_data'] !== false)
+        if(isset($_SESSION['vaucher_order_data'])
+                && $_SESSION['vaucher_order_data'] !== false)
         {
-            $this->comment = $_SESSION['order_data']['comment'];
-            $this->delivery_first_name = $_SESSION['order_data']['d_first_name'];
-            $this->delivery_last_name = $_SESSION['order_data']['d_last_name'];
-            $this->delivery_street = $_SESSION['order_data']['d_street'];
-            $this->delivery_street_number = $_SESSION['order_data']['d_street_number'];
-            $this->delivery_zip = $_SESSION['order_data']['d_zip'];
-            $this->delivery_city = $_SESSION['order_data']['d_city'];
+            $this->comment = $_SESSION['vaucher_order_data']['comment'];
+            $this->delivery_first_name = $_SESSION['vaucher_order_data']['d_first_name'];
+            $this->delivery_last_name = $_SESSION['vaucher_order_data']['d_last_name'];
+            $this->delivery_street = $_SESSION['vaucher_order_data']['d_street'];
+            $this->delivery_street_number = $_SESSION['vaucher_order_data']['d_street_number'];
+            $this->delivery_zip = $_SESSION['vaucher_order_data']['d_zip'];
+            $this->delivery_city = $_SESSION['vaucher_order_data']['d_city'];
         }
     }
 
     public function enroll_user($payment_type, $is_payed = false)
     {
-        if($_SESSION['order_data'] === false) return false;
-        $order_data = $_SESSION['order_data'];
+        if($_SESSION['vaucher_order_data'] === false) return false;
+        $order_data = $_SESSION['vaucher_order_data'];
         $vaucher_id = $this->create_vaucher_code();
         $order_data['id_user'] = $_SESSION['user_id'];
         $order_data['id_vauchers'] = $vaucher_id;
         $order_data['is_payed'] = (int)$is_payed;
         $order_data['id_payment'] = $payment_type;
-        $_SESSION['order_data'] = false;
+        $_SESSION['vaucher_order_data'] = false;
 
         return $this->db->insert("user_vauchers_order", $order_data);
     }

@@ -35,6 +35,20 @@ require_once "./server/component/impressions/impressions.php";
 require_once "./server/component/packets/packets.php";
 require_once "./server/component/packets_offer/packets_offer.php";
 require_once "./server/component/vauchers/vauchers.php";
+
+/**
+ * Helper function to show stacktrace also of wranings.
+ */
+function exception_error_handler($severity, $message, $file, $line) {
+    if (!(error_reporting() & $severity)) {
+        // This error code is not included in error_reporting
+        return;
+    }
+    throw new ErrorException($message, 0, $severity, $file, $line);
+}
+// only activate in debug mode
+if(DEBUG == 1) set_error_handler("exception_error_handler");
+
 $router = new Router();
 $dbMapper = new PflanzenlaborDbMapper(DBSERVER,DBNAME,DBUSER,DBPASSWORD);
 $dbMapper->setDbLocale('de_CH');
@@ -212,9 +226,9 @@ $router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
     }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
-    $date_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
+    $item_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
     $page = new Thanks( $router, PAYMENT_PAYPAL );
-    $check = new CheckPayment( $router, $db, $date_id );
+    $check = new CheckPayment( $router, $db, $item_id );
     $check->update_page_state( $page );
     $page->print_view();
 }, 'thanks_get');

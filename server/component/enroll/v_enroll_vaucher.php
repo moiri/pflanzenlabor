@@ -49,7 +49,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="contactContent">Nachricht auf dem Gutschein (maximal 500 Zeichen)</label>
-                            <textarea class="form-control" name="comment" rows="3" maxlength=500><?php echo (isset($_SESSION['order_data'])) ? $_SESSION['order_data']['comment'] : ""; ?></textarea>
+                            <textarea class="form-control" name="comment" rows="3" maxlength=500><?php echo (isset($_SESSION['vaucher_order_data'])) ? $_SESSION['vaucher_order_data']['comment'] : ""; ?></textarea>
                         </div>
                     </div>
                 </div>

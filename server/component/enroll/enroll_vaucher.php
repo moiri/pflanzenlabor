@@ -37,14 +37,14 @@ class EnrollVaucher extends Enroll {
         $street_number = "";
         $zip = "";
         $city = "";
-        if(isset($_SESSION['order_data']))
+        if(isset($_SESSION['vaucher_order_data']))
         {
-            $first_name = $_SESSION['order_data'][$char_prefix . '_first_name'];
-            $last_name = $_SESSION['order_data'][$char_prefix . '_last_name'];
-            $zip = $_SESSION['order_data'][$char_prefix . '_zip'];
-            $street_number = $_SESSION['order_data'][$char_prefix . '_street_number'];
-            $street = $_SESSION['order_data'][$char_prefix . '_street'];
-            $city = $_SESSION['order_data'][$char_prefix . '_city'];
+            $first_name = $_SESSION['vaucher_order_data'][$char_prefix . '_first_name'];
+            $last_name = $_SESSION['vaucher_order_data'][$char_prefix . '_last_name'];
+            $zip = $_SESSION['vaucher_order_data'][$char_prefix . '_zip'];
+            $street_number = $_SESSION['vaucher_order_data'][$char_prefix . '_street_number'];
+            $street = $_SESSION['vaucher_order_data'][$char_prefix . '_street'];
+            $city = $_SESSION['vaucher_order_data'][$char_prefix . '_city'];
         }
         $this->print_name($first_name, $last_name, $prefix, $is_required);
         $this->print_address($street, $street_number, $zip, $city, $prefix,

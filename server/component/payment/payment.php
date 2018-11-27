@@ -87,8 +87,9 @@ abstract class Payment extends Page {
         $this->user->set_user_data( $user_data );
     }
 
-    protected function print_paypal()
+    protected function print_paypal($paypal_key, $uid)
     {
+        return;
         require __DIR__ . '/v_paypal.php';
     }
 

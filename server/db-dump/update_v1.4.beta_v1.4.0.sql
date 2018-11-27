@@ -56,3 +56,6 @@ ALTER TABLE `user_vauchers_order`
   ADD CONSTRAINT `fk_user_vauchers_order_id_payment` FOREIGN KEY (`id_payment`) REFERENCES `payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user_vauchers_order_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_user_vauchers_order_id_vauchers` FOREIGN KEY (`id_vauchers`) REFERENCES `vauchers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `vaucher_types` ADD `paypal_key` VARCHAR(20) NOT NULL AFTER `price`;
+ALTER TABLE `packets` ADD `paypal_key` VARCHAR(20) NOT NULL AFTER `price`;

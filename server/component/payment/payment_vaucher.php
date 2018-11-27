@@ -51,12 +51,13 @@ class PaymentVaucher extends Payment {
         if($vaucher) {
             $this->vaucher_name = $vaucher['name'];
             $this->vaucher_price = $vaucher['price'];
+            $this->paypal_key = $vaucher['paypal_key'];
         }
         else $this->set_state_missing();
     }
 
     private function submit_vaucher_data() {
-        $_SESSION['order_data'] = array(
+        $_SESSION['vaucher_order_data'] = array(
             'comment'           => $this->comment,
             'd_first_name'      => $this->delivery_first_name,
             'd_last_name'       => $this->delivery_last_name,

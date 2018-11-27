@@ -53,7 +53,7 @@
                 <div id="gift-address" class="card mb-3 <?php echo $display; ?>">
                     <h5 class="card-header">Geschenkadresse</h5>
                     <div class="card-body">
-                        <?php $this->print_other_address("gift-", true, $this->is_gift); ?>
+                        <?php $this->print_other_address("gift-", true, !$this->is_gift); ?>
                     </div>
                 </div>
                 <div class="card mb-3 <?php echo $display; ?>">
@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="contactContent">Nachricht auf der Geschenkskarte (maximal 500 Zeichen)</label>
-                            <textarea class="form-control" name="comment" rows="3" maxlength=500><?php echo (isset($_SESSION['order_data'])) ? $_SESSION['order_data']['comment'] : ""; ?></textarea>
+                            <textarea class="form-control" name="comment" rows="3" maxlength=500><?php echo (isset($_SESSION['packet_order_data'])) ? $_SESSION['packet_order_data']['comment'] : ""; ?></textarea>
                         </div>
                     </div>
                 </div>

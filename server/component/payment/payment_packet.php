@@ -29,7 +29,7 @@ class PaymentPacket extends Payment {
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
 
-        if(!isset($_SESSION['order_data'])) $_SESSION['order_data'] = false;
+        if(!isset($_SESSION['packet_order_data'])) $_SESSION['packet_order_data'] = false;
         $this->delivery_first_name = $this->first_name;
         $this->delivery_last_name = $this->last_name;
         $this->delivery_street = $this->street;
@@ -82,12 +82,13 @@ class PaymentPacket extends Payment {
         if($packet) {
             $this->packet_name = $packet['name'];
             $this->packet_price = $packet['price'];
+            $this->paypal_key = $packet['paypal_key'];
         }
         else $this->set_state_missing();
     }
 
     private function submit_packet_data() {
-        $_SESSION['order_data'] = array(
+        $_SESSION['packet_order_data'] = array(
             'comment'           => $this->comment,
             'd_first_name'      => $this->delivery_first_name,
             'd_last_name'       => $this->delivery_last_name,

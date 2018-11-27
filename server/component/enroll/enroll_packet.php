@@ -12,7 +12,7 @@ class EnrollPacket extends Enroll {
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
-        if($this->id_item == 2 || $this->id_item == 4)
+        if(in_array($id, GIFT_PACKET_IDS))
             $this->is_gift = true;
         $packet = $dbMapper->getPacket( $id );
         if($packet) {
@@ -40,14 +40,14 @@ class EnrollPacket extends Enroll {
         $street_number = "";
         $zip = "";
         $city = "";
-        if(isset($_SESSION['order_data']))
+        if(isset($_SESSION['packet_order_data']))
         {
-            $first_name = $_SESSION['order_data'][$char_prefix . '_first_name'];
-            $last_name = $_SESSION['order_data'][$char_prefix . '_last_name'];
-            $zip = $_SESSION['order_data'][$char_prefix . '_zip'];
-            $street_number = $_SESSION['order_data'][$char_prefix . '_street_number'];
-            $street = $_SESSION['order_data'][$char_prefix . '_street'];
-            $city = $_SESSION['order_data'][$char_prefix . '_city'];
+            $first_name = $_SESSION['packet_order_data'][$char_prefix . '_first_name'];
+            $last_name = $_SESSION['packet_order_data'][$char_prefix . '_last_name'];
+            $zip = $_SESSION['packet_order_data'][$char_prefix . '_zip'];
+            $street_number = $_SESSION['packet_order_data'][$char_prefix . '_street_number'];
+            $street = $_SESSION['packet_order_data'][$char_prefix . '_street'];
+            $city = $_SESSION['packet_order_data'][$char_prefix . '_city'];
         }
         $this->print_name($first_name, $last_name, $prefix, $is_required);
         $this->print_address($street, $street_number, $zip, $city, $prefix,
@@ -56,7 +56,7 @@ class EnrollPacket extends Enroll {
 
     public function print_view() {
         $this->print_page( function() {
-            $display = ($this->is_gift) ? "d-none" : "";
+            $display = ($this->is_gift) ? "" : "d-none";
             require __DIR__ . '/v_enroll_packet.php';
         } );
     }

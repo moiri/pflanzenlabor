@@ -193,7 +193,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getPacket( $id ) {
         try
         {
-            $sql = "SELECT name, img_path, price FROM packets
+            $sql = "SELECT name, img_path, price, paypal_key FROM packets
                 WHERE id = :id AND enabled = 1";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( array( ':id' => $id ) );
@@ -207,7 +207,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getVaucherType( $id ) {
         try
         {
-            $sql = "SELECT name, img_path, price FROM vaucher_types
+            $sql = "SELECT name, img_path, price, paypal_key FROM vaucher_types
                 WHERE id = :id AND enabled = 1";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute( array( ':id' => $id ) );
