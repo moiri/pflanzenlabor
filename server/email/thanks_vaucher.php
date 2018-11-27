@@ -1,4 +1,4 @@
-Hallo <?php echo $user['first_name']; ?>
+Hallo <?php echo $user['first_name']; ?> 
 
 Vielen Dank für deine Bestellung des Gutscheins:
 <?php echo $this->vaucher_name; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $vaucher_url ?>)
@@ -19,6 +19,7 @@ Kontakt:
     Telefon: <?php echo $user['phone']; ?> 
     Newsletter: <?php echo $newsletter; ?> 
 
+Der Gutschein wird in Kürze per Post an die Lieferadresse versendet.
 Bei Fragen oder Anregungen kannst du mich gerne per Email (info@pflanzenlabor.ch) oder via Web Formular (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $contact_url; ?>) erreichen.
 
 Warme Grüsse
