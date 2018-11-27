@@ -1,5 +1,6 @@
 ALTER TABLE `vauchers` CHANGE `id` `id` INT(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;
 ALTER TABLE `vauchers` ADD `id_vaucher_type` INT UNSIGNED ZEROFILL NOT NULL AFTER `id`, ADD INDEX (`id_vaucher_type`);
+UPDATE vauchers SET id_vaucher_type = 3;
 ALTER TABLE `vauchers` ADD CONSTRAINT `vauchers_fk_id_vaucher_type` FOREIGN KEY (`id_vaucher_type`) REFERENCES `vaucher_types`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
