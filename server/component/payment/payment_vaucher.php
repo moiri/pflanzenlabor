@@ -23,6 +23,7 @@ class PaymentVaucher extends Payment {
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
 
+        if(!isset($_SESSION['vaucher_order_data'])) $_SESSION['vaucher_order_data'] = false;
         $this->delivery_first_name = $this->first_name;
         $this->delivery_last_name = $this->last_name;
         $this->delivery_street = $this->street;

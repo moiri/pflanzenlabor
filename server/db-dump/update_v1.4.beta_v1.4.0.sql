@@ -59,3 +59,18 @@ ALTER TABLE `user_vauchers_order`
 
 ALTER TABLE `vaucher_types` ADD `paypal_key` VARCHAR(20) NOT NULL AFTER `price`;
 ALTER TABLE `packets` ADD `paypal_key` VARCHAR(20) NOT NULL AFTER `price`;
+
+ALTER TABLE `user_packets_order` ADD `d_first_name` varchar(100) NOT NULL AFTER `order_date`;
+ALTER TABLE `user_packets_order` ADD `d_last_name` varchar(100) NOT NULL AFTER `d_first_name`;
+ALTER TABLE `user_packets_order` ADD `d_street` varchar(100) NOT NULL AFTER `d_last_name`;
+ALTER TABLE `user_packets_order` ADD `d_street_number` varchar(10) NOT NULL AFTER `d_street`;
+ALTER TABLE `user_packets_order` ADD `d_zip` varchar(10) NOT NULL AFTER `d_street_number`;
+ALTER TABLE `user_packets_order` ADD `d_city` varchar(100) NOT NULL AFTER `d_zip`;
+ALTER TABLE `user_packets_order` ADD `g_first_name` varchar(100) NOT NULL AFTER `d_city`;
+ALTER TABLE `user_packets_order` ADD `g_last_name` varchar(100) NOT NULL AFTER `g_first_name`;
+ALTER TABLE `user_packets_order` ADD `g_street` varchar(100) NOT NULL AFTER `g_last_name`;
+ALTER TABLE `user_packets_order` ADD `g_street_number` varchar(10) NOT NULL AFTER `g_street`;
+ALTER TABLE `user_packets_order` ADD `g_zip` varchar(10) NOT NULL AFTER `g_street_number`;
+ALTER TABLE `user_packets_order` ADD `g_city` varchar(100) NOT NULL AFTER `g_zip`;
+
+ALTER TABLE `user_packets_order` DROP `is_ordered`;
