@@ -50,7 +50,7 @@ class EnrollClass extends Enroll {
 
     private function print_check_list() {
         if( $this->id_type == CLASS_TYPE_WALK_ID ) return;
-        $checks = new Checks( $this->db, $this->id_user, $this->id_item, $this->input_custom );
+        $checks = new Checks( $this->db, $this->user->get_user_id(), $this->id_item, $this->input_custom );
         $checks->print_view();
     }
 
