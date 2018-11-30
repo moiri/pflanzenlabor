@@ -14,7 +14,6 @@ class EnrollClass extends Enroll {
     private $class_name;
     private $class_img;
     private $class_id;
-    private $user_id = Null;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
