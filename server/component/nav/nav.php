@@ -19,7 +19,6 @@ class Nav
         $uri = $_SERVER['REQUEST_URI'];
         if( $route_name == "courses" ) {
             // handle special case "/class/:id"
-            $item = $this->router->get_route_param( 'item' );
             $id = $this->router->get_route_param( 'id' );
             if( $id && ( $this->router->generate( 'class',
                     array( 'id' => $id ) ) == $uri ) )
@@ -30,14 +29,13 @@ class Nav
             else if( $id && ( $this->router->generate( 'payment',
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
-            else if( $item && ( $this->router->generate( 'thanks',
-                    array( 'item' => 'kurs' ) ) == $uri ) )
+            else if($this->router->generate( 'thanks') == $uri
+                    && $_SESSION['order_type'] === "course")
                 return $this->active_css;
         }
         else if($route_name == "packets")
         {
             $id = $this->router->get_route_param( 'id' );
-            $item = $this->router->get_route_param( 'item' );
             if( $id && ( $this->router->generate( 'packets_enroll',
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
@@ -47,21 +45,21 @@ class Nav
             else if( $item && ( $this->router->generate( 'thanks',
                     array( 'item' => 'paeckli' ) ) == $uri ) )
                 return $this->active_css;
-            else if($uri == $this->router->generate("packets_offer"))
+            else if($this->router->generate( 'thanks') == $uri
+                    && $_SESSION['order_type'] === "packet")
                 return $this->active_css;
         }
         else if($route_name == "vauchers")
         {
             $id = $this->router->get_route_param( 'id' );
-            $item = $this->router->get_route_param( 'item' );
             if( $id && ( $this->router->generate( 'vauchers_enroll',
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
             else if( $id && ( $this->router->generate( 'vauchers_payment',
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
-            else if( $item && ( $this->router->generate( 'thanks',
-                    array( 'item' => 'gutschein' ) ) == $uri ) )
+            else if($this->router->generate( 'thanks') == $uri
+                    && $_SESSION['order_type'] === "vaucher")
                 return $this->active_css;
         }
 

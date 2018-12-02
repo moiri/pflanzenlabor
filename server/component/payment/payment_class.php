@@ -71,7 +71,7 @@ class PaymentClass extends Payment {
 
     public function submit_enroll_data() {
         $_SESSION['payment_id'] = $this->id_item;
-        $_SESSION['order_type'] = "kurs";
+        $_SESSION['order_type'] = "course";
         $this->submit_user_data();
         $this->submit_date_data();
     }

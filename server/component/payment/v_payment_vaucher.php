@@ -98,8 +98,8 @@
         echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
     ?>
             <?php $this->print_back("vauchers_enroll"); ?>
-            <?php $this->print_bill($this->id_item, "gutschein"); ?>
-            <?php $this->print_paypal($this->paypal_key, $this->user->get_user_id(), $this->id_item); ?>
+            <?php $this->print_bill($this->id_item, "vaucher"); ?>
+            <?php $this->print_paypal($this->paypal_key, "vaucher", $this->user->get_user_id(), $this->id_item); ?>
         </div>
     </div>
     <div class="row mt-3">

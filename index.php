@@ -199,11 +199,11 @@ $router->map( 'POST', '/danke', function($router, $db) {
     {
         $check = null;
         $uid = $user->get_user_id();
-        if($item === "paeckli")
+        if($item === "packet")
             $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
-        else if($item === "kurs")
+        else if($item === "course")
             $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
-        else if($item === "gutschein")
+        else if($item === "vaucher")
             $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
         if($check && $check->is_item_valid())
         {
@@ -240,11 +240,11 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     {
         $check = null;
         $uid = $user->get_user_id();
-        if($item === "paeckli")
+        if($item === "packet")
             $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
-        else if($item === "kurs")
+        else if($item === "course")
             $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
-        else if($item === "gutschein")
+        else if($item === "vaucher")
             $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
         if($check && $check->is_item_valid())
         {
@@ -265,19 +265,21 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
 $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal IPN requiest
     $item = null;
-    $item = (isset($_POST['item_name'])) ? $_POST['item_name'] : Null;
-    $uid = (isset($_POST['item_number1'])) ? intval($_POST['item_number1']) : Null;
-    $payment_id = (isset( $_POST['item_number2'])) ? intval($_POST['item_number2']) : Null;
+    $custom = (isset($_POST['custom'])) ? $_POST['custom'] : Null;
+    $json = json_decode($custom, true);
+    $item = (isset($json['item'])) ? $json['item'] : Null;
+    $uid = (isset($json['uid'])) ? intval($json['uid']) : Null;
+    $payment_id = (isset( $json['iid'])) ? intval($json['iid']) : Null;
     $user = new User( $db );
     $user->set_user_id($uid);
     $check = null;
     if($user->is_user_valid() && $item !== Null)
     {
-        if($item === "paeckli")
+        if($item === "packet")
             $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
-        else if($item === "kurs")
+        else if($item === "course")
             $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
-        else if($item === "gutschein")
+        else if($item === "vaucher")
             $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
         if($check && $check->is_item_valid())
         {

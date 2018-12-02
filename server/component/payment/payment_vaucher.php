@@ -70,7 +70,7 @@ class PaymentVaucher extends Payment {
     }
 
     public function submit_enroll_data() {
-        $_SESSION['order_type'] = "gutschein";
+        $_SESSION['order_type'] = "vaucher";
         $_SESSION['payment_id'] = $this->id_item;
         $this->submit_user_data();
         $this->submit_vaucher_data();

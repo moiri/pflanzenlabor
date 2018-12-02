@@ -111,7 +111,7 @@ class PaymentPacket extends Payment {
     }
 
     public function submit_enroll_data() {
-        $_SESSION['order_type'] = "paeckli";
+        $_SESSION['order_type'] = "packet";
         $_SESSION['payment_id'] = $this->id_item;
         $this->submit_user_data();
         $this->submit_packet_data();

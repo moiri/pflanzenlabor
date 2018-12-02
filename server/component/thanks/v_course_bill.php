@@ -1,0 +1,1 @@
+<p>Vielen Dank für Deinene Anmeldung. Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf. Du kannst den Betrag am Kurs bar bezahlen oder ich werde dir vor Ort eine Rechnung mitgeben.</p>

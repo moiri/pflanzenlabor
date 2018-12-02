@@ -16,6 +16,39 @@ class Thanks extends Page {
         $this->item_type = $item;
     }
 
+    private function print_paypal()
+    {
+        if($this->payment_type !== PAYMENT_PAYPAL) return;
+        require __DIR__ . 'v_paypal.php';
+    }
+
+    private function print_bill()
+    {
+        if($this->payment_type !== PAYMENT_BILL) return;
+        if($this->item_type === "course")
+            require __DIR__ . 'v_course_bill.php';
+        else if($this->item_type === "packet")
+            require __DIR__ . 'v_packet_bill.php';
+        else if($this->item_type === "vaucher")
+            require __DIR__ . 'v_vaucher_bill.php';
+    }
+
+    private function print_vaucher()
+    {
+        if($this->payment_type !== PAYMENT_VAUCHER) return;
+        require __DIR__ . 'v_vaucher.php';
+    }
+
+    private function print_order()
+    {
+        if($this->item_type === "course")
+            require __DIR__ . 'v_thanks_course.php';
+        else if($this->item_type === "packet")
+            require __DIR__ . 'v_thanks_packet.php';
+        else if($this->item_type === "vaucher")
+            require __DIR__ . 'v_thanks_vaucher.php';
+    }
+
     public function is_paypal() {
         return $this->is_paypal;
     }
@@ -24,23 +57,7 @@ class Thanks extends Page {
         if($this->item_type === null)
             $this->set_state_missing();
         $this->print_page( function() {
-            if($this->item_type === "kurs")
-            {
-                if( $this->payment_type == PAYMENT_PAYPAL )
-                    require __DIR__ . '/v_thanks_course_paypal.php';
-                else if( $this->payment_type == PAYMENT_BILL )
-                    require __DIR__ . '/v_thanks_course_bill.php';
-                else if( $this->payment_type == PAYMENT_VAUCHER )
-                    require __DIR__ . '/v_thanks_course_vaucher.php';
-            }
-            else if($this->item_type === "paeckli")
-            {
-                require __DIR__ . '/v_thanks_packet.php';
-            }
-            else if($this->item_type === "gutschein")
-            {
-                require __DIR__ . '/v_thanks_vaucher.php';
-            }
+            require __DIR__ . '/v_thanks.php';
         } );
     }
 }

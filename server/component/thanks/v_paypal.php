@@ -1,0 +1,1 @@
+<p>Vielen Dank für Deine Zahlung. Deine Transaktion wurde abgeschlossen und Du erh&auml;lst per E-Mail eine Kaufbestätigung. Logg Dich in Dein PayPal-Konto ein, um die Transaktionsdetails einzusehen.</p>

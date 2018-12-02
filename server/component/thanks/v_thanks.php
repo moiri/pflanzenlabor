@@ -7,7 +7,10 @@
             <div class="card">
                 <div class="card-body">
                     <h1>Vielen Dank!</h1>
-                    <p>Deine Transaktion wurde abgeschlossen und Du erh&auml;lst per E-Mail eine Best&auml;tigung für deinen Kauf.</p>
+                    <?php $this->print_paypal(); ?>
+                    <?php $this->print_bill(); ?>
+                    <?php $this->print_vaucher(); ?>
+                    <?php $this->print_order(); ?>
                     Ich freue mich auf deinen Besuch. Bis bald!
                 </div>
             </div>
@@ -21,3 +24,4 @@
         <?php $this->print_footer(); ?>
     </div>
 </div>
+
