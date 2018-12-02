@@ -121,7 +121,7 @@ if( $this->show_enroll_warning )
 ?>
         <?php $this->print_back("packets_enroll"); ?>
         <?php $this->print_bill($this->id_item, "paeckli"); ?>
-        <?php $this->print_paypal($this->paypal_key, $this->user->get_user_id()); ?>
+        <?php $this->print_paypal($this->paypal_key, $this->user->get_user_id(), $this->id_item); ?>
     </div>
 </div>
         </div>

@@ -18,13 +18,27 @@ abstract class CheckPayment {
         $this->user_id = $user_id;
     }
 
+    public function clear_payment_session()
+    {
+        $_SESSION['payment_id'] = null;
+        $_SESSION['order_type'] = null;
+    }
+
     public function is_item_valid()
     {
         return ($this->na === false);
     }
 
+    public function is_pending($table = "")
+    {
+        $sql = "SELECT is_payed FROM $table WHERE id=:id";
+        $res = $this->db->queryDbFirst($sql, array(":id", intval($invoice)));
+        if($res && $res['is_payed'] == 1)
+            return true;
+        else
+            return false;
+    }
     abstract public function is_open();
-    abstract public function is_pending();
     abstract public function send_mail($user, $payment_type);
     abstract public function enroll_user($payment_type, $is_payed = false);
 

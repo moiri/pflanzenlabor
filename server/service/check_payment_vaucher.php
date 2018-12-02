@@ -43,6 +43,12 @@ class CheckPaymentVaucher extends CheckPayment {
         }
     }
 
+    public function clear_payment_session()
+    {
+        parent::clear_payment_session();
+        $_SESSION['vaucher_order_data'] = null;
+    }
+
     public function enroll_user($payment_type, $is_payed = false)
     {
         if($_SESSION['vaucher_order_data'] === false) return false;
@@ -62,9 +68,9 @@ class CheckPaymentVaucher extends CheckPayment {
         return true;
     }
 
-    public function is_pending()
+    public function is_pending($table = "")
     {
-
+        return parent::is_pending('user_vauchers_order');
     }
 
     public function send_mail($user, $payment_type) {

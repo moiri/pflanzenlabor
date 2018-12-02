@@ -94,7 +94,7 @@ if( $this->show_enroll_warning )
         <?php $this->print_back("enroll"); ?>
         <div class="<?php echo ( $this->show_enroll_warning ) ? "d-none" : "";?>">
             <?php $this->print_bill($this->id_item, "kurs"); ?>
-            <?php $this->print_paypal($this->paypal_key, $this->user->get_user_id()); ?>
+            <?php $this->print_paypal($this->paypal_key, $this->user->get_user_id(), $this->id_item); ?>
             <form method="post" action="<?php echo $this->router->generate('thanks'); ?>">
                 <input id="vaucher-date-id" type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
                 <input id="vaucher-url" type="hidden" name="url" value="<?php echo $this->router->generate('vaucher'); ?>">

@@ -184,64 +184,107 @@ $router->map( 'POST', '/gutschein', function( $router, $db ) {
     print '{ "vaucher_valid": false }';
 }, 'vaucher');
 // Thanks Pages
-$router->map( 'POST', '/danke/[paeckli|kurs|gutschein:item]',
-    function($router, $db, $item) {
-        // payed by bill or vaucher
-        $payment_id = isset( $_POST['payment_id'] ) ? $_POST['payment_id'] : Null;
-        $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
-        if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
-        else $payment_type = PAYMENT_VAUCHER;
-        $page = new Thanks( $router, $payment_type, $item );
-        $user = new User( $db );
-        if($user->is_user_valid())
+$router->map( 'POST', '/danke', function($router, $db) {
+    // payed by bill or vaucher
+    $item = null;
+    if(isset($_SESSION['order_type']))
+        $item = $_SESSION['order_type'];
+    $payment_id = isset( $_POST['payment_id'] ) ? $_POST['payment_id'] : Null;
+    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
+    if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
+    else $payment_type = PAYMENT_VAUCHER;
+    $page = new Thanks( $router, $payment_type, $item );
+    $user = new User( $db );
+    if($user->is_user_valid())
+    {
+        $check = null;
+        $uid = $user->get_user_id();
+        if($item === "paeckli")
+            $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
+        else if($item === "kurs")
+            $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
+        else if($item === "gutschein")
+            $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
+        if($check && $check->is_item_valid())
         {
-            $check = null;
-            $uid = $user->get_user_id();
-            if($item === "paeckli")
-                $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
-            else if($item === "kurs")
-                $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
-            else if($item === "gutschein")
-                $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
-            if($check && $check->is_item_valid())
-            {
-                if(!$check->is_open())
-                    $page->set_state_closed();
-            }
+            if(!$check->is_open())
+                $page->set_state_closed();
             else
-                $page->set_state_missing();
+            {
+                if($payment_type == PAYMENT_VAUCHER)
+                    $payment_ok = $check->check_vaucher($vaucher_code, true);
+                else if($payment_type == PAYMENT_BILL)
+                    $payment_ok = true;
+                if($payment_ok && $check->enroll_user($payment_type,
+                        ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
+                    $check->send_mail($user->get_user_data(), $payment_type);
+                $check->clear_payment_session();
+            }
         }
         else
-            $page->set_state_invalid();
-        if($page->is_state_ok()) {
-            if($payment_type == PAYMENT_VAUCHER)
-                $payment_ok = $check->check_vaucher($vaucher_code, true);
-            else if($payment_type == PAYMENT_BILL)
-                $payment_ok = true;
-            if($payment_ok && $check->enroll_user($payment_type,
-                    ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
-                $check->send_mail($user->get_user_data(), $payment_type);
-        }
-        $page->print_view();
-    }, 'thanks');
+            $page->set_state_missing();
+    }
+    else
+        $page->set_state_invalid();
+    $page->print_view();
+}, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
-    $item_id = isset( $_GET['item_number'] ) ? $_GET['item_number'] : Null;
-    $page = new Thanks( $router, PAYMENT_PAYPAL );
-    $check = new CheckPayment( $router, $db, $item_id );
-    $check->update_page_state( $page );
+    $item = null;
+    if(isset($_SESSION['order_type']))
+        $item = $_SESSION['order_type'];
+    $payment_id = isset( $_SESSION['payment_id'] ) ? $_SESSION['payment_id'] : Null;
+    $page = new Thanks($router, PAYMENT_PAYPAL, $item);
+    $user = new User( $db );
+    if($user->is_user_valid())
+    {
+        $check = null;
+        $uid = $user->get_user_id();
+        if($item === "paeckli")
+            $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
+        else if($item === "kurs")
+            $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
+        else if($item === "gutschein")
+            $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
+        if($check && $check->is_item_valid())
+        {
+            if(!$check->is_open())
+                $page->set_state_closed();
+            if($check->is_pending())
+                $page->set_state_pending();
+            $check->clear_payment_session();
+        }
+        else
+            $page->set_state_missing();
+    }
+    else
+        $page->set_state_invalid();
     $page->print_view();
 }, 'thanks_get');
 // Check Paypal
 $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal IPN requiest
-    $date_id = ( isset( $_POST['item_number'] ) ) ? $_POST['item_number'] : Null;
-    $user_id = ( isset( $_POST['custom'] ) ) ? $_POST['custom'] : Null;
-    $check = new CheckPayment( $router, $db, $date_id, $user_id );
-    if( $check->is_date_existing() ) {
-        $payed = $check->check_paypal();
-        if( $check->enroll_user( PAYMENT_PAYPAL, $payed ) && $payed )
-            $check->send_mail( PAYMENT_PAYPAL );
+    $item = null;
+    $item = (isset($_POST['item_name'])) ? $_POST['item_name'] : Null;
+    $uid = (isset($_POST['item_number1'])) ? intval($_POST['item_number1']) : Null;
+    $payment_id = (isset( $_POST['item_number2'])) ? intval($_POST['item_number2']) : Null;
+    $user = new User( $db );
+    $user->set_user_id($uid);
+    $check = null;
+    if($user->is_user_valid() && $item !== Null)
+    {
+        if($item === "paeckli")
+            $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
+        else if($item === "kurs")
+            $check = new CheckPaymentClass($router, $db, $payment_id, $uid);
+        else if($item === "gutschein")
+            $check = new CheckPaymentVaucher($router, $db, $payment_id, $uid);
+        if($check && $check->is_item_valid())
+        {
+            $payed = $check->check_paypal();
+            if($check->enroll_user(PAYMENT_PAYPAL, $payed) && $payed)
+                $check->send_mail($user, PAYMENT_PAYPAL);
+        }
     }
     // Reply with an empty 200 response to indicate to paypal the IPN was received correctly.
     header("HTTP/1.1 200 OK");

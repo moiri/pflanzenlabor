@@ -57,9 +57,9 @@ class CheckPaymentClass extends CheckPayment
         return false;
     }
 
-    public function is_pending()
+    public function is_pending($table = "")
     {
-
+        return parent::is_pending('user_class_dates');
     }
 
     public function is_open()

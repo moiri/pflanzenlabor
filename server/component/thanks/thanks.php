@@ -21,6 +21,8 @@ class Thanks extends Page {
     }
 
     public function print_view() {
+        if($this->item_type === null)
+            $this->set_state_missing();
         $this->print_page( function() {
             if($this->item_type === "kurs")
             {
