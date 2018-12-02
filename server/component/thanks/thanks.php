@@ -6,7 +6,6 @@ require_once __DIR__ . '/../page.php';
  */
 class Thanks extends Page {
 
-    private $is_paypal;
     private $payment_type;
     private $item_type;
 
@@ -19,38 +18,34 @@ class Thanks extends Page {
     private function print_paypal()
     {
         if($this->payment_type !== PAYMENT_PAYPAL) return;
-        require __DIR__ . 'v_paypal.php';
+        require __DIR__ . '/v_paypal.php';
     }
 
     private function print_bill()
     {
         if($this->payment_type !== PAYMENT_BILL) return;
         if($this->item_type === "course")
-            require __DIR__ . 'v_course_bill.php';
+            require __DIR__ . '/v_course_bill.php';
         else if($this->item_type === "packet")
-            require __DIR__ . 'v_packet_bill.php';
+            require __DIR__ . '/v_packet_bill.php';
         else if($this->item_type === "vaucher")
-            require __DIR__ . 'v_vaucher_bill.php';
+            require __DIR__ . '/v_vaucher_bill.php';
     }
 
     private function print_vaucher()
     {
         if($this->payment_type !== PAYMENT_VAUCHER) return;
-        require __DIR__ . 'v_vaucher.php';
+        require __DIR__ . '/v_vaucher.php';
     }
 
     private function print_order()
     {
         if($this->item_type === "course")
-            require __DIR__ . 'v_thanks_course.php';
+            require __DIR__ . '/v_thanks_course.php';
         else if($this->item_type === "packet")
-            require __DIR__ . 'v_thanks_packet.php';
+            require __DIR__ . '/v_thanks_packet.php';
         else if($this->item_type === "vaucher")
-            require __DIR__ . 'v_thanks_vaucher.php';
-    }
-
-    public function is_paypal() {
-        return $this->is_paypal;
+            require __DIR__ . '/v_thanks_vaucher.php';
     }
 
     public function print_view() {

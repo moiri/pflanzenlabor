@@ -11,7 +11,6 @@
                     <?php $this->print_bill(); ?>
                     <?php $this->print_vaucher(); ?>
                     <?php $this->print_order(); ?>
-                    Ich freue mich auf deinen Besuch. Bis bald!
                 </div>
             </div>
         </div>

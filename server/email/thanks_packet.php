@@ -1,7 +1,8 @@
-Hallo <?php echo $user['first_name']; ?>
+Hallo <?php echo $user['first_name']; ?> 
 
 Vielen Dank für deine Bestellung des Pflanzenpäckli Abos:
 <?php echo $this->packet_name; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $packet_url ?>)
+Preis: <?php echo $this->packet_price; ?> 
 
 Rechnungsadresse:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 

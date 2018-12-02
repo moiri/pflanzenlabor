@@ -195,9 +195,9 @@ $router->map( 'POST', '/danke', function($router, $db) {
     else $payment_type = PAYMENT_VAUCHER;
     $page = new Thanks( $router, $payment_type, $item );
     $user = new User( $db );
+    $check = null;
     if($user->is_user_valid())
     {
-        $check = null;
         $uid = $user->get_user_id();
         if($item === "packet")
             $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
@@ -218,7 +218,6 @@ $router->map( 'POST', '/danke', function($router, $db) {
                 if($payment_ok && $check->enroll_user($payment_type,
                         ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
                     $check->send_mail($user->get_user_data(), $payment_type);
-                $check->clear_payment_session();
             }
         }
         else
@@ -227,6 +226,8 @@ $router->map( 'POST', '/danke', function($router, $db) {
     else
         $page->set_state_invalid();
     $page->print_view();
+    if($check)
+        $check->clear_payment_session();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
@@ -236,9 +237,9 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     $payment_id = isset( $_SESSION['payment_id'] ) ? $_SESSION['payment_id'] : Null;
     $page = new Thanks($router, PAYMENT_PAYPAL, $item);
     $user = new User( $db );
+    $check = null;
     if($user->is_user_valid())
     {
-        $check = null;
         $uid = $user->get_user_id();
         if($item === "packet")
             $check = new CheckPaymentPacket($router, $db, $payment_id, $uid);
@@ -252,7 +253,6 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
                 $page->set_state_closed();
             if($check->is_pending())
                 $page->set_state_pending();
-            $check->clear_payment_session();
         }
         else
             $page->set_state_missing();
@@ -260,6 +260,8 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     else
         $page->set_state_invalid();
     $page->print_view();
+    if($check)
+        $check->clear_payment_session();
 }, 'thanks_get');
 // Check Paypal
 $router->map( 'POST', '/check', function( $router, $db ) {
