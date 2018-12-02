@@ -42,8 +42,7 @@ class Nav
             else if( $id && ( $this->router->generate( 'packets_payment',
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
-            else if( $item && ( $this->router->generate( 'thanks',
-                    array( 'item' => 'paeckli' ) ) == $uri ) )
+            else if($uri == $this->router->generate("packets_offer"))
                 return $this->active_css;
             else if($this->router->generate( 'thanks') == $uri
                     && $_SESSION['order_type'] === "packet")
