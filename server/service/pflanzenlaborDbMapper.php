@@ -33,6 +33,23 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
+    function getClassInvoice($id_user, $id_date)
+    {
+        try {
+            $sql = "SELECT id FROM user_class_dates
+                WHERE id_user = :id_user AND id_class_dates = :id_date";
+            $stmt = $this->dbh->prepare( $sql );
+            $stmt->execute( array(
+                ':id_user' => $id_user,
+                ':id_date' => $id_date,
+            ));
+            return $stmt->fetch( PDO::FETCH_ASSOC );
+        }
+        catch(PDOException $e) {
+            if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::getClassInvoice: ".$e->getMessage();
+        }
+    }
+
     function markUserEnrolled( $id_user, $id_date, $type, $is_payed ) {
         try {
             $sql = "UPDATE user_class_dates

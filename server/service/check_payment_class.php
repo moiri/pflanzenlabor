@@ -49,7 +49,9 @@ class CheckPaymentClass extends CheckPayment
         {
             $this->db->markUserEnrolled($this->user_id, $this->item_id,
                 $payment_type, $is_payed);
-            return true;
+            $invoice = $this->db->getClassInvoice($this->user_id, $this->item_id);
+            $this->invoice = $invoice['id'];
+            return $this->invoice;
         }
         return false;
     }

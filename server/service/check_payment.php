@@ -10,6 +10,7 @@ abstract class CheckPayment {
     protected $db = Null;
     protected $router = Null;
     protected $user_id = Null;
+    protected $invoice = Null;
     protected $na = false;
 
     function __construct( $router, $db, $user_id) {
@@ -32,7 +33,7 @@ abstract class CheckPayment {
     public function is_pending($table = "")
     {
         $sql = "SELECT is_payed FROM $table WHERE id=:id";
-        $res = $this->db->queryDbFirst($sql, array(":id", intval($invoice)));
+        $res = $this->db->queryDbFirst($sql, array(":id", intval($this->invoice)));
         if($res && $res['is_payed'] == 1)
             return true;
         else

@@ -72,7 +72,8 @@ class CheckPaymentPacket extends CheckPayment {
         $order_data['id_payment'] = $payment_type;
         $_SESSION['packet_order_data'] = false;
 
-        return $this->db->insert("user_packets_order", $order_data);
+        $this->invoice = $this->db->insert("user_packets_order", $order_data);
+        return $this->invoice;
     }
 
     public function is_open()
