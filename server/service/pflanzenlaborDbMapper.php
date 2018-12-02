@@ -64,7 +64,23 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) echo "PflanzenlaborDbMapper::markUserEnrolled: ".$e->getMessage();
+            return false;
         }
+    }
+
+    function getCourseOrder($id)
+    {
+        return $this->selectByUid("user_class_dates", $id);
+    }
+
+    function getPacketOrder($id)
+    {
+        return $this->selectByUid("user_packets_order", $id);
+    }
+
+    function getVaucherOrder($id)
+    {
+        return $this->selectByUid("user_vauchers_order", $id);
     }
 
     /**

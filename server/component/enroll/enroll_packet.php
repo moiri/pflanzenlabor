@@ -9,6 +9,7 @@ class EnrollPacket extends Enroll {
     private $packet_name = "";
     private $packet_img = "";
     private $is_gift = false;
+    private $order_data = null;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
@@ -18,6 +19,8 @@ class EnrollPacket extends Enroll {
         if($packet) {
             $this->packet_name = $packet['name'];
             $this->packet_img = $packet['img_path'];
+            if(isset($_SESSION['invoice']))
+                $this->order_data = $this->db->getPacketOrder($_SESSION['invoice']);
         }
         else $this->set_state_missing();
     }
@@ -40,14 +43,14 @@ class EnrollPacket extends Enroll {
         $street_number = "";
         $zip = "";
         $city = "";
-        if(isset($_SESSION['packet_order_data']))
+        if($this->order_data !== null)
         {
-            $first_name = $_SESSION['packet_order_data'][$char_prefix . '_first_name'];
-            $last_name = $_SESSION['packet_order_data'][$char_prefix . '_last_name'];
-            $zip = $_SESSION['packet_order_data'][$char_prefix . '_zip'];
-            $street_number = $_SESSION['packet_order_data'][$char_prefix . '_street_number'];
-            $street = $_SESSION['packet_order_data'][$char_prefix . '_street'];
-            $city = $_SESSION['packet_order_data'][$char_prefix . '_city'];
+            $first_name = $this->order_data[$char_prefix . '_first_name'];
+            $last_name = $this->order_data[$char_prefix . '_last_name'];
+            $zip = $this->order_data[$char_prefix . '_zip'];
+            $street_number = $this->order_data[$char_prefix . '_street_number'];
+            $street = $this->order_data[$char_prefix . '_street'];
+            $city = $this->order_data[$char_prefix . '_city'];
         }
         $this->print_name($first_name, $last_name, $prefix, $is_required);
         $this->print_address($street, $street_number, $zip, $city, $prefix,

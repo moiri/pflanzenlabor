@@ -62,18 +62,25 @@ class PaymentClass extends Payment {
         }
         // create or update date entry
         $db_data = $this->user->get_class_enroll_data( $this->id_item );
-        if( !$this->user->set_class_enroll_data( $this->id_item, $date_data, $db_data ) ) {
+        if( !$this->user->set_class_enroll_data($this->id_item, $date_data, $db_data)) {
             $this->show_enroll_warning = true;
             $this->comment = $db_data['comment'];
             $this->input_custom = $db_data['check_custom'];
         }
+        $sql = "SELECT id FROM user_class_dates
+            WHERE id_user = :uid AND id_class_dates = :iid";
+        $order = $this->db->queryDbFirst($sql, array(
+            ":uid" => $this->user->get_user_id(),
+            ":iid" => $this->id_item,
+        ));
+        if($order) $this->id_order = intval($order['id']);
     }
 
     public function submit_enroll_data() {
-        $_SESSION['payment_id'] = $this->id_item;
-        $_SESSION['order_type'] = "course";
         $this->submit_user_data();
         $this->submit_date_data();
+        $_SESSION['order_type'] = "course";
+        $_SESSION['invoice'] = $this->id_order;
     }
 
     public function print_view() {

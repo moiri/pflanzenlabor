@@ -8,6 +8,7 @@ class EnrollVaucher extends Enroll {
 
     private $vaucher_name = "";
     private $vaucher_img = "";
+    private $order_data = null;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
@@ -15,6 +16,8 @@ class EnrollVaucher extends Enroll {
         if($vaucher) {
             $this->vaucher_name = $vaucher['name'];
             $this->vaucher_img = $vaucher['img_path'];
+            if(isset($_SESSION['invoice']))
+                $this->order_data = $this->db->getVaucherOrder($_SESSION['invoice']);
         }
         else $this->set_state_missing();
     }
@@ -37,14 +40,14 @@ class EnrollVaucher extends Enroll {
         $street_number = "";
         $zip = "";
         $city = "";
-        if(isset($_SESSION['vaucher_order_data']))
+        if($this->order_data !== null)
         {
-            $first_name = $_SESSION['vaucher_order_data'][$char_prefix . '_first_name'];
-            $last_name = $_SESSION['vaucher_order_data'][$char_prefix . '_last_name'];
-            $zip = $_SESSION['vaucher_order_data'][$char_prefix . '_zip'];
-            $street_number = $_SESSION['vaucher_order_data'][$char_prefix . '_street_number'];
-            $street = $_SESSION['vaucher_order_data'][$char_prefix . '_street'];
-            $city = $_SESSION['vaucher_order_data'][$char_prefix . '_city'];
+            $first_name = $this->order_data[$char_prefix . '_first_name'];
+            $last_name = $this->order_data[$char_prefix . '_last_name'];
+            $zip = $this->order_data[$char_prefix . '_zip'];
+            $street_number = $this->order_data[$char_prefix . '_street_number'];
+            $street = $this->order_data[$char_prefix . '_street'];
+            $city = $this->order_data[$char_prefix . '_city'];
         }
         $this->print_name($first_name, $last_name, $prefix, $is_required);
         $this->print_address($street, $street_number, $zip, $city, $prefix,

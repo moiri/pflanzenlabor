@@ -23,7 +23,6 @@ class PaymentVaucher extends Payment {
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
 
-        if(!isset($_SESSION['vaucher_order_data'])) $_SESSION['vaucher_order_data'] = false;
         $this->delivery_first_name = $this->first_name;
         $this->delivery_last_name = $this->last_name;
         $this->delivery_street = $this->street;
@@ -58,7 +57,9 @@ class PaymentVaucher extends Payment {
     }
 
     private function submit_vaucher_data() {
-        $_SESSION['vaucher_order_data'] = array(
+        $order_data = array(
+            'id_user'           => $this->user->get_user_id(),
+            'id_vaucher_type'   => $this->id_item,
             'comment'           => $this->comment,
             'd_first_name'      => $this->delivery_first_name,
             'd_last_name'       => $this->delivery_last_name,
@@ -67,13 +68,20 @@ class PaymentVaucher extends Payment {
             'd_zip'             => $this->delivery_zip,
             'd_city'            => $this->delivery_city,
         );
+        if(isset($_SESSION['invoice']))
+        {
+            $this->db->updateByUid("user_vauchers_order", $order_data, $_SESSION['invoice']);
+            $this->id_order = $_SESSION['invoice'];
+        }
+        else
+            $this->id_order = $this->db->insert("user_vauchers_order", $order_data);
     }
 
     public function submit_enroll_data() {
-        $_SESSION['order_type'] = "vaucher";
-        $_SESSION['payment_id'] = $this->id_item;
         $this->submit_user_data();
         $this->submit_vaucher_data();
+        $_SESSION['order_type'] = "vaucher";
+        $_SESSION['invoice'] = $this->id_order;
     }
 
     public function print_view() {

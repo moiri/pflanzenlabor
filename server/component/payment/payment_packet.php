@@ -29,7 +29,6 @@ class PaymentPacket extends Payment {
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
 
-        if(!isset($_SESSION['packet_order_data'])) $_SESSION['packet_order_data'] = false;
         $this->delivery_first_name = $this->first_name;
         $this->delivery_last_name = $this->last_name;
         $this->delivery_street = $this->street;
@@ -88,7 +87,9 @@ class PaymentPacket extends Payment {
     }
 
     private function submit_packet_data() {
-        $_SESSION['packet_order_data'] = array(
+        $order_data = array(
+            'id_user'           => $this->user->get_user_id(),
+            'id_packets'        => $this->id_item,
             'comment'           => $this->comment,
             'd_first_name'      => $this->delivery_first_name,
             'd_last_name'       => $this->delivery_last_name,
@@ -103,6 +104,13 @@ class PaymentPacket extends Payment {
             'g_zip'             => $this->gift_zip,
             'g_city'            => $this->gift_city,
         );
+        if(isset($_SESSION['invoice']))
+        {
+            $this->db->updateByUid("user_packets_order", $order_data, $_SESSION['invoice']);
+            $this->id_order = $_SESSION['invoice'];
+        }
+        else
+            $this->id_order = $this->db->insert("user_packets_order", $order_data);
     }
 
     private function has_gift_address()
@@ -111,10 +119,10 @@ class PaymentPacket extends Payment {
     }
 
     public function submit_enroll_data() {
-        $_SESSION['order_type'] = "packet";
-        $_SESSION['payment_id'] = $this->id_item;
         $this->submit_user_data();
         $this->submit_packet_data();
+        $_SESSION['order_type'] = "packet";
+        $_SESSION['invoice'] = $this->id_order;
     }
 
     public function print_view() {

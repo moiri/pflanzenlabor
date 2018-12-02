@@ -7,22 +7,27 @@ require_once __DIR__ . '/paypalIPN.php';
  */
 abstract class CheckPayment {
 
+    protected $user_id = Null;
     protected $db = Null;
     protected $router = Null;
-    protected $user_id = Null;
     protected $invoice = Null;
     protected $na = false;
 
-    function __construct( $router, $db, $user_id) {
+    function __construct($router, $db, $invoice) {
         $this->router = $router;
         $this->db = $db;
-        $this->user_id = $user_id;
+        $this->invoice = $invoice;
     }
 
     public function clear_payment_session()
     {
-        $_SESSION['payment_id'] = null;
+        $_SESSION['invoice'] = null;
         $_SESSION['order_type'] = null;
+    }
+
+    public function get_user_id()
+    {
+        return $this->user_id;
     }
 
     public function is_item_valid()
@@ -33,7 +38,7 @@ abstract class CheckPayment {
     public function is_pending($table = "")
     {
         $sql = "SELECT is_payed FROM $table WHERE id=:id";
-        $res = $this->db->queryDbFirst($sql, array(":id", intval($this->invoice)));
+        $res = $this->db->queryDbFirst($sql, array(":id" => $this->invoice));
         if($res && $res['is_payed'] == 1)
             return true;
         else

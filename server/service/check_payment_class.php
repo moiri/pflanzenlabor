@@ -9,22 +9,21 @@ class CheckPaymentClass extends CheckPayment
     private $item_id;
     private $comment = "";
     private $check_custom = "";
-    private $is_payed = false;
     private $open = 0;
     private $class_cost;
     private $class_type;
     private $class_name;
     private $class_date;
 
-    function __construct( $router, $db, $item_id, $uid) {
-        parent::__construct($router, $db, $uid);
-        $this->item_id = $item_id;
-        $user_specs = $db->getUserDateSpecifics($this->user_id, $this->item_id);
-        if($user_specs)
+    function __construct( $router, $db, $invoice) {
+        parent::__construct($router, $db, $invoice);
+        $order_data = $this->db->getCourseOrder($invoice);
+        if($order_data)
         {
-            $this->comment = $user_specs['comment'];
-            $this->check_custom = $user_specs['check_custom'];
-            $this->is_payed = ($user_specs['is_payed'] == 1) ? true : false;
+            $this->user_id = intval($order_data['id_user']);
+            $this->item_id = intval($order_data['id_class_dates']);
+            $this->comment = $order_data['comment'];
+            $this->check_custom = $order_data['check_custom'];
         }
         else $this->na = true;
 
@@ -47,11 +46,8 @@ class CheckPaymentClass extends CheckPayment
     {
         if($this->db->incrementUserCount($this->item_id))
         {
-            $this->db->markUserEnrolled($this->user_id, $this->item_id,
+            return $this->db->markUserEnrolled($this->user_id, $this->item_id,
                 $payment_type, $is_payed);
-            $invoice = $this->db->getClassInvoice($this->user_id, $this->item_id);
-            $this->invoice = $invoice['id'];
-            return $this->invoice;
         }
         return false;
     }

@@ -87,17 +87,12 @@ abstract class Payment extends Page {
         $this->user->set_user_data( $user_data );
     }
 
-    protected function print_paypal($paypal_key, $item, $uid, $item_id)
+    protected function print_paypal($item)
     {
-        $json = htmlspecialchars(json_encode(array(
-            "item" => $item,
-            "uid" => $uid,
-            "iid" => $item_id,
-        )));
         require __DIR__ . '/v_paypal.php';
     }
 
-    protected function print_bill($id, $target)
+    protected function print_bill()
     {
         require __DIR__ . '/v_bill.php';
     }

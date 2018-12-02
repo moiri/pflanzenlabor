@@ -25,11 +25,32 @@ class CheckPaymentPacket extends CheckPayment {
     private $gift_zip = "";
     private $gift_city = "";
 
-    function __construct($router, $db, $item_id, $uid) {
-        parent::__construct($router, $db, $uid);
-        $this->item_id = $item_id;
-        $packet = $this->db->getPacket($item_id);
-        if($packet && isset($_SESSION['packet_order_data']))
+    function __construct($router, $db, $invoice) {
+        parent::__construct($router, $db, $invoice);
+        $order_data = $this->db->getPacketOrder($invoice);
+        if($order_data)
+        {
+            $this->user_id = intval($order_data['id_user']);
+            $this->item_id = intval($order_data['id_packets']);
+            $this->comment = $order_data['comment'];
+            $this->delivery_first_name = $order_data['d_first_name'];
+            $this->delivery_last_name = $order_data['d_last_name'];
+            $this->delivery_street = $order_data['d_street'];
+            $this->delivery_street_number = $order_data['d_street_number'];
+            $this->delivery_zip = $order_data['d_zip'];
+            $this->delivery_city = $order_data['d_city'];
+            $this->gift_first_name = $order_data['g_first_name'];
+            $this->gift_last_name = $order_data['g_last_name'];
+            $this->gift_street = $order_data['g_street'];
+            $this->gift_street_number = $order_data['g_street_number'];
+            $this->gift_zip = $order_data['g_zip'];
+            $this->gift_city = $order_data['g_city'];
+        }
+        else
+            $this->na = true;
+
+        $packet = $this->db->getPacket($this->item_id);
+        if($packet)
         {
             $this->packet_name = $packet['name'];
             $this->packet_price = $packet['price'];
@@ -37,43 +58,15 @@ class CheckPaymentPacket extends CheckPayment {
         else
             $this->na = true;
 
-        if(isset($_SESSION['packet_order_data'])
-                && $_SESSION['packet_order_data'] !== false)
-        {
-            $this->comment = $_SESSION['packet_order_data']['comment'];
-            $this->delivery_first_name = $_SESSION['packet_order_data']['d_first_name'];
-            $this->delivery_last_name = $_SESSION['packet_order_data']['d_last_name'];
-            $this->delivery_street = $_SESSION['packet_order_data']['d_street'];
-            $this->delivery_street_number = $_SESSION['packet_order_data']['d_street_number'];
-            $this->delivery_zip = $_SESSION['packet_order_data']['d_zip'];
-            $this->delivery_city = $_SESSION['packet_order_data']['d_city'];
-            $this->gift_first_name = $_SESSION['packet_order_data']['g_first_name'];
-            $this->gift_last_name = $_SESSION['packet_order_data']['g_last_name'];
-            $this->gift_street = $_SESSION['packet_order_data']['g_street'];
-            $this->gift_street_number = $_SESSION['packet_order_data']['g_street_number'];
-            $this->gift_zip = $_SESSION['packet_order_data']['g_zip'];
-            $this->gift_city = $_SESSION['packet_order_data']['g_city'];
-        }
-    }
-
-    public function clear_payment_session()
-    {
-        parent::clear_payment_session();
-        $_SESSION['packet_order_data'] = null;
     }
 
     public function enroll_user($payment_type, $is_payed = false)
     {
-        if($_SESSION['packet_order_data'] === false) return false;
-        $order_data = $_SESSION['packet_order_data'];
-        $order_data['id_user'] = $_SESSION['user_id'];
-        $order_data['id_packets'] = $this->item_id;
-        $order_data['is_payed'] = (int)$is_payed;
-        $order_data['id_payment'] = $payment_type;
-        $_SESSION['packet_order_data'] = false;
-
-        $this->invoice = $this->db->insert("user_packets_order", $order_data);
-        return $this->invoice;
+        return $this->db->updateByUid("user_packets_order", array(
+            "id_payment" => $payment_type,
+            "is_payed" => (int)$is_payed,
+            "is_ordered" => 1
+        ), $this->invoice);
     }
 
     public function is_open()
