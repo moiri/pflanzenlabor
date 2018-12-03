@@ -70,17 +70,20 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
 
     function getCourseOrder($id)
     {
-        return $this->selectByUid("user_class_dates", $id);
+        $sql = "SELECT * FROM user_class_dates WHERE id=:id AND is_booked <> 1";
+        return $this->queryDbFirst($sql, array(":id" => $id));
     }
 
     function getPacketOrder($id)
     {
-        return $this->selectByUid("user_packets_order", $id);
+        $sql = "SELECT * FROM user_packets_order WHERE id=:id AND is_ordered <> 1";
+        return $this->queryDbFirst($sql, array(":id" => $id));
     }
 
     function getVaucherOrder($id)
     {
-        return $this->selectByUid("user_vauchers_order", $id);
+        $sql = "SELECT * FROM user_vauchers_order WHERE id=:id AND is_ordered <> 1";
+        return $this->queryDbFirst($sql, array(":id" => $id));
     }
 
     /**
