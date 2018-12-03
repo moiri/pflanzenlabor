@@ -265,7 +265,7 @@ $router->map( 'POST', '/check', function( $router, $db ) {
     $item = (isset($_POST['custom'])) ? $_POST['custom'] : Null;
     $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
     $check = null;
-    if($user->is_user_valid() && $item !== Null)
+    if($item !== Null)
     {
         if($item === "packet")
             $check = new CheckPaymentPacket($router, $db, $invoice);
