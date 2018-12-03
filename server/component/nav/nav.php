@@ -30,6 +30,7 @@ class Nav
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
             else if($this->router->generate( 'thanks') == $uri
+                    && isset($_SESSION['order_type'])
                     && $_SESSION['order_type'] === "course")
                 return $this->active_css;
         }
@@ -45,6 +46,7 @@ class Nav
             else if($uri == $this->router->generate("packets_offer"))
                 return $this->active_css;
             else if($this->router->generate( 'thanks') == $uri
+                    && isset($_SESSION['order_type'])
                     && $_SESSION['order_type'] === "packet")
                 return $this->active_css;
         }
@@ -58,6 +60,7 @@ class Nav
                     array( 'id' => $id ) ) == $uri ) )
                 return $this->active_css;
             else if($this->router->generate( 'thanks') == $uri
+                    && isset($_SESSION['order_type'])
                     && $_SESSION['order_type'] === "vaucher")
                 return $this->active_css;
         }

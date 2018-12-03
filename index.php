@@ -248,7 +248,13 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
             $check = new CheckPaymentVaucher($router, $db, $invoice);
         if($check && $check->is_item_valid())
         {
-            if($check->is_pending())
+            $pending = $check->is_pending();
+            $concluded = $check->is_concluded();
+            if($pending && $concluded)
+                // a Paypal transaction cannot be pending and concluded at the same time
+                $page->set_state_missing();
+            else if($pending && !$concluded)
+                // waiting for paypal IPN
                 $page->set_state_pending();
         }
         else
