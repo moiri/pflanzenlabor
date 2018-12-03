@@ -54,9 +54,9 @@ class CheckPaymentClass extends CheckPayment
 
     public function is_concluded()
     {
-        $sql = "SELECT is_enrolled FROM user_class_dates WHERE id=:id";
+        $sql = "SELECT is_booked FROM user_class_dates WHERE id=:id";
         $res = $this->db->queryDbFirst($sql, array(":id" => $this->invoice));
-        if($res && $res['is_enrolled'] == "1")
+        if($res && $res['is_booked'] == "1")
             return true;
         else
             return false;
