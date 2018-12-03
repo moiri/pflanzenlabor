@@ -187,7 +187,7 @@ $router->map( 'POST', '/gutschein', function( $router, $db ) {
 $router->map( 'POST', '/danke', function($router, $db) {
     // payed by bill or vaucher
     $item = isset($_SESSION['order_type']) ? $_SESSION['order_type'] : Null;
-    $invoice = isset( $_SESSION['invoice'] ) ? $_SESSION['invoice'] : Null;
+    $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
     $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
     if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
     else $payment_type = PAYMENT_VAUCHER;
@@ -205,19 +205,22 @@ $router->map( 'POST', '/danke', function($router, $db) {
             $check = new CheckPaymentVaucher($router, $db, $invoice);
         if($check && $check->is_item_valid())
         {
-            if(!$check->is_open())
-                $page->set_state_closed();
-            else
+            if(!$check->is_concluded())
             {
-                if($payment_type == PAYMENT_VAUCHER)
-                    $payment_ok = $check->check_vaucher($vaucher_code, true);
-                else if($payment_type == PAYMENT_BILL)
-                    $payment_ok = true;
-                if($payment_ok && $check->enroll_user($payment_type,
-                        ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
-                    $check->send_mail($user->get_user_data(), $payment_type);
+                if(!$check->is_open())
+                    $page->set_state_closed();
                 else
-                    $page->set_state_invalid();
+                {
+                    if($payment_type == PAYMENT_VAUCHER)
+                        $payment_ok = $check->check_vaucher($vaucher_code, true);
+                    else if($payment_type == PAYMENT_BILL)
+                        $payment_ok = true;
+                    if($payment_ok && $check->enroll_user($payment_type,
+                            ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
+                        $check->send_mail($user->get_user_data(), $payment_type);
+                    else
+                        $page->set_state_invalid();
+                }
             }
         }
         else
@@ -226,15 +229,13 @@ $router->map( 'POST', '/danke', function($router, $db) {
     else
         $page->set_state_invalid();
     $page->print_view();
-    if($check)
-        $check->clear_payment_session();
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
     $item = isset($_SESSION['order_type']) ? $_SESSION['order_type'] : Null;
-    $invoice = isset( $_SESSION['invoice'] ) ? $_SESSION['invoice'] : Null;
+    $invoice = isset($_SESSION['invoice']) ? $_SESSION['invoice'] : Null;
     $page = new Thanks($router, PAYMENT_PAYPAL, $item);
-    $user = new User( $db );
+    $user = new User($db);
     $check = null;
     if($user->is_user_valid())
     {
@@ -256,8 +257,6 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     else
         $page->set_state_invalid();
     $page->print_view();
-    if($check)
-        $check->clear_payment_session();
 }, 'thanks_get');
 // Check Paypal
 $router->map( 'POST', '/check', function( $router, $db ) {
@@ -275,7 +274,7 @@ $router->map( 'POST', '/check', function( $router, $db ) {
             $check = new CheckPaymentClass($router, $db, $invoice);
         else if($item === "vaucher")
             $check = new CheckPaymentVaucher($router, $db, $invoice);
-        if($check && $check->is_item_valid())
+        if($check && $check->is_item_valid() && !$check->is_concluded())
         {
             $payed = $check->check_paypal();
             if($check->enroll_user(PAYMENT_PAYPAL, $payed) && $payed)

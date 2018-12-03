@@ -52,6 +52,16 @@ class CheckPaymentClass extends CheckPayment
         return false;
     }
 
+    public function is_concluded()
+    {
+        $sql = "SELECT is_enrolled FROM user_class_dates WHERE id=:id";
+        $res = $this->db->queryDbFirst($sql, array(":id" => $this->invoice));
+        if($res && $res['is_enrolled'] == "1")
+            return true;
+        else
+            return false;
+    }
+
     public function is_pending($table = "")
     {
         return parent::is_pending('user_class_dates');

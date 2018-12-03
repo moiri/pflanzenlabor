@@ -63,6 +63,16 @@ class CheckPaymentVaucher extends CheckPayment {
         return true;
     }
 
+    public function is_concluded()
+    {
+        $sql = "SELECT is_ordered FROM user_vauchers_order WHERE id=:id";
+        $res = $this->db->queryDbFirst($sql, array(":id" => $this->invoice));
+        if($res && $res['is_ordered'] == "1")
+            return true;
+        else
+            return false;
+    }
+
     public function is_pending($table = "")
     {
         return parent::is_pending('user_vauchers_order');

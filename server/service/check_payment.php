@@ -39,11 +39,13 @@ abstract class CheckPayment {
     {
         $sql = "SELECT is_payed FROM $table WHERE id=:id";
         $res = $this->db->queryDbFirst($sql, array(":id" => $this->invoice));
-        if($res && $res['is_payed'] == 1)
-            return true;
-        else
+        if($res && $res['is_payed'] == "1")
             return false;
+        else
+            return true;
     }
+
+    abstract public function is_concluded();
     abstract public function is_open();
     abstract public function send_mail($user, $payment_type);
     abstract public function enroll_user($payment_type, $is_payed = false);
