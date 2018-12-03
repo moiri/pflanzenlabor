@@ -262,8 +262,10 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
 // Check Paypal
 $router->map( 'POST', '/check', function( $router, $db ) {
     // payed by paypal IPN requiest
-    $item = (isset($_POST['custom'])) ? $_POST['custom'] : Null;
-    $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
+    $custom = (isset($_POST['custom'])) ? $_POST['custom'] : Null;
+    $json = json_decode($custom, true);
+    $item = (isset($json['item'])) ? $json['item'] : Null;
+    $invoice = (isset( $json['id_order'])) ? intval($json['id_order']) : Null;
     $check = null;
     if($item !== Null)
     {

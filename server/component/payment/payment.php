@@ -89,6 +89,10 @@ abstract class Payment extends Page {
 
     protected function print_paypal($item)
     {
+        $json = htmlspecialchars(json_encode(array(
+            "item" => $item,
+            "id_order" => $this->id_order,
+        )));
         require __DIR__ . '/v_paypal.php';
     }
 
