@@ -229,6 +229,7 @@ $router->map( 'POST', '/danke', function($router, $db) {
     else
         $page->set_state_invalid();
     $page->print_view();
+    $_SESSION['order_concluded'] = true;
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
@@ -263,6 +264,7 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
     else
         $page->set_state_invalid();
     $page->print_view();
+    $_SESSION['order_concluded'] = true;
 }, 'thanks_get');
 // Check Paypal
 $router->map( 'POST', '/check', function( $router, $db ) {

@@ -35,6 +35,13 @@ abstract class Enroll extends Page {
             $this->phone = $user_data['phone'];
             $this->email = $user_data['email'];
         }
+        if(!isset($_SESSION['order_concluded'])
+            || (isset($_SESSION['order_concluded']) && $_SESSION['order_concluded']))
+        {
+            $_SESSION['invoice'] = null;
+            $_SESSION['order_type'] = null;
+            $_SESSION['order_concluded'] = false;
+        }
     }
 
     protected function print_name($first_name, $last_name, $prefix = "",
