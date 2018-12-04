@@ -17,7 +17,7 @@ class EnrollVaucher extends Enroll {
             $this->vaucher_name = $vaucher['name'];
             $this->vaucher_img = $vaucher['img_path'];
             if(isset($_SESSION['invoice']))
-                $this->order_data = $this->db->getVaucherOrder($_SESSION['invoice']);
+                $this->order_data = $this->db->getVaucherOrder($_SESSION['invoice'], false);
         }
         else $this->set_state_missing();
     }

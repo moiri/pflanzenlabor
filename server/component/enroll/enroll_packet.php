@@ -20,7 +20,7 @@ class EnrollPacket extends Enroll {
             $this->packet_name = $packet['name'];
             $this->packet_img = $packet['img_path'];
             if(isset($_SESSION['invoice']))
-                $this->order_data = $this->db->getPacketOrder($_SESSION['invoice']);
+                $this->order_data = $this->db->getPacketOrder($_SESSION['invoice'], false);
         }
         else $this->set_state_missing();
     }
