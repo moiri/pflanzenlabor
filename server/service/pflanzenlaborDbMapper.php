@@ -199,8 +199,8 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getClassDate( $id ) {
         try {
             $sql = "SELECT cd.id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
-                cd.places_max, cd.places_booked, cd.paypal_key, c.name, c.img,
-                id_class, c.id_type, ct.name AS type
+                cd.places_max, cd.places_booked, c.name, c.img,
+                id_class, c.id_type, ct.name AS type, ct.paypal_key
                 FROM class_dates AS cd
                 LEFT JOIN classes AS c ON c.id = cd.id_class
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
