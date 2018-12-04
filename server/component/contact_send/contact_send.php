@@ -23,7 +23,7 @@ class ContactSend extends Page {
         else $to = "moirelein@gmail.com";
         $name = strip_tags( $_POST['name'] );
         $from = "info@pflanzenlabor.ch";
-        $replyTo = $name . " <" . strip_tags( $_POST['email'] ) . ">";
+        $replyTo = '"' . $name . '" <' . strip_tags( $_POST['email'] ) . '>';
         $subject = strip_tags( $_POST['subject'] );
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
         $headers   = array();
