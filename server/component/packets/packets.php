@@ -17,7 +17,7 @@ class Packets extends Page {
     {
         $sql = "SELECT DATE_FORMAT(date, \"%M %Y\") AS date, name,
             comment, link, link_label FROM artists
-            WHERE enabled = 1 AND date >= CURDATE()";
+            WHERE enabled = 1";
         $artists = $this->db->queryDb($sql);
         foreach($artists as $artist)
         {
