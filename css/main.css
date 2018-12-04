@@ -69,3 +69,7 @@ a.navbar-logo:hover
     width: 64px;
     float: right;
 }
+.fax_field
+{
+    display: none;
+}

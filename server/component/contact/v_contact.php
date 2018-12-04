@@ -13,6 +13,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
         <h5 class="card-header">Kontaktformular</h5>
         <div class="card-body">
             <form action="<?php echo $this->router->generate('send'); ?>" method="post">
+                <input type="text" name="contact_me_by_fax_only" value="" class="fax_field" tabindex="-1" autocomplete="off">
                 <div class="form-group">
                     <label for="contactEmail">Email</label>
                     <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" required>

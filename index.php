@@ -96,8 +96,11 @@ $router->map( 'GET', '/newsletter', function( $router, $db ) {
 }, 'newsletter');
 $router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
     $page = new ContactSend( $router );
-    $page->send_mail();
-    $page->send_newsletter_mail();
+    if(isset($_POST['contact_me_by_fax_only']) && $_POST['contact_me_by_fax_only'] === "")
+    {
+        $page->send_mail();
+        $page->send_newsletter_mail();
+    }
     $page->print_view();
 }, 'send');
 $router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
