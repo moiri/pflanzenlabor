@@ -16,7 +16,7 @@ class ClassContent {
     }
 
     private function print_description() {
-        $content = new ClassContentText( $this->description );
+        $content = new ClassContentText( $this->description, false );
         $content->print_view();
     }
 

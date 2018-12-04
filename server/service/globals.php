@@ -21,4 +21,17 @@ define( 'PAGE_STATE_INVALID', 300 );
 
 define( 'CLASS_TYPE_WALK_ID', 2 );
 define( 'GIFT_PACKET_IDS', array(6, 8) );
+
+function split_by_cr($text_line, $has_last_margin = false)
+{
+    $text = "";
+    $lines = explode(PHP_EOL, $text_line);
+    foreach($lines as $idx => $line) {
+        $css = "";
+        if(!$has_last_margin && ($idx == count($lines) - 1))
+            $css = ' class="mb-0"';
+        $text .= "<p" . $css . ">" . $line . "</p>";
+    }
+    return $text;
+}
 ?>

@@ -3,16 +3,15 @@
 class ClassContentText {
 
     private $text;
+    private $has_last_margin;
 
-    function __construct( $text ) {
+    function __construct( $text, $has_last_margin = true ) {
         $this->text = $text;
+        $this->has_last_margin = $has_last_margin;
     }
 
     public function print_view() {
-        $lines = explode(PHP_EOL, $this->text);
-        foreach( $lines as $line ) {
-            echo "<p>" . $line . "</p>";
-        }
+        echo split_by_cr($this->text, $this->has_last_margin);
     }
 }
 

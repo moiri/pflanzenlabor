@@ -24,8 +24,9 @@ class Vauchers extends Page {
                 $item['img_path'], $item['price'], $item['description']);
     }
 
-    private function print_item($id, $title, $img, $price, $text)
+    private function print_item($id, $title, $img, $price, $text_line)
     {
+        $text = split_by_cr($text_line);
         require __DIR__ . '/v_vauchers_item.php';
     }
 

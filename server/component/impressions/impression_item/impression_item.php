@@ -38,10 +38,7 @@ class ImpressionItem {
 
     private function print_description()
     {
-        $lines = explode(PHP_EOL, $this->description);
-        foreach( $lines as $line ) {
-            echo "<p>" . $line . "</p>";
-        }
+        echo split_by_cr($this->description);
     }
 
     private function print_items()
