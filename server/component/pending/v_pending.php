@@ -1,3 +1,8 @@
+<script type="text/javascript">
+    window.setTimeout(function() {
+        location.reload();
+    }, 5000);
+</script>
 <div class="container-fluid">
     <div class="row">
         <?php $this->print_nav(); ?>
