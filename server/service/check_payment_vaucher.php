@@ -84,7 +84,8 @@ class CheckPaymentVaucher extends CheckPayment {
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
-        $subject = "Pflanzenlabor - Dein Gutschein Kauf: ". $this->vaucher_name;
+        $subject_str = "Pflanzenlabor - Dein Gutschein Kauf: ". $this->vaucher_name;
+        $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";

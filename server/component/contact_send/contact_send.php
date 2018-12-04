@@ -24,7 +24,7 @@ class ContactSend extends Page {
         $name = strip_tags( $_POST['name'] );
         $from = "info@pflanzenlabor.ch";
         $replyTo = '"' . $name . '" <' . strip_tags( $_POST['email'] ) . '>';
-        $subject = strip_tags( $_POST['subject'] );
+        $subject = '=?utf-8?B?'.base64_encode(strip_tags( $_POST['subject'] )).'?=';
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";

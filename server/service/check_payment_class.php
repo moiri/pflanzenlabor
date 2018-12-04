@@ -78,7 +78,8 @@ class CheckPaymentClass extends CheckPayment
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
-        $subject = "Pflanzenlabor - Deine Anmedlung für: ". $this->class_type . " " . $this->class_name;
+        $subject_str = "Pflanzenlabor - Deine Anmedlung für: ". $this->class_type . " " . $this->class_name;
+        $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";

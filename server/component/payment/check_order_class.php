@@ -87,7 +87,8 @@ class BaseCheckOrder extends BaseCheckOrder
         else $bcc = "";
         $name = $this->user_data['first_name'] . " " . $this->user_data['last_name'];
         $to = $name . " <" . $this->user_data['email'] . ">";
-        $subject = "Pflanzenlabor - Deine Anmedlung für: ". $this->item_data['type'] . " " . $this->item['name'];
+        $subject_str = "Pflanzenlabor - Deine Anmedlung für: ". $this->item_data['type'] . " " . $this->item['name'];
+        $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";

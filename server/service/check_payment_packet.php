@@ -95,7 +95,8 @@ class CheckPaymentPacket extends CheckPayment {
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
         $to = $name . " <" . $user['email'] . ">";
-        $subject = "Pflanzenlabor - Deine Bestellung fürs Pflanzenpäckli Abo: ". $this->packet_name;
+        $subject_str = "Pflanzenlabor - Deine Bestellung fürs Pflanzenpäckli Abo: ". $this->packet_name;
+        $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
         $headers   = array();
         $headers[] = "MIME-Version: 1.0";
