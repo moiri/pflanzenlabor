@@ -78,14 +78,14 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getPacketOrder($id, $all=true)
     {
         $sql = "SELECT * FROM user_packets_order WHERE id=:id";
-        if(!$all) $sql .= " AND is_booked <> 1";
+        if(!$all) $sql .= " AND is_ordered <> 1";
         return $this->queryDbFirst($sql, array(":id" => $id));
     }
 
     function getVaucherOrder($id, $all=true)
     {
         $sql = "SELECT * FROM user_vauchers_order WHERE id=:id";
-        if(!$all) $sql .= " AND is_booked <> 1";
+        if(!$all) $sql .= " AND is_ordered <> 1";
         return $this->queryDbFirst($sql, array(":id" => $id));
     }
 
