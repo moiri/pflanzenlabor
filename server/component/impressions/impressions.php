@@ -15,7 +15,8 @@ class Impressions extends Page {
 
     private function print_impression_items()
     {
-        $items = $this->db->selectTable( "impressions" );
+        $sql = "SELECT * FROM impressions ORDER BY position";
+        $items = $this->db->queryDb($sql);
         foreach($items as $item)
         {
             $comp = new ImpressionItem($this->router, $this->db, intval($item['id']));
