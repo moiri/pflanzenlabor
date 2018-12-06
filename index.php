@@ -221,7 +221,7 @@ $router->map( 'POST', '/danke', function($router, $db) {
                 {
                     if($check->enroll_user(PAYMENT_BILL, false))
                     {
-                        $check->send_mail($user->get_user_data(), $payment_type);
+                        $check->send_mail($user->get_user_data(), PAYMENT_BILL);
                         $page->set_payment_type(PAYMENT_BILL);
                     }
                     else
