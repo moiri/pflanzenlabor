@@ -20,6 +20,7 @@ class CheckPaymentClass extends CheckPayment
         $order_data = $this->db->getCourseOrder($invoice);
         if($order_data)
         {
+            $this->payment_id = $order_data['id_payment'];
             $this->user_id = intval($order_data['id_user']);
             $this->item_id = intval($order_data['id_class_dates']);
             $this->comment = $order_data['comment'];
@@ -121,4 +122,18 @@ class CheckPaymentClass extends CheckPayment
         require __DIR__ . "/../email/tpl_bill.php";
     }
 
+    public function check_vaucher($vaucher_code) {
+        $vaucher = $this->db->getVaucher($vaucher_code);
+        if($vaucher)
+        {
+            if($vaucher['type'] !== $this->class_type)
+                return "Der Gutschein ist nur gültig für: " . $vaucher['type']. ". Falls Du den Gutschein trotzdem anrechen lassen willst, kontaktiere mich bitte über das Kontaktformular.";
+            if($this->db->claimVaucher($this->user_id, $this->item_id, $vaucher['id']))
+                return true;
+            else
+                return "Es ist ein Fehler aufgetereten. Bitte kontaktiere mich über das Kontaktformular damit ich dem Problem auf den Grund gehen kann.";
+        }
+        else
+            return "Der Gutschein Code ist ungültig. Versichere dich, dass Du die Zeichenfolge richtig eingegeben hast. Bei Fragen benutze bitte das Kontaktformular.";
+    }
 }

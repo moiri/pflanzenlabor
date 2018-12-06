@@ -9,10 +9,14 @@ class Thanks extends Page {
     private $payment_type;
     private $item_type;
 
-    function __construct($router, $payment_type, $item) {
+    function __construct($router, $item) {
         parent::__construct($router);
-        $this->payment_type = $payment_type;
         $this->item_type = $item;
+    }
+
+    public function set_payment_type($id_payment)
+    {
+        $this->payment_type = $id_payment;
     }
 
     private function print_paypal()

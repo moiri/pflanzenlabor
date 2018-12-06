@@ -367,34 +367,31 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
-    function claimVaucher( $id_user, $id_date, $vaucher_code ) {
+    function claimVaucher( $id_user, $id_date, $id_vaucher ) {
         try {
             $sql = "UPDATE vauchers
                 SET id_user = :id_user, id_date = :id_date
-                WHERE code = :code";
+                WHERE id = :id";
             $stmt = $this->dbh->prepare( $sql );
             return $stmt->execute( array(
                 ':id_user' => $id_user,
                 ':id_date' => $id_date,
-                ':code' => $vaucher_code ) );
+                ':id' => $id_vaucher ) );
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::claim_vaucher: ".$e->getMessage();
+            return false;
         }
     }
 
-    function getVaucher( $vaucher_code ) {
-        try {
-            $sql = "SELECT *
-                FROM vauchers
-                WHERE code = :code";
-            $stmt = $this->dbh->prepare( $sql );
-            $stmt->execute( array( ':code' => $vaucher_code ) );
-            return $stmt->fetch( PDO::FETCH_ASSOC );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::getVaucher: ".$e->getMessage();
-        }
+    function getVaucher($vaucher_code) {
+        $sql = "SELECT v.id, ct.name AS type FROM vauchers AS v
+            LEFT JOIN vaucher_types AS vt ON vt.id = v.id_vaucher_type
+            LEFT JOIN class_type AS ct ON ct.id = vt.id_class_type
+            WHERE v.code = :code AND v.claimed IS NULL";
+        return $this->queryDbFirst($sql, array(
+            ":code" => $vaucher_code,
+        ));
     }
 
     function updateUserClassDates( $id_user, $id_date, $check_custom, $comment ) {

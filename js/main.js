@@ -28,22 +28,26 @@ $(document).ready(function() {
             $(this).find('img:visible:first').attr("src", image_path + image_name);
             $(this).removeClass('border-dark');
         });
-    $('input#vaucher-code').on('keyup blur', function() {
-        if( $(this).val().length == 8 ) {
-            var field = $(this)[0];
-            var $button = $(this).next();
-            $.post( $('#vaucher-url').val(), { date_id: $('#vaucher-date-id').val(), vaucher: $(this).val() }, function( data ) {
+    $('a#vaucher-submit').on('click', function(event) {
+        var $alert = $('#vaucher-alert');
+        event.preventDefault();
+        $.post(
+            $('#vaucher-url-check').val(),
+            {
+                invoice: $('#vaucher-invoice').val(),
+                vaucher: $('#vaucher-code').val(),
+            },
+            function( data ) {
                 if( data['vaucher_valid'] ) {
-                    field.setCustomValidity('');
-                    $button.prop('disabled', false);
+                    window.location.replace($('#vaucher-url-thanks').val());
                 }
                 else {
-                    field.setCustomValidity('Ungültiger Gutschein Code');
-                    $button.prop('disabled', true);
+                    $alert.text(data['msg']);
+                    $alert.removeClass('d-none');
                 }
-
-            }, 'json');
-        }
+            },
+            'json'
+        );
     });
     $('input[name^="dito"]').on('change', function() {
         var names = $(this).prop("name").split('-');

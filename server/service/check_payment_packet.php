@@ -30,6 +30,7 @@ class CheckPaymentPacket extends CheckPayment {
         $order_data = $this->db->getPacketOrder($invoice);
         if($order_data)
         {
+            $this->payment_id = $order_data['id_payment'];
             $this->user_id = intval($order_data['id_user']);
             $this->item_id = intval($order_data['id_packets']);
             $this->comment = $order_data['comment'];

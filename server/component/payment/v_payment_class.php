@@ -87,6 +87,7 @@
         <h5 class="mb-0">Bezahlen</h5>
     </div>
     <div class="card-body">
+        <div id="vaucher-alert" class="alert alert-danger d-none"></div>
 <?php
 if( $this->show_enroll_warning )
     echo '<div class="alert alert-warning" role="alert">Du hast dich bereits für diesen Kurs angemeldet.</div>'
@@ -95,14 +96,15 @@ if( $this->show_enroll_warning )
         <div class="<?php echo ( $this->show_enroll_warning ) ? "d-none" : "";?>">
             <?php $this->print_bill(); ?>
             <?php $this->print_paypal("course"); ?>
-            <form method="post" action="<?php echo $this->router->generate('thanks'); ?>">
-                <input id="vaucher-date-id" type="hidden" name="date_id" value="<?php echo $this->id_item; ?>">
-                <input id="vaucher-url" type="hidden" name="url" value="<?php echo $this->router->generate('vaucher'); ?>">
-                <div class="float-left mt-2 mt-lg-0 ml-lg-2 form-inline">
-                    <input id="vaucher-code" type="text" class="form-control" name="vaucher" placeholder="Gutschein Code" maxlength="20" required>
-                    <button type="submit" class="btn btn-primary" disabled>mit Gutschein</button>
-                </div>
-            </form>
+            <div class="d-none">
+                <input id="vaucher-invoice" type="hidden" name="invoice" value="<?php echo $this->id_order; ?>">
+                <input id="vaucher-url-check" type="hidden" name="url" value="<?php echo $this->router->generate('vaucher'); ?>">
+                <input id="vaucher-url-thanks" type="hidden" name="url" value="<?php echo $this->router->generate('thanks_get'); ?>">
+            </div>
+            <div class="float-left mt-2 mt-lg-0 ml-lg-2 form-inline">
+                <input id="vaucher-code" type="text" class="form-control" name="vaucher" placeholder="Gutschein Code" maxlength="20" required>
+                <a id="vaucher-submit" href="#" class="btn btn-primary">mit Gutschein</a>
+            </div>
         </div>
     </div>
 </div>

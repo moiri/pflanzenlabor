@@ -7,6 +7,7 @@ require_once __DIR__ . '/paypalIPN.php';
  */
 abstract class CheckPayment {
 
+    protected $payment_id = Null;
     protected $user_id = Null;
     protected $db = Null;
     protected $router = Null;
@@ -23,6 +24,11 @@ abstract class CheckPayment {
     {
         $_SESSION['invoice'] = null;
         $_SESSION['order_type'] = null;
+    }
+
+    public function get_payment_type()
+    {
+        return $this->payment_id;
     }
 
     public function get_user_id()
@@ -55,15 +61,6 @@ abstract class CheckPayment {
         // Use the sandbox endpoint during testing.
         if( DEBUG ) $ipn->useSandbox();
         return $ipn->verifyIPN();
-    }
-
-    public function check_vaucher( $vaucher_code, $claim = false ) {
-        $vaucher = $this->db->getVaucher( $vaucher_code );
-        if( $vaucher && ( $vaucher['claimed'] == '' ) ) {
-            if( $claim ) $this->db->claimVaucher( $this->user_id, $this->date_id, $vaucher_code );
-            return true;
-        }
-        return false;
     }
 }
 

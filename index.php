@@ -172,29 +172,34 @@ $router->map( 'POST', '/gutschein_bezahlung/[i:id]', function( $router, $db, $id
 }, 'vauchers_payment');
 $router->map( 'POST', '/gutschein', function( $router, $db ) {
     header("HTTP/1.1 200 OK");
-    $date_id = isset( $_POST['date_id'] ) ? $_POST['date_id'] : Null;
+    $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
     $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
     $user = new User( $db );
-    if( !$user->is_user_enrolled( $date_id ) ) {
-        $check = new CheckPayment( $router, $db, $date_id );
-        if( $check->is_date_existing() ) {
-            if( $check->check_vaucher( $vaucher_code ) ) {
+    $res = "bad arguments";
+    if($user->is_user_valid())
+    {
+        $uid = $user->get_user_id();
+        $check = new CheckPaymentClass($router, $db, $invoice);
+        if($check && $check->is_item_valid() && !$check->is_concluded())
+        {
+            $res = $check->check_vaucher($vaucher_code);
+            if($res === true)
+            {
+                if($check->enroll_user(PAYMENT_VAUCHER, true))
+                    $check->send_mail($user->get_user_data(), PAYMENT_VAUCHER);
                 print '{ "vaucher_valid": true }';
                 return;
             }
         }
     }
-    print '{ "vaucher_valid": false }';
+    print '{ "vaucher_valid": false, "msg": "' . $res . '" }';
 }, 'vaucher');
 // Thanks Pages
 $router->map( 'POST', '/danke', function($router, $db) {
-    // payed by bill or vaucher
+    // payed by bill
     $item = isset($_SESSION['order_type']) ? $_SESSION['order_type'] : Null;
     $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
-    $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
-    if( $vaucher_code == Null ) $payment_type = PAYMENT_BILL;
-    else $payment_type = PAYMENT_VAUCHER;
-    $page = new Thanks( $router, $payment_type, $item );
+    $page = new Thanks( $router, $item );
     $user = new User( $db );
     $check = null;
     if($user->is_user_valid())
@@ -214,13 +219,11 @@ $router->map( 'POST', '/danke', function($router, $db) {
                     $page->set_state_closed();
                 else
                 {
-                    if($payment_type == PAYMENT_VAUCHER)
-                        $payment_ok = $check->check_vaucher($vaucher_code, true);
-                    else if($payment_type == PAYMENT_BILL)
-                        $payment_ok = true;
-                    if($payment_ok && $check->enroll_user($payment_type,
-                            ($payment_ok && ($payment_type == PAYMENT_VAUCHER))))
+                    if($check->enroll_user(PAYMENT_BILL, false))
+                    {
                         $check->send_mail($user->get_user_data(), $payment_type);
+                        $page->set_payment_type(PAYMENT_BILL);
+                    }
                     else
                         $page->set_state_invalid();
                 }
@@ -236,9 +239,10 @@ $router->map( 'POST', '/danke', function($router, $db) {
 }, 'thanks');
 $router->map( 'GET', '/danke', function( $router, $db ) {
     // payed by paypal return from PayPal Page
+    // or payed by vaucher and redirected by PHP
     $item = isset($_SESSION['order_type']) ? $_SESSION['order_type'] : Null;
     $invoice = isset($_SESSION['invoice']) ? $_SESSION['invoice'] : Null;
-    $page = new Thanks($router, PAYMENT_PAYPAL, $item);
+    $page = new Thanks($router, $item);
     $user = new User($db);
     $check = null;
     if($user->is_user_valid())
@@ -260,6 +264,8 @@ $router->map( 'GET', '/danke', function( $router, $db ) {
             else if($pending && !$concluded)
                 // waiting for paypal IPN
                 $page->set_state_pending();
+            else
+                $page->set_payment_type($check->get_payment_type());
         }
         else
             $page->set_state_missing();

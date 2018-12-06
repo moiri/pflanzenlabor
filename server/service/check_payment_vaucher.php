@@ -24,6 +24,7 @@ class CheckPaymentVaucher extends CheckPayment {
         $order_data = $this->db->getVaucherOrder($invoice);
         if($order_data)
         {
+            $this->payment_id = $order_data['id_payment'];
             $this->user_id = intval($order_data['id_user']);
             $this->item_id = intval($order_data['id_vaucher_type']);
             $this->comment = $order_data['comment'];
