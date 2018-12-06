@@ -28,7 +28,10 @@ abstract class CheckPayment {
 
     public function get_payment_type()
     {
-        return $this->payment_id;
+        if($this->payment_id !== null)
+            return intval($this->payment_id);
+        else
+            return PAYMENT_BILL;
     }
 
     public function get_user_id()
