@@ -95,7 +95,7 @@ class CheckPaymentPacket extends CheckPayment {
         if(!DEBUG) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
-        $to = $name . " <" . $user['email'] . ">";
+        $to = '"' . $name . '" <' . $user['email'] . '>';
         $subject_str = "Pflanzenlabor - Deine Bestellung fürs Pflanzenpäckli Abo: ". $this->packet_name;
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
@@ -108,11 +108,11 @@ class CheckPaymentPacket extends CheckPayment {
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
-        mail( $to, $subject, $this->get_email_content($user, $payment_type),
+        mail( $to, $subject, $this->get_email_content($user),
             implode( "\r\n", $headers ) );
     }
 
-    private function get_email_content($user, $payment_type)
+    private function get_email_content($user)
     {
         $packet_url = $this->router->generate('packets');
         $contact_url = $this->router->generate('contact');

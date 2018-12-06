@@ -78,7 +78,7 @@ class CheckPaymentClass extends CheckPayment
         if( !DEBUG ) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
-        $to = $name . " <" . $user['email'] . ">";
+        $to = '"' . $name . '" <' . $user['email'] . '>';
         $subject_str = "Pflanzenlabor - Deine Anmedlung für: ". $this->class_type . " " . $this->class_name;
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 

@@ -84,7 +84,7 @@ class CheckPaymentVaucher extends CheckPayment {
         if(!DEBUG) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
         else $bcc = "";
         $name = $user['first_name'] . " " . $user['last_name'];
-        $to = $name . " <" . $user['email'] . ">";
+        $to = '"' . $name . '" <' . $user['email'] . '>';
         $subject_str = "Pflanzenlabor - Dein Gutschein Kauf: ". $this->vaucher_name;
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
@@ -97,7 +97,7 @@ class CheckPaymentVaucher extends CheckPayment {
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
-        mail( $to, $subject, $this->get_email_content($user, $payment_type),
+        mail( $to, $subject, $this->get_email_content($user),
             implode( "\r\n", $headers ) );
     }
 
@@ -120,7 +120,7 @@ class CheckPaymentVaucher extends CheckPayment {
         ));
     }
 
-    private function get_email_content($user, $payment_type)
+    private function get_email_content($user)
     {
         $vaucher_url = $this->router->generate('vauchers');
         $contact_url = $this->router->generate('contact');
