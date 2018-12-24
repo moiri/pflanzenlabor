@@ -108,7 +108,7 @@ F&uuml;r Diebstahl und Verlust von Gegenst&auml;nden kann das Pflanzenlabor Giov
             <div class="card">
                 <h5 class="card-header">Kursbest&auml;tigung</h5>
                 <div class="card-body">
-Auf verlangen, kann eine schriftliche Kursbest&auml;tigung ausstellt werden.
+Auf verlangen, kann eine schriftliche Kursbest&auml;tigung ausgestellt werden.
 Daf&uuml;r sollte der Kurs nicht l&auml;nger als ein Jahr zur&uuml;ckliegen.
                 </div>
             </div>
