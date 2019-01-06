@@ -6,7 +6,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-body">
-                    <h1>Kurse</h1>
+                    <h1>Programm</h1>
                 </div>
             </div>
         </div>

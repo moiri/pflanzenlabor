@@ -8,7 +8,7 @@ Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
         </div>
     </div>
     <div class="card-deck mt-3 text-center">
-        <?php $this->print_link("courses", "Kurse"); ?>
+        <?php $this->print_link("courses", "Programm"); ?>
         <?php $this->print_link("packets", "Pflanzenp&auml;ckli"); ?>
         <div class="w-100 d-none d-sm-block d-lg-none"><!-- wrap every 2 on sm--></div>
         <?php $this->print_link("impressions", "Impressionen"); ?>
