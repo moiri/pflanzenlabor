@@ -50,10 +50,10 @@ class ImpressionItem {
         $impressions = $this->db->queryDb($sql, array(":id" => $this->id));
         foreach($impressions as $idx => $impression)
         {
-            if($idx == 2 || $idx == 4)
+            if($idx % 2 == 0)
                 // wrap every 2nd on sm
                 echo '<div class="w-100 d-none d-sm-block d-lg-none"></div>';
-            else if($idx == 3)
+            if($idx % 3 == 0)
                 // wrap every 3rd on lg
                 echo '<div class="w-100 d-none d-lg-block"></div>';
             $sql = "SELECT il.content, ilt.name AS type
