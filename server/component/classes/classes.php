@@ -26,6 +26,11 @@ class Classes extends Page {
         }
     }
 
+    public function print_class_types()
+    {
+        require __DIR__ . '/v_class_types.php';
+    }
+
     public function print_view() {
         $this->print_page( function() {
             require __DIR__ . '/v_classes.php';

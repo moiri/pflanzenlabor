@@ -67,4 +67,14 @@ $(document).ready(function() {
             })
         }
     });
+    $('button[id|="filter"]').on('click', function() {
+        var ids = $(this).attr('id').split('-');
+        var $items = $('div[class|="target"]');
+        var $items_hide = $items.not('.target-' + ids[1]);
+        var $items_show = $items.filter('.target-' + ids[1]);
+        $('button[id|="filter"]').removeClass('active');
+        $(this).addClass('active');
+        $items_hide.hide();
+        $items_show.show();
+    });
 });
