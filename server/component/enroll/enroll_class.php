@@ -14,6 +14,7 @@ class EnrollClass extends Enroll {
     private $class_name;
     private $class_img;
     private $class_id;
+    private $class_cost;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
@@ -24,6 +25,10 @@ class EnrollClass extends Enroll {
             $this->class_name = $date['name'];
             $this->class_img = $date['img'];
             $this->class_id = intval($date['id_class']);
+            $cost = $dbMapper->getClassCost( $this->class_id );
+            if( $cost ) {
+                $this->class_cost = $cost['content'];
+            }
             $this->open = $date['places_max'] - $date['places_booked'];
             $this->id_type = $date['id_type'];
             if( $this->open <= 0 ) $this->set_state_closed();
