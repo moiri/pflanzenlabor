@@ -181,9 +181,9 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
                 LEFT JOIN class_dates AS cd ON cd.id_class = c.id
                 WHERE c.enabled = 1
                 ORDER BY
-                    DATE(cd.date) > DATE(NOW()),
-                    DATE(cd.date) = DATE(NOW()),
-                    DATE(cd.date) < DATE(NOW()),
+                    DATE(cd.date) > DATE(NOW()) DESC,
+                    DATE(cd.date) = DATE(NOW()) DESC,
+                    DATE(cd.date) < DATE(NOW()) ASC,
                     cd.date";
             $stmt = $this->dbh->prepare( $sql );
             $stmt->execute();
