@@ -34,4 +34,9 @@ function split_by_cr($text_line, $has_last_margin = false)
     }
     return $text;
 }
+
+function split_by_cr_html($text_line)
+{
+    return str_replace(PHP_EOL, "<br />", $text_line);
+}
 ?>

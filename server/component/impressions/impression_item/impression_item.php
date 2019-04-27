@@ -84,7 +84,7 @@ class ImpressionItem {
 
     private function print_cite($name, $content)
     {
-        $content = split_by_cr($content);
+        $content = split_by_cr_html($content);
         require __DIR__ . "/v_cite.php";
     }
 
