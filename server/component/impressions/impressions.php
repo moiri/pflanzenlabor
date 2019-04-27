@@ -11,12 +11,13 @@ class Impressions extends Page {
     function __construct( $router, $db ) {
         parent::__construct( $router );
         $this->db = $db;
+        $this->append_js_includes('intersection-observer.js');
         $this->append_js_includes('impressions.js');
     }
 
     private function print_impression_items()
     {
-        print $this->fetch_impression_items(0, 3);
+        print $this->fetch_impression_items(0, 1);
     }
 
     public function fetch_impression_items($offset, $count)
