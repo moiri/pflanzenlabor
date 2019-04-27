@@ -73,3 +73,7 @@ a.navbar-logo:hover
 {
     display: none;
 }
+.popup
+{
+    cursor: pointer;
+}

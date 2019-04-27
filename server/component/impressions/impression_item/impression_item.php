@@ -56,7 +56,7 @@ class ImpressionItem {
             if($idx % 3 == 0)
                 // wrap every 3rd on lg
                 echo '<div class="w-100 d-none d-lg-block"></div>';
-            $sql = "SELECT il.content, ilt.name AS type
+            $sql = "SELECT il.id, il.content, ilt.name AS type
                 FROM impressions_fields AS il
                 LEFT JOIN impressions_fields_type AS ilt ON ilt.id = il.id_type
                 WHERE il.id_impressions_content = :id";
@@ -67,7 +67,8 @@ class ImpressionItem {
             if($impression['type'] == "image" && isset($fields['img_path']))
             {
                 if(!isset($fields['img_caption'])) $fields['img_caption'] = "";
-                $this->print_img($fields['img_path'], $fields['img_caption']);
+                $this->print_img(intval($field['id']), $fields['img_path'],
+                    $fields['img_caption']);
             }
             else if($impression['type'] == "cite" && isset($fields['cite']))
             {
@@ -96,10 +97,15 @@ class ImpressionItem {
         require __DIR__ . "/v_cite_name.php";
     }
 
-    private function print_img($img, $caption="")
+    private function print_img($id, $img, $caption="")
+    {
+        require __DIR__ . "/v_img.php";
+    }
+
+    private function print_img_content($img, $caption="")
     {
         $url = $this->router->get_asset_path("/img/assets/impressions/" . $img);
-        require __DIR__ . "/v_img.php";
+        require __DIR__ . "/v_img_content.php";
     }
 
     public function print_view() {

@@ -1,6 +1,13 @@
-<div class="card card-body border-0">
-    <figure class="figure mb-3 archive" align="center">
-        <img class="img-fluid" src="<?php echo $url; ?>" alt="Bild zum Archiv <?php echo $this->title; ?>">
-        <figcaption class="figure-caption text-right"><?php echo $caption; ?></figcaption>
-    </figure>
+<div id="impression-popup-<?php echo $id; ?>" class="card card-body border-0 popup">
+    <?php $this->print_img_content($img, $caption); ?>
+</div>
+
+<div class="modal fade" id="impression-modal-<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <?php $this->print_img_content($img, $caption); ?>
+            </div>
+        </div>
+    </div>
 </div>
