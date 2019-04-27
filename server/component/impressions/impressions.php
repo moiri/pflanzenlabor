@@ -23,7 +23,7 @@ class Impressions extends Page {
     public function fetch_impression_items($offset, $count)
     {
         $sql = "SELECT * FROM impressions
-            ORDER BY position
+            ORDER BY position DESC
             LIMIT $offset, $count";
         $items = $this->db->queryDb($sql);
         $content = "";
