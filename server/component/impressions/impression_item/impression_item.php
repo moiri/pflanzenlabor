@@ -69,9 +69,11 @@ class ImpressionItem {
                 if(!isset($fields['img_caption'])) $fields['img_caption'] = "";
                 $this->print_img($fields['img_path'], $fields['img_caption']);
             }
-            else if($impression['type'] == "cite" && isset($fields['cite_name'])
-                    && isset($fields['cite']))
-                $this->print_cite($fields['cite_name'], $fields['cite']);
+            else if($impression['type'] == "cite" && isset($fields['cite']))
+            {
+                $name = $fields['cite_name'] ?? "";
+                $this->print_cite($name, $fields['cite']);
+            }
         }
     }
 
@@ -86,6 +88,12 @@ class ImpressionItem {
     {
         $content = split_by_cr_html($content);
         require __DIR__ . "/v_cite.php";
+    }
+
+    private function print_cite_name($name)
+    {
+        if($name === "") return;
+        require __DIR__ . "/v_cite_name.php";
     }
 
     private function print_img($img, $caption="")
