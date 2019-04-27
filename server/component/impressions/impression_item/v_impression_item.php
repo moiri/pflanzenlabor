@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<div class="impression_item card mt-3">
     <div class="card-header">
         <div class="row align-items-center">
             <div class="col">

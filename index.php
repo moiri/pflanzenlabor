@@ -85,6 +85,10 @@ $router->map( 'GET', '/impressionen', function( $router, $db ) {
     $page = new Impressions( $router, $db );
     $page->print_view();
 }, 'impressions');
+$router->map( 'POST', '/impressionen_fetch', function( $router, $db ) {
+    $page = new Impressions( $router, $db );
+    print $page->fetch_impression_items($_POST['offset'], $_POST['count']);
+}, 'impressions_fetch');
 // Contact Pages
 $router->map( 'GET', '/kontakt', function( $router, $db ) {
     $page = new Contact( $router, $db );

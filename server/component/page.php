@@ -9,6 +9,7 @@ class Page {
     private $nav;
     private $footer;
     private $state = 0;
+    private $js_includes = [];
     protected $router;
 
     function __construct( $router )
@@ -46,12 +47,21 @@ class Page {
         $this->state = PAGE_STATE_INVALID;
     }
 
+    protected function append_js_includes($file) {
+        $this->js_includes[] = $file;
+    }
+
     protected function print_nav() {
         $this->nav->print_view();
     }
 
     protected function print_footer() {
         $this->footer->print_view();
+    }
+
+    private function print_js_includes() {
+        foreach($this->js_includes as $file)
+            require __DIR__ . '/v_js_include.php';
     }
 
     protected function print_page( $cb )
