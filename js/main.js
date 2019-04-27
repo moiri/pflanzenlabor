@@ -77,8 +77,4 @@ $(document).ready(function() {
         $items_hide.hide();
         $items_show.show();
     });
-    $('div[id|=impression-popup]').on('click', function() {
-        var ids = $(this).attr('id').split('-');
-        $('#impression-modal-' + ids[2]).modal('show');
-    });
 });

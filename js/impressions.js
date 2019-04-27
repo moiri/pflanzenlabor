@@ -8,6 +8,11 @@ $(document).ready(function() {
         }
     );
     io.observe(document.querySelector('#impressions-footer'));
+    function show_modal()
+    {
+        var ids = $(this).attr('id').split('-');
+        $('#impression-modal-' + ids[2]).modal('show');
+    }
     function fetch_impression_items()
     {
         $.post(
@@ -17,12 +22,15 @@ $(document).ready(function() {
                 count: 1,
             },
             function( data ) {
-                $(data).hide().appendTo('.impressions').fadeIn("fast", function() {
-                    if(is_visible)
-                        fetch_impression_items();
-                });
+                $(data).hide().appendTo('.impressions')
+                    .fadeIn("fast", function() {
+                        if(is_visible)
+                            fetch_impression_items();
+                    })
+                    .find('div[id|=impression-popup]').on('click', show_modal);
             },
             'html'
         );
     }
+    $('div[id|=impression-popup]').on('click', show_modal);
 });
