@@ -52,7 +52,7 @@ Am Mittag gibt es ein Essen, welches über dem Feuer zubereitet wird. Jede Exkur
 Das Bestimmen, Ernten und Verarbeiten der ausgewählten Pflanze steht im Zenturm einer Pflanzenwerkstatt.
                 </p>
                 <p>
-Je nach Ernteertrag stellen wir, wie immer in der freien Narut, verschiedene Köstlichkeiten her. Die entstandenen Produkte werden beim Zvieri degustiert und/oder können mit nach Hause genommen werden.
+Je nach Ernteertrag stellen wir, wie immer in der freien Natur, verschiedene Köstlichkeiten her. Die entstandenen Produkte werden beim Zvieri degustiert und/oder können mit nach Hause genommen werden.
                 </p>
 Eine Werkstatt wird abgerundet mit spannenden bis skurrilen Details zur bereffenden Pflanze.
             </div>
@@ -96,7 +96,7 @@ Die abendlichen Pflanzenspaziergänge finden jede zweite Woche statt. Bei diesen
                     <dd class="col-sm-9">2 Stunden</dd>
 
                     <dt class="col-sm-3">Wann</dt>
-                    <dd class="col-sm-9">Jede zweite Woche, Mittowch oder Donnerstag</dd>
+                    <dd class="col-sm-9">Jede zweite Woche, Mittwoch oder Donnerstag</dd>
 
                     <dt class="col-sm-3">Preis</dt>
                     <dd class="col-sm-9 mb-0">CHF 20.00</dd>
