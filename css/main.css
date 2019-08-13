@@ -56,13 +56,13 @@ a.navbar-logo:hover
 {
     background-image: url("../img/footer/hov_contact.png");
 }
-.footer-icon-instagram
+.footer-icon-ig
 {
-    background-image: url("../img/footer/instagram.png");
+    background-image: url("../img/footer/ig.png");
 }
-.footer-icon-link:hover > .footer-icon-instagram
+.footer-icon-link:hover > .footer-icon-ig
 {
-    background-image: url("../img/footer/hov_instagram.png");
+    background-image: url("../img/footer/hov_ig.png");
 }
 .footer-icon-container
 {

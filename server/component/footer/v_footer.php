@@ -27,7 +27,7 @@
                     </div>
                     <div class="footer-icon-container">
                         <a href="https://www.instagram.com/pflanzenlabor" target="_blank" class="footer-icon-link text-dark">
-                            <div class="footer-icon footer-icon-instagram m-auto"></div>
+                            <div class="footer-icon footer-icon-ig m-auto"></div>
                             <div class="text-center"><small>Instagram</small></div>
                         </a>
                     </div>
