@@ -46,6 +46,51 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="container mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <p>Die Webseite verwendet folgende <a href="https://de.wikipedia.org/wiki/Free/Libre_Open_Source_Software" target="_blank">FLOSS</a> Projekte:</p>
+                    <table class="table table-responsive-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Version</th>
+                                <th>Lizenz</th>
+                                <th>Kommentar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a target="_blank" href="http://altorouter.com/">Altorouter</a></td>
+                                <td>1.2.0</td>
+                                <td><a target="_blank" href="https://tldrlegal.com/license/mit-license">MIT</a></td>
+                                <td><a target="_blank" href="http://altorouter.com/license.html">License Details</a></td>
+                            </tr>
+                            <tr>
+                                <td><a target="_blank" href="https://getbootstrap.com/">Bootstrap</a></td>
+                                <td>4.0.0</td>
+                                <td><a target="_blank" href="https://tldrlegal.com/license/mit-license">MIT</a></td>
+                                <td><a target="_blank" href="https://getbootstrap.com/docs/4.0/getting-started/browsers-devices/">Browser Support</a>, <a target="_blank" href="https://getbootstrap.com/docs/4.0/about/license/">License Details</a></td>
+                            </tr>
+                            <tr>
+                                <td><a target="_blank" href="https://jquery.com/">jQuery</a></td>
+                                <td>3.3.1</td>
+                                <td><a target="_blank" href="https://tldrlegal.com/license/mit-license">MIT</a></td>
+                                <td><a target="_blank" href="https://jquery.com/browser-support/">Browser Support</a>, <a href="https://jquery.org/license/">License Details</a></td>
+                            </tr>
+                            <tr>
+                                <td><a target="_blank" href="https://github.com/erusev/parsedown">Parsedown</a></td>
+                                <td>1.7.1</td>
+                                <td><a target="_blank" href="https://tldrlegal.com/license/mit-license">MIT</a></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mt-3">
         <?php $this->print_footer(); ?>
     </div>
