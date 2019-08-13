@@ -26,10 +26,12 @@ class ClassPage extends Page {
         parent::__construct( $router );
         $detail = $dbMapper->getClass( $id );
         if( $detail ) {
+            $pd = new ParsedownExtension();
+            $pd->setSafeMode(true);
             $this->class_id = $id;
             $this->db = $dbMapper;
             $this->name = $detail['name'];
-            $this->description = $detail['description'];
+            $this->description = $pd->text($detail['description']);
             $this->image = $detail['img_desc'];
             $this->subtitle = $detail['subtitle'];
             $this->class_type = $detail['c_type'];

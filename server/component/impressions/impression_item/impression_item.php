@@ -22,6 +22,8 @@ class ImpressionItem {
 
     private function fetch_impression_item($id)
     {
+        $pd = new ParsedownExtension();
+        $pd->setSafeMode(true);
         $sql = "SELECT i.id_class, i.title AS i_title, i.description,
             c.name AS c_title, i.subtitle AS i_subtitle,
             c.subtitle AS c_subtitle, c.enabled
@@ -33,7 +35,7 @@ class ImpressionItem {
         $this->subtitle = ($item['i_subtitle'] == null) ? $item['c_subtitle'] : $item['i_subtitle'];
         $this->id_class = $item['id_class'];
         $this->is_class_enabled = ($item['enabled'] == 1) ? true : false;
-        $this->description = $item['description'];
+        $this->description = $pd->text($item['description']);
     }
 
     private function print_description()

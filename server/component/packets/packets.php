@@ -28,6 +28,9 @@ class Packets extends Page {
 
     private function print_artist($date, $name, $comment, $url, $link_label)
     {
+        $pd = new ParsedownExtension();
+        $pd->setSafeMode(true);
+        $comment = $pd->line($comment);
         require __DIR__ . "/v_artist.php";
     }
 
