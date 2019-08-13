@@ -332,7 +332,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassDates( $id ) {
         try {
-            $sql = "SELECT id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date, cd.places_max, cd.places_booked
+            $sql = "SELECT is_open, id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date, cd.places_max, cd.places_booked
                 FROM class_dates AS cd
                 WHERE id_class = :id AND date >= CURDATE()
                 ORDER BY cd.date";
