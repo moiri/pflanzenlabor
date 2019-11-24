@@ -17,7 +17,7 @@ class ClassDates {
 
     private function print_class_dates() {
         foreach( $this->dates as $date ) {
-            $class_date = new ClassDate( $this->router, intval($date['id']), $date['date'], $date['places_max'], $date['places_booked'], $date['is_open'] );
+            $class_date = new ClassDate( $this->router, intval($date['id']), $date['date'], $date['places_max'], $date['places_booked'], $date['is_open'], $date['external_url'] );
             $class_date->print_view();
         }
     }

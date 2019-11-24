@@ -1,0 +1,1 @@
+ALTER TABLE `class_dates` ADD `external_url` VARCHAR(100) NULL DEFAULT NULL COMMENT 'A link to an external enrollment page. If set, cklicking on a date will link to this URL instead of the internal enrollemnt page' AFTER `is_open`;
