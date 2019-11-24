@@ -1,14 +1,14 @@
 <div class="row mt-3">
-    <div class="col-sm col-12 mb-3 mb-sm-0">
+    <div class="col-sm col-12 mb-1 mb-sm-0">
         <button id="filter-all" type="button" class="btn btn-outline-secondary active btn-block">Alle Kurse</button>
     </div>
-    <div class="col">
+    <div class="col-sm col-12 mb-1 mb-sm-0">
         <button id="filter-Pflanzenexkursion" type="button" class="btn btn-outline-secondary btn-block">Exkursion</button>
     </div>
-    <div class="col">
+    <div class="col-sm col-12 mb-1 mb-sm-0">
         <button id="filter-Pflanzenwerkstatt" type="button" class="btn btn-outline-secondary btn-block">Werkstatt</button>
     </div>
-    <div class="col">
+    <div class="col-sm col-12">
         <button id="filter-Pflanzenspaziergang" type="button" class="btn btn-outline-secondary btn-block">Spaziergang</button>
     </div>
 </div>
