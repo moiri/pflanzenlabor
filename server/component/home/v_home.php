@@ -1,5 +1,8 @@
 <div class="container">
     <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">
+    <div class="alert alert-warning mt-3">
+        Entsprechend den <a class="alert-link" rel="noopener noreferrer" target="_blank" href="https://www.admin.ch/gov/de/start/dokumentation/medienmitteilungen/bundesrat.msg-id-78454.html">Weisungen des Bundesrates</a> sind alle Pflanzenlabor Veranstaltungen bis am 19. April 2020 abgesagt.
+    </div>
     <div class="card mt-3">
         <div class="card-body">
             <div class="lead text-center">
