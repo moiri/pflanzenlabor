@@ -77,3 +77,12 @@ a.navbar-logo:hover
 {
     cursor: pointer;
 }
+
+.btn.btn-primary {
+    background-color: #186218;
+    border-color: #186218;
+}
+.btn.btn-primary:hover {
+    background-color: #134e13;
+    border-color: #134e13;
+}
