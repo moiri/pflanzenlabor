@@ -1,15 +1,18 @@
 <div class="row mt-3">
-    <div class="col-sm col-12 mb-1 mb-sm-0">
+    <div class="col-md col-12 mb-1 mb-md-0">
         <button id="filter-all" type="button" class="btn btn-outline-secondary active btn-block">Alle Kurse</button>
     </div>
-    <div class="col-sm col-12 mb-1 mb-sm-0">
+    <div class="col-md col-12 mb-1 mb-md-0">
         <button id="filter-Pflanzenexkursion" type="button" class="btn btn-outline-secondary btn-block">Exkursion</button>
     </div>
-    <div class="col-sm col-12 mb-1 mb-sm-0">
+    <div class="col-md col-12 mb-1 mb-md-0">
         <button id="filter-Pflanzenwerkstatt" type="button" class="btn btn-outline-secondary btn-block">Werkstatt</button>
     </div>
-    <div class="col-sm col-12">
+    <div class="col-md col-12 mb-1 mb-md-0">
         <button id="filter-Pflanzenspaziergang" type="button" class="btn btn-outline-secondary btn-block">Spaziergang</button>
+    </div>
+    <div class="col-md col-12">
+        <button id="filter-Bierbrau_Kurs" type="button" class="btn btn-outline-secondary btn-block">Bierbrau Kurs</button>
     </div>
 </div>
 <div class="target-Pflanzenexkursion collapse">
@@ -100,6 +103,38 @@ Die abendlichen Pflanzenspaziergänge finden jede zweite Woche statt. Bei diesen
 
                     <dt class="col-sm-3">Preis</dt>
                     <dd class="col-sm-9 mb-0">CHF 20.00</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="target-Bierbrau_Kurs collapse">
+    <div class="row row-eq-height mt-3">
+        <div class="col-12 col-lg-7 pr-lg-1 d-flex">
+            <div class="card card-body bg-light">
+                <p>
+Während einem Brautag werden wir gemeinsam ein Bier brauen. In den integrierten Theorieteilen, erfährst du Infos über Brautechnik, so wie über die einzelnen Zutaten.
+                </p>
+                <p>
+Die Kräuterbiere fokusieren sich auf alte Brautraditionen, als der Hopfen nur eins von vielen Biergewürzen war - du erfährst Details über die entsprechenden Pflanzen so wie kurioses aus längst vergangener Brauzeit.
+                </p>
+Die Braukurse finden, vor Regen geschützt, draussen statt.
+            </div>
+        </div>
+        <div class="col mb-1 mb-lg-0 d-lg-flex d-none">
+            <div class="card w-100 card-body bg-light">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3">Ort</dt>
+                    <dd class="col-sm-9">Infozentrum Eichholz, Wabern</dd>
+
+                    <dt class="col-sm-3">Dauer</dt>
+                    <dd class="col-sm-9">6.5 Stunden + einen Monat später 1 Stunde</dd>
+
+                    <dt class="col-sm-3">Wann</dt>
+                    <dd class="col-sm-9">Der Brautag findet am Wochenende statt, Die Bierdegustation an einem Montag Abend</dd>
+
+                    <dt class="col-sm-3">Preis</dt>
+                    <dd class="col-sm-9 mb-0">Sonderpreis CHF 160.00 Inkl. Kursmaterial, Mittagessen und gebrautem Bier</dd>
                 </dl>
             </div>
         </div>

@@ -27,7 +27,7 @@ class ClassItem {
         $this->subtitle = $details['subtitle'];
         $this->desc = explode('.', $details['description'])[0] . " (...)";
         $this->img = $details['img'];
-        $this->type = $details['c_type'];
+        $this->type = preg_replace('/\s/', '_', $details['c_type']);
         $this->place = $details['place'];
         $this->time = $details['time'];
         $this->id_section_dates = $details['id_section_dates'];
