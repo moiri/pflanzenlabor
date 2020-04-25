@@ -34,6 +34,15 @@ abstract class CheckPayment {
             return PAYMENT_BILL;
     }
 
+    public function print_payment_type($payment_type) {
+        if($payment_type === PAYMENT_BILL)
+            return "Rechnung";
+        if($payment_type === PAYMENT_PAYPAL)
+            return "PayPal";
+        if($payment_type === PAYMENT_VAUCHER)
+            return "Gutschein";
+    }
+
     public function get_user_id()
     {
         return $this->user_id;

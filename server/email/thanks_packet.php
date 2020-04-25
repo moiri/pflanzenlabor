@@ -3,6 +3,7 @@ Hallo <?php echo $user['first_name']; ?>
 Vielen Dank für deine Bestellung aus dem Pflanzenpäckli Angebot:
 <?php echo $this->packet_name; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $packet_url ?>)
 Preis: <?php echo $this->packet_price; ?> 
+Bezahlung: <?php echo $this->print_payment_type($payment_type); ?> 
 
 Rechnungsadresse:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 

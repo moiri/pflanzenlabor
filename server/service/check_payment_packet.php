@@ -108,11 +108,11 @@ class CheckPaymentPacket extends CheckPayment {
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
-        mail( $to, $subject, $this->get_email_content($user),
+        mail( $to, $subject, $this->get_email_content($user, $payment_type),
             implode( "\r\n", $headers ) );
     }
 
-    private function get_email_content($user)
+    private function get_email_content($user, $payment_type)
     {
         $packet_url = $this->router->generate('packets');
         $contact_url = $this->router->generate('contact');

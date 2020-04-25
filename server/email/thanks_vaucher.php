@@ -3,6 +3,7 @@ Hallo <?php echo $user['first_name']; ?>
 Vielen Dank für deine Bestellung des Gutscheins:
 <?php echo $this->vaucher_name; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $vaucher_url ?>)
 Preis: <?php echo $this->vaucher_price; ?> 
+Bezahlung: <?php echo $this->print_payment_type($payment_type); ?> 
 
 Rechnungsadresse:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 

@@ -97,7 +97,7 @@ class CheckPaymentVaucher extends CheckPayment {
         $headers[] = "Subject: {$subject}";
         $headers[] = "X-Mailer: PHP/".phpversion();
 
-        mail( $to, $subject, $this->get_email_content($user),
+        mail( $to, $subject, $this->get_email_content($user, $payment_type),
             implode( "\r\n", $headers ) );
     }
 
@@ -120,7 +120,7 @@ class CheckPaymentVaucher extends CheckPayment {
         ));
     }
 
-    private function get_email_content($user)
+    private function get_email_content($user, $payment_type)
     {
         $vaucher_url = $this->router->generate('vauchers');
         $contact_url = $this->router->generate('contact');
