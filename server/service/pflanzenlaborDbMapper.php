@@ -360,6 +360,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
                 LEFT JOIN class_dates AS cd ON cd.id_class = c.id
                 WHERE date >= CURDATE()
                 AND cd.places_booked < cd.places_max
+                AND c.enabled = 1
                 ORDER BY cd.date
                 LIMIT 1";
             $stmt = $this->dbh->prepare( $sql );
