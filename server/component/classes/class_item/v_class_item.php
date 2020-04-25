@@ -1,4 +1,4 @@
-<div class="target-all target-<?php echo $this->type; ?> row row-eq-height mt-3">
+<div class="target-all target-<?php echo $this->type_id; ?> row row-eq-height mt-3">
     <div class="col-12 col-lg-7 pr-lg-1 d-flex">
         <a href="<?php echo $this->router->generate("class", array('id' => $this->id)); ?>" class="list-group-item text-dark invert-link-img w-100">
             <div class="d-flex flex-column flex-sm-row">
