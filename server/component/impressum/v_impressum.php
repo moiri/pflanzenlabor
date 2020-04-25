@@ -20,7 +20,7 @@
                 <div class="col-lg-5 mt-lg-0 mt-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <p>Giovina Nicolai</br>Alemannenstrasse 40</br>3018 Bern</br>Schweiz</p>
+                            <p>Giovina Nicolai</br>Lochbachstrasse 40</br>3414 Oberburg</br>Schweiz</p>
                             <p class="mb-0">info@pflanzenlabor.ch</br>+41 79 636 10 57</p>
                         </div>
                     </div>
