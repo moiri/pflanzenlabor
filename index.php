@@ -190,7 +190,7 @@ $router->map( 'POST', '/gutschein', function( $router, $db ) {
             if($res === true)
             {
                 if($check->enroll_user(PAYMENT_VAUCHER, true))
-                    $check->send_mail($user->get_user_data(), PAYMENT_VAUCHER);
+                    $check->send_mails($user->get_user_data(), PAYMENT_VAUCHER);
                 print '{ "vaucher_valid": true }';
                 return;
             }
@@ -225,7 +225,7 @@ $router->map( 'POST', '/danke', function($router, $db) {
                 {
                     if($check->enroll_user(PAYMENT_BILL, false))
                     {
-                        $check->send_mail($user->get_user_data(), PAYMENT_BILL);
+                        $check->send_mails($user->get_user_data(), PAYMENT_BILL);
                         $page->set_payment_type(PAYMENT_BILL);
                     }
                     else
@@ -302,7 +302,7 @@ $router->map( 'POST', '/check', function( $router, $db ) {
             {
                 $user = new User($db);
                 $user->set_user_id($check->get_user_id());
-                $check->send_mail($user->get_user_data(), PAYMENT_PAYPAL);
+                $check->send_mails($user->get_user_data(), PAYMENT_PAYPAL);
             }
         }
     }

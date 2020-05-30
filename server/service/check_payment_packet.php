@@ -90,26 +90,10 @@ class CheckPaymentPacket extends CheckPayment {
         return parent::is_pending('user_packets_order');
     }
 
-    public function send_mail($user, $payment_type) {
-        $from = "info@pflanzenlabor.ch";
-        if(!DEBUG) $bcc = "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>";
-        else $bcc = "";
-        $name = $user['first_name'] . " " . $user['last_name'];
-        $to = '"' . $name . '" <' . $user['email'] . '>';
+    protected function send_mail($user, $payment_type, $to="") {
         $subject_str = "Pflanzenlabor - Deine Bestellung fürs Pflanzenpäckli Abo: ". $this->packet_name;
-        $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
-
-        $headers   = array();
-        $headers[] = "MIME-Version: 1.0";
-        $headers[] = "Content-type: text/plain; charset=utf-8";
-        $headers[] = "From: {$from}";
-        $headers[] = "Bcc: {$bcc}";
-        $headers[] = "Reply-To: {$from}";
-        $headers[] = "Subject: {$subject}";
-        $headers[] = "X-Mailer: PHP/".phpversion();
-
-        mail( $to, $subject, $this->get_email_content($user, $payment_type),
-            implode( "\r\n", $headers ) );
+        $content = $this->get_email_content($user, $payment_type);
+        $this->send_mail_base($user, $payment_type, $subject_str, $content, $to);
     }
 
     private function get_email_content($user, $payment_type)
