@@ -73,6 +73,15 @@ class PaymentPacket extends Payment {
                 if(isset($_POST['gift-city']))
                     $this->gift_city = $_POST['gift-city'];
             }
+            if($this->is_gift_solo())
+            {
+                $this->delivery_first_name = $this->gift_first_name;
+                $this->delivery_last_name = $this->gift_last_name;
+                $this->delivery_street = $this->gift_street;
+                $this->delivery_street_number = $this->gift_street_number;
+                $this->delivery_zip = $this->gift_zip;
+                $this->delivery_city = $this->gift_city;
+            }
         }
 
         if( $_POST['comment'] == "" ) $this->comment = "keine Bemerkung";
@@ -113,9 +122,22 @@ class PaymentPacket extends Payment {
             $this->id_order = $this->db->insert("user_packets_order", $order_data);
     }
 
+    private function is_gift_solo()
+    {
+        return $this->id_item == PACKET_GIFT_ID;
+    }
+
     private function has_gift_address()
     {
         return in_array($this->id_item, GIFT_PACKET_IDS);
+    }
+
+    private function print_delivery_address()
+    {
+        if($this->is_gift_solo())
+            require __DIR__ . "/v_delivery_address_alt.php";
+        else
+            require __DIR__ . "/v_delivery_address.php";
     }
 
     public function submit_enroll_data() {
