@@ -9,10 +9,7 @@ Rechnungsadresse:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 
     Adresse: <?php echo $user['street']; ?> <?php echo $user['street_number']; ?>, <?php echo $user['zip']; ?> <?php echo $user['city']; ?> 
 
-Lieferadresse:
-    Name: <?php echo $this->delivery_first_name; ?> <?php echo $this->delivery_last_name; ?> 
-    Adresse: <?php echo $this->delivery_street; ?> <?php echo $this->delivery_street_number; ?>, <?php echo $this->delivery_zip; ?> <?php echo $this->delivery_city; ?> 
-
+<?php $this->print_delivery_address(); ?>
 <?php $this->print_gift_address(); ?>
 Kontakt:
     Email: <?php echo $user['email']; ?> 

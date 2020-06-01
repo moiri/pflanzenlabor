@@ -108,6 +108,12 @@ class CheckPaymentPacket extends CheckPayment {
         return $content;
     }
 
+    private function print_delivery_address()
+    {
+        if($this->item_id != PACKET_GIFT_ID)
+            require __DIR__ . "/../email/tpl_delivery_address.php";
+    }
+
     private function print_gift_address()
     {
         if(in_array($this->item_id, GIFT_PACKET_IDS))
