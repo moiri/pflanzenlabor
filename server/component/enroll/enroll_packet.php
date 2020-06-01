@@ -9,12 +9,15 @@ class EnrollPacket extends Enroll {
     private $packet_name = "";
     private $packet_img = "";
     private $is_gift = false;
+    private $is_gift_partner = false;
+    private $is_gift_solo = false;
     private $order_data = null;
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
-        if(in_array($id, GIFT_PACKET_IDS))
-            $this->is_gift = true;
+        $this->is_gift_solo = ($id == PACKET_GIFT_ID);
+        $this->is_gift_partner = ($id == PACKET_GIFT_PARTNER_ID);
+        $this->is_gift = $this->is_gift_partner | $this->is_gift_solo;
         $packet = $dbMapper->getPacket( $id );
         if($packet) {
             $this->packet_name = $packet['name'];
@@ -59,7 +62,9 @@ class EnrollPacket extends Enroll {
 
     public function print_view() {
         $this->print_page( function() {
-            $display = ($this->is_gift) ? "" : "d-none";
+            $display_gift_comment = ($this->is_gift) ? "" : "d-none";
+            $display_gift_address = ($this->is_gift) ? "" : "d-none";
+            $display_delivery_address = ($this->is_gift_solo) ? "d-none" : "";
             require __DIR__ . '/v_enroll_packet.php';
         } );
     }

@@ -30,13 +30,13 @@
                     <h5 class="card-header">Rechungsadresse</h5>
                     <div class="card-body">
                         <?php $this->print_main_address(); ?>
-                        <div class="form-check">
+                        <div class="form-check <?php echo $display_delivery_address; ?>">
                             <input class="form-check-input" type="checkbox" value="" name="dito-delivery" checked>
                             <label class="form-check-label mt-1 ml-2">
                                 Verwende als Lieferadresse
                             </label>
                         </div>
-                        <div class="form-check <?php echo $display; ?>">
+                        <div class="form-check <?php echo $display_gift_address; ?>">
                             <input class="form-check-input" type="checkbox" value="" name="dito-gift">
                             <label class="form-check-label mt-1 ml-2" for="contactSelf">
                                 Verwende als Geschenkadresse
@@ -50,13 +50,13 @@
                         <?php $this->print_other_address("delivery-", false); ?>
                     </div>
                 </div>
-                <div id="gift-address" class="card mb-3 <?php echo $display; ?>">
+                <div id="gift-address" class="card mb-3 <?php echo $display_gift_address; ?>">
                     <h5 class="card-header">Geschenkadresse</h5>
                     <div class="card-body">
                         <?php $this->print_other_address("gift-", true, !$this->is_gift); ?>
                     </div>
                 </div>
-                <div class="card mb-3 <?php echo $display; ?>">
+                <div class="card mb-3 <?php echo $display_gift_comment; ?>">
                     <h5 class="card-header">Geschenknachricht</h5>
                     <div class="card-body">
                         <div class="form-group">

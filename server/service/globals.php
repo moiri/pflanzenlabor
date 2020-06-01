@@ -20,7 +20,12 @@ define( 'PAGE_STATE_MISSING', 200 );
 define( 'PAGE_STATE_INVALID', 300 );
 
 define( 'CLASS_TYPE_WALK_ID', 2 );
-define( 'GIFT_PACKET_IDS', array(6, 8) );
+define( 'PACKET_GIFT_ID', 6 );
+define( 'PACKET_GIFT_PARTNER_ID', 8 );
+define( 'GIFT_PACKET_IDS', array(
+    PACKET_GIFT_ID,
+    PACKET_GIFT_PARTNER_ID
+) );
 
 function split_by_cr($text_line, $has_last_margin = false)
 {
