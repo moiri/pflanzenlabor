@@ -45,6 +45,8 @@ class Nav
                 return $this->active_css;
             else if($uri == $this->router->generate("packets_offer"))
                 return $this->active_css;
+            else if($uri == $this->router->generate("packets_backlog"))
+                return $this->active_css;
             else if($this->router->generate( 'thanks') == $uri
                     && isset($_SESSION['order_type'])
                     && $_SESSION['order_type'] === "packet")

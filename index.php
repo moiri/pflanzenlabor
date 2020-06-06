@@ -33,6 +33,7 @@ require_once "./server/component/pending/pending.php";
 require_once "./server/component/cancel/cancel.php";
 require_once "./server/component/impressions/impressions.php";
 require_once "./server/component/packets/packets.php";
+require_once "./server/component/packets/artists_backlog.php";
 require_once "./server/component/packets_offer/packets_offer.php";
 require_once "./server/component/vauchers/vauchers.php";
 
@@ -139,6 +140,10 @@ $router->map( 'GET', '/paeckli', function( $router, $db ) {
     $page = new Packets( $router, $db );
     $page->print_view();
 }, 'packets');
+$router->map( 'GET', '/paeckli_kuenstler', function( $router, $db ) {
+    $page = new ArtistsBacklog( $router, $db );
+    $page->print_view();
+}, 'packets_backlog');
 $router->map( 'GET', '/paeckli_angebot', function( $router, $db ) {
     $page = new PacketsOffer( $router, $db );
     $page->print_view();

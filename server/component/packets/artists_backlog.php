@@ -3,9 +3,9 @@ require_once __DIR__ . '/../page.php';
 require_once __DIR__ . '/artists.php';
 
 /**
- * Packets Component Class
+ * Artist Backlog Component Class
  */
-class Packets extends Page {
+class ArtistsBacklog extends Page {
 
     private $db;
 
@@ -15,13 +15,13 @@ class Packets extends Page {
     }
 
     private function print_artists() {
-        $artists = new Artists($this->router, $this->db);
+        $artists = new Artists($this->router, $this->db, true);
         $artists->print_view();
     }
 
     public function print_view() {
         $this->print_page( function() {
-            require __DIR__ . '/v_packets.php';
+            require __DIR__ . '/v_artists_backlog.php';
         } );
     }
 }
