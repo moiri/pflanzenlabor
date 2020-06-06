@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-3 mt-md-0 <?php echo $display_delivery; ?>">
                     <?php $this->print_delivery_address(); ?>
                 </div>
             </div>
@@ -48,9 +48,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-3 mt-md-0">
                     <div class="card">
-                        <div class="card-header ">
+                        <div class="card-header">
                             <h5 class="mb-0">Geschenknachricht</h5>
                         </div>
                         <div class="card-body">

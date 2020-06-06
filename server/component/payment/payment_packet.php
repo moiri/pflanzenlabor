@@ -149,6 +149,7 @@ class PaymentPacket extends Payment {
 
     public function print_view() {
         $this->print_page( function() {
+            $display_delivery = $this->is_gift_solo() ? "d-none d-md-block" : "";
             $display = $this->has_gift_address() ? "" : "d-none";
             require __DIR__ . '/v_payment_packet.php';
         } );
