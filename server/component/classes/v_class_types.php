@@ -125,7 +125,7 @@ Die Braukurse finden, vor Regen geschützt, draussen statt.
             <div class="card w-100 card-body bg-light">
                 <dl class="row mb-0">
                     <dt class="col-sm-3">Ort</dt>
-                    <dd class="col-sm-9">Infozentrum Eichholz, Wabern</dd>
+                    <dd class="col-sm-9">Wabräu, Wabern | Naturzentrum Eichholz, Wabern</dd>
 
                     <dt class="col-sm-3">Dauer</dt>
                     <dd class="col-sm-9">6.5 Stunden + einen Monat später 1 Stunde</dd>
@@ -134,7 +134,7 @@ Die Braukurse finden, vor Regen geschützt, draussen statt.
                     <dd class="col-sm-9">Der Brautag findet am Wochenende statt, Die Bierdegustation an einem Montag Abend</dd>
 
                     <dt class="col-sm-3">Preis</dt>
-                    <dd class="col-sm-9 mb-0">Sonderpreis CHF 160.00 Inkl. Kursmaterial, Mittagessen und gebrautem Bier</dd>
+                    <dd class="col-sm-9 mb-0">Sonderpreis CHF 180.00 Inkl. Kursmaterial, Mittagessen und gebrautem Bier</dd>
                 </dl>
             </div>
         </div>
