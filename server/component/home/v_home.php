@@ -3,7 +3,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="lead text-center">
-Pflanzen in ihrem natürlichen Umfeld kennen lernen &ndash; mit allen Sinnen.
+Pflanzenwissen - erfahren mit allen Sinnen
             </div>
         </div>
     </div>
