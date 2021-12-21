@@ -26,4 +26,5 @@
             </ul>
         </div>
     </nav>
+    <div class="alert alert-success my-3">Ich bin grad in meiner Winterpause, um ab Donnerstag 6. Januar 2022 wieder voller Energie fürs Pflanzenlabor da zu sein - um Mails zu beantworten und Pflanzenpäckli zu versenden.</div>
 </div>
