@@ -20,3 +20,5 @@ Bei Fragen oder Anregungen kannst du mich gerne per Email (info@pflanzenlabor.ch
 
 Warme Grüsse
 Giovina Nicolai
+
+PS. Das Pflanzenlabor verarbeitet Mails und Bestellungen jeweils am Mittwoch und Donnerstag. Danke für deine Geduld.
