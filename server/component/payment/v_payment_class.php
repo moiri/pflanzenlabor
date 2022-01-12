@@ -95,7 +95,6 @@ if( $this->show_enroll_warning )
         <?php $this->print_back("enroll"); ?>
         <div class="<?php echo ( $this->show_enroll_warning ) ? "d-none" : "";?>">
             <?php $this->print_bill(); ?>
-            <?php $this->print_paypal("course"); ?>
             <div class="d-none">
                 <input id="vaucher-invoice" type="hidden" name="invoice" value="<?php echo $this->id_order; ?>">
                 <input id="vaucher-url-check" type="hidden" name="url" value="<?php echo $this->router->generate('vaucher'); ?>">

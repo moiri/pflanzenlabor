@@ -99,7 +99,6 @@
     ?>
             <?php $this->print_back("vauchers_enroll"); ?>
             <?php $this->print_bill(); ?>
-            <?php $this->print_paypal("vaucher"); ?>
         </div>
     </div>
     <div class="row mt-3">

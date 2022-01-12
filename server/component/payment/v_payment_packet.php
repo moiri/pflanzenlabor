@@ -112,7 +112,6 @@ if( $this->show_enroll_warning )
 ?>
         <?php $this->print_back("packets_enroll"); ?>
         <?php $this->print_bill(); ?>
-        <?php $this->print_paypal("packet"); ?>
     </div>
 </div>
         </div>
