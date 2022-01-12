@@ -20,7 +20,7 @@ Ich freue mich &uuml;ber deine Kontaktaufnahme.
                 </div>
                 <div class="form-group">
                     <label for="contactName">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Max Muster" required>
+                    <input type="text" class="form-control" name="name" placeholder="Flora Muster" required>
                 </div>
                 <div class="form-group">
                     <label for="contactSubject">Titel</label>
