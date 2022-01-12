@@ -113,10 +113,12 @@ Die abendlichen Pflanzenspaziergänge finden jede zweite Woche statt. Bei diesen
         <div class="col-12 col-lg-7 pr-lg-1 d-flex">
             <div class="card card-body bg-light">
                 <p>
-Während einem Brautag werden wir gemeinsam ein Bier brauen. In den integrierten Theorieteilen, erfährst du Infos über Brautechnik, so wie über die einzelnen Zutaten.
+Während einem Brautag werden wir gemeinsam ein Bier brauen.
+Die Kräuterbiere fokusieren sich auf alte Brautraditionen, als der Hopfen nur eins von vielen Biergewürzen war - du erfährst Details über die entsprechenden Pflanzen so wie kurioses aus längst vergangener Brauzeit.
                 </p>
                 <p>
-Die Kräuterbiere fokusieren sich auf alte Brautraditionen, als der Hopfen nur eins von vielen Biergewürzen war - du erfährst Details über die entsprechenden Pflanzen so wie kurioses aus längst vergangener Brauzeit.
+An den alleinstehenden Brautagen, erfährst du zudem Basisinfos über die Brautechnik und das Heimbrauen.
+An den Jahreskreis-Brautagen fokusieren wir uns auf das brauen eines stimmungsvollen Bieres, ergänzt mit Detailwissen zu jeweils einer der vier Bierzutaten.
                 </p>
 Die Braukurse finden, vor Regen geschützt, draussen statt.
             </div>
@@ -128,13 +130,13 @@ Die Braukurse finden, vor Regen geschützt, draussen statt.
                     <dd class="col-sm-9">Wabräu, Wabern | Naturzentrum Eichholz, Wabern</dd>
 
                     <dt class="col-sm-3">Dauer</dt>
-                    <dd class="col-sm-9">6.5 Stunden + einen Monat später 1 Stunde</dd>
+                    <dd class="col-sm-9">6.5 Stunden</dd>
 
                     <dt class="col-sm-3">Wann</dt>
-                    <dd class="col-sm-9">Der Brautag findet am Wochenende statt, Die Bierdegustation an einem Montag Abend</dd>
+                    <dd class="col-sm-9">Der Brautag findet am Wochenende statt</dd>
 
                     <dt class="col-sm-3">Preis</dt>
-                    <dd class="col-sm-9 mb-0">Sonderpreis CHF 180.00 Inkl. Kursmaterial, Mittagessen und gebrautem Bier</dd>
+                    <dd class="col-sm-9 mb-0">CHF 180.00 Inkl. Kursmaterial, Mittagessen und gebrautem Bier</dd>
                 </dl>
             </div>
         </div>
