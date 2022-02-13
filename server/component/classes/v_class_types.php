@@ -40,7 +40,7 @@ Das Verarbeiten und Erfahren der ausgewählten Pflanze steht im Zenturm einer Pf
         <div class="col-12 col-lg-7 pr-lg-1 d-flex">
             <div class="card card-body bg-light">
                 <p>
-Jede Jahreszeit birgt in der Pflanzenwelt ihre eigene Schönheit und Faszination. Mit monatlichen Spaziergängen können wir nebst Pflanzenwissen auch die Änderungen der Vegetation beobachten.
+Jede Jahreszeit bringt in der Pflanzenwelt ihre eigene Schönheit und Faszination zum Vorschein. Mit monatlichen Spaziergängen können wir nebst Pflanzenwissen auch die Änderungen der Vegetation beobachten.
                 </p>
 Durch die Leitung von unterschiedlichen Pflanzen-Fachleuten gestalten sich diese Spaziergänge in vielfältiger Weise.
             </div>
