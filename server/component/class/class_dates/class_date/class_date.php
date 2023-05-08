@@ -7,6 +7,7 @@ class ClassDate {
     private $router;
     private $date;
     private $free_places;
+    private $places_max;
     private $id;
     private $is_open;
     private $external_url;
@@ -15,6 +16,7 @@ class ClassDate {
         $this->router = $router;
         $this->date = $date;
         $this->id = $id;
+        $this->places_max = $places_max;
         $this->free_places = $places_max - $places_booked;
         $this->is_open = $is_open;
         $this->external_url = $external_url;
@@ -27,12 +29,13 @@ class ClassDate {
     }
 
     private function print_badge_css() {
-        if( $this->free_places == 0 ) echo "secondary";
+        if( $this->free_places == 0 || $this->places_max == 0 ) echo "secondary";
         else echo "dark";
     }
 
     private function print_badge() {
         if( $this->external_url ) echo "externe Anmeldung";
+        else if( $this->places_max == 0 ) echo "abgesagt";
         else if( $this->free_places == 0 ) echo "ausgebucht";
         else if( $this->free_places == 1 ) echo "1 freier Platz";
         else if( $this->free_places <= 3 ) echo $this->free_places . " freie Pl&auml;tze";
