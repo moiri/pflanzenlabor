@@ -24,7 +24,7 @@ class ClassDate {
 
     private function print_disabled_attr()
     {
-        if( $this->free_places == 0 ) echo " disabled";
+        if( $this->free_places == 0 || $this->places_max == 0 ) echo " disabled";
         else echo "";
     }
 
