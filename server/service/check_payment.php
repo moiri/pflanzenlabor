@@ -92,7 +92,7 @@ abstract class CheckPayment {
         $headers[] = "Content-type: text/plain; charset=utf-8";
         $headers[] = "From: {$from}";
         $headers[] = "Reply-To: {$from}";
-        $headers[] = "Subject: {$subject}";
+        /* $headers[] = "Subject: {$subject}"; */
         $headers[] = "X-Mailer: PHP/".phpversion();
 
         mail( $to, $subject, $content, implode( "\r\n", $headers ) );

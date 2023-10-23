@@ -33,7 +33,7 @@ class ContactSend extends Page {
         if( isset( $_POST['self'] ) )
             $headers[] = "CC: " .$replyTo;
         $headers[] = "Reply-To: {$replyTo}";
-        $headers[] = "Subject: {$subject}";
+        /* $headers[] = "Subject: {$subject}"; */
         $headers[] = "X-Mailer: PHP/".phpversion();
 
         mail( $to, $subject, $txt, implode( "\r\n", $headers ) );
