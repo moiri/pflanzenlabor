@@ -30,6 +30,7 @@
                 <h5 class="card-header">Anmeldeformular</h5>
                 <div class="card-body">
                     <form action="<?php echo $this->router->generate('payment', array('id' => $this->id_item)); ?>" method="post">
+                        <input type="text" name="contact_me_by_fax_only" value="" class="fax_field" tabindex="-1" autocomplete="off">
                         <?php $this->print_name($this->first_name, $this->last_name); ?>
                         <?php $this->print_address($this->street, $this->street_number, $this->zip, $this->city); ?>
                         <?php $this->print_contact($this->phone, $this->email); ?>

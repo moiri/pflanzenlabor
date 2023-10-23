@@ -26,6 +26,7 @@
     <div class="row">
         <div class="container">
             <form action="<?php echo $this->router->generate('vauchers_payment', array('id' => $this->id_item)); ?>" method="post">
+                <input type="text" name="contact_me_by_fax_only" value="" class="fax_field" tabindex="-1" autocomplete="off">
                 <div class="card mb-3">
                     <h5 class="card-header">Rechungsadresse</h5>
                     <div class="card-body">

@@ -101,7 +101,8 @@ $router->map( 'GET', '/newsletter', function( $router, $db ) {
 }, 'newsletter');
 $router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
     $page = new ContactSend( $router );
-    if(isset($_POST['contact_me_by_fax_only']) && $_POST['contact_me_by_fax_only'] === "")
+    if( isset($_POST['contact_me_by_fax_only'])
+        && $_POST['contact_me_by_fax_only'] === "" )
     {
         $page->send_mail();
         $page->send_newsletter_mail();
@@ -110,7 +111,11 @@ $router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
 }, 'send');
 $router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
     $page = new ContactNewsletter( $router );
-    $page->send_mail();
+    if( isset($_POST['contact_me_by_fax_only'])
+        && $_POST['contact_me_by_fax_only'] === "" )
+    {
+        $page->send_mail();
+    }
     $page->print_view();
 }, 'request_newsletter');
 // Course Pages
@@ -128,7 +133,9 @@ $router->map( 'GET', '/kurse_anmeldung/[i:id]', function( $router, $db, $id ) {
 }, 'enroll');
 $router->map( 'POST', '/kurse_bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new PaymentClass( $router, $db, intval( $id ) );
-    if( $page->is_state_ok() )
+    if( isset($_POST['contact_me_by_fax_only'])
+        && $_POST['contact_me_by_fax_only'] === ""
+        && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
         $page->send_newsletter_mail();
@@ -154,7 +161,9 @@ $router->map( 'GET', '/paeckli_anmeldung/[i:id]', function( $router, $db, $id ) 
 }, 'packets_enroll');
 $router->map( 'POST', '/paeckli_bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new PaymentPacket( $router, $db, intval( $id ) );
-    if( $page->is_state_ok() )
+    if( isset($_POST['contact_me_by_fax_only'])
+        && $_POST['contact_me_by_fax_only'] === ""
+        && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
         $page->send_newsletter_mail();
@@ -172,7 +181,9 @@ $router->map( 'GET', '/gutschein_kaufen/[i:id]', function( $router, $db, $id ) {
 }, 'vauchers_enroll');
 $router->map( 'POST', '/gutschein_bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new PaymentVaucher( $router, $db, intval( $id ) );
-    if( $page->is_state_ok() )
+    if( isset($_POST['contact_me_by_fax_only'])
+        && $_POST['contact_me_by_fax_only'] === ""
+        && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
         $page->send_newsletter_mail();

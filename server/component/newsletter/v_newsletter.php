@@ -15,6 +15,7 @@
         <div class="card-body">
             <p>Ich möchte über Neuigkeiten des Pflanzenlabor informiert werden.</p>
             <form action="<?php echo $this->router->generate('request_newsletter'); ?>" method="post">
+                <input type="text" name="contact_me_by_fax_only" value="" class="fax_field" tabindex="-1" autocomplete="off">
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="meine.email@beispiel.ch" required>
                 </div>
