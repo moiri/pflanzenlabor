@@ -19,7 +19,7 @@
                     <dt>Vertiefen</dt>
                     <dd>Zur Abrundung findest du eine künstlerische Interpretation, einen ergänzenden Text, eine Anleitung oder ein Rezept – als Inspiration, diese neue (oder alte) Pflanzenbekanntschaft zu intensivieren.</dd>
                 </dl>
-                <a target="_blank" href="https://pflanzenlabor.sumupstore.com/produkte" class="btn btn-primary">Zum Webshop</a>
+                <a target="_blank" href="https://pflanzenlabor.sumupstore.com/kategorie/pflanzenpackli" class="btn btn-primary">Zum Webshop</a>
             </div>
         </div>
         <div class="col-lg-auto mb-3">

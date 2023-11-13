@@ -21,6 +21,11 @@ class Home extends Page {
         require __DIR__ . '/v_home_link.php';
     }
 
+    private function print_link_ext($key, $url, $name)
+    {
+        require __DIR__ . '/v_home_link_ext.php';
+    }
+
     private function print_nearest_class_item() {
         $nearest_class_item = new NearestClassItem(
             $this->router,

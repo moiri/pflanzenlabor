@@ -13,7 +13,7 @@ Pflanzenwissen - erfahren mit allen Sinnen
         <div class="w-100 d-none d-sm-block d-lg-none"><!-- wrap every 2 on sm--></div>
         <?php $this->print_link("impressions", "Impressionen"); ?>
         <div class="w-100 d-none d-lg-block"><!-- wrap every 3 on lg--></div>
-        <?php $this->print_link("vauchers", "Gutscheine"); ?>
+        <?php $this->print_link_ext("vauchers", "https://pflanzenlabor.sumupstore.com/produkte", "Webshop"); ?>
         <div class="w-100 d-none d-sm-block d-lg-none"><!-- wrap every 2 on sm--></div>
         <?php $this->print_link("me", "Giovina"); ?>
         <?php $this->print_nearest_class_item(); ?>
