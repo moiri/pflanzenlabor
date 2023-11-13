@@ -9,6 +9,9 @@
 Du hast eine Frage, Anregung oder Idee zum Pfanzenlabor oder du willst einfach "Hallo" sagen?
 Ich freue mich &uuml;ber deine Kontaktaufnahme.
     </div>
+    <div class="card card-body mt-3">
+	Ich versende etwas weniger als einmal im Monate einen Newsletter. Bei interesse, bitte melden.
+    </div>
     <div class="row mt-3">
         <div class="col-lg-7">
             <img class="img-fluid" src="<?php echo $this->router->get_asset_path("/img/logo.svg"); ?>" alt="Logo Pflanzenlabor">

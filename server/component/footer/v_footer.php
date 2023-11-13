@@ -20,9 +20,6 @@
                 </div>
                 <div class="d-flex">
                     <div class="footer-icon-container">
-                        <?php $this->print_icon("newsletter", "News"); ?>
-                    </div>
-                    <div class="footer-icon-container">
                         <?php $this->print_icon("contact", "Kontakt"); ?>
                     </div>
                     <div class="footer-icon-container">
