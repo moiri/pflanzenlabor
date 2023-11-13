@@ -12,6 +12,7 @@
 Falls gewünscht, kannst du noch einen Grusstext hinzufügen, welcher ebnfalls von Hand geschreiben zum Gutschein zugelegt wird.</p>
 <p>Jede Alraune auf der Gutscheinkarte ist ein kleines Unikat. Entweder ist sie ein Linoldruck oder von Hand gezeichnet. Deshalb kann die Gutscheinkarte von der nebenstehenden Foto leicht abweichen.</p>
 Die beschenkte Person kann mit dem Gutschein einen beliebigen Kurs aus der geschenkten Kategorie (Pflanzenexkursion; Pflanzenwerkstatt oder Pflanzenspaziergang) besuchen.
+                <a target="_blank" href="https://pflanzenlabor.sumupstore.com/produkte" class="btn btn-primary">Zum Webshop</a>
             </div>
         </div>
         <div class="col-lg-auto mb-3 h-100">
@@ -20,7 +21,6 @@ Die beschenkte Person kann mit dem Gutschein einen beliebigen Kurs aus der gesch
             </div>
         </div>
     </div>
-    <?php $this->print_items(); ?>
     <div class="row">
         <?php $this->print_footer(); ?>
     </div>
