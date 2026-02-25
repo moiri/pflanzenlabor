@@ -50,7 +50,7 @@ class ClassDate {
 
             $target = "_blank";
             $url = $this->external_url;
-            if($url === NULL)
+            if(empty($url))
             {
                 $url = $this->router->generate("enroll", array('id' => $this->id));
                 $target = "_self";
