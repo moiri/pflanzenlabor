@@ -17,6 +17,7 @@ class ClassItem {
     private $time;
     private $id_section_dates;
     private $id_section_preview;
+    private $type_id;
 
     function __construct( $router, $db, $id ) {
         $this->router = $router;
