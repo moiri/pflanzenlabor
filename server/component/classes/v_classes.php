@@ -8,9 +8,6 @@
         </div>
     </div>
 <?php
-    $this->print_class_types();
-?>
-<?php
     $this->print_class_items();
 ?>
     <div class="row mt-3">
