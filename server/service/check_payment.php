@@ -68,22 +68,17 @@ abstract class CheckPayment {
     abstract public function enroll_user($payment_type, $is_payed = false);
     abstract public function is_concluded();
     abstract public function is_open();
-    abstract protected function send_mail( $user, $payment_type, $toAddress="", $toName="");
+    abstract protected function send_mail( $user, $payment_type, $toAddress, $toName);
 
     public function send_mails( $user, $payment_type)
     {
         $this->send_mail( $user, $payment_type, SMTP_RECEIVER_ORDER_ADDRESS, SMTP_RECEIVER_ORDER_NAME );
-        $this->send_mail( $user, $payment_type);
+        $this->send_mail( $user, $payment_type, $user['email'], $user['first_name'] . " " . $user['last_name']);
     }
 
     protected function send_mail_base( $user, $payment_type, $subject_str,
-        $content, $toAddress="", $toName="")
+        $content, $toAddress, $toName)
     {
-        $name = $user['first_name'] . " " . $user['last_name'];
-        if($toAddress === "") {
-            $toAddress = $user['email'];
-            $toName = $name;
-        }
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
         $mail = createMailer();
@@ -92,7 +87,7 @@ abstract class CheckPayment {
             $toName
         );
         $mail->Subject = $subject;
-        $mail->Body = $content;
+        $mail->Body = $content . bin2hex(random_bytes(12));
 
         return $mail->send();
     }
