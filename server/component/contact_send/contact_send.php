@@ -13,38 +13,33 @@ class ContactSend extends Page {
         parent::__construct( $router );
     }
 
-    public function send_mail() {
+    public function send_mail( $mailService ) {
         if( !isset( $_POST['subject'] ) || !isset( $_POST['content'] )
                 || !isset( $_POST['email'] ) || !isset( $_POST['name'] ) ) {
             $this->fail = true;
             return;
         }
-        if( !DEBUG ) $to = "info@pflanzenlabor.ch";
-        else $to = "moirelein@gmail.com";
+        $to = SMTP_RECEIVER_CONTACT;
         $name = strip_tags( $_POST['name'] );
-        $from = "info@pflanzenlabor.ch";
         $replyTo = '"' . $name . '" <' . strip_tags( $_POST['email'] ) . '>';
         $subject = '=?utf-8?B?'.base64_encode(strip_tags( $_POST['subject'] )).'?=';
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
-        $headers   = array();
-        $headers[] = "MIME-Version: 1.0";
-        $headers[] = "Content-type: text/plain; charset=utf-8";
-        $headers[] = "From: {$from}";
-        if( isset( $_POST['self'] ) )
-            $headers[] = "CC: " .$replyTo;
-        $headers[] = "Reply-To: {$replyTo}";
-        /* $headers[] = "Subject: {$subject}"; */
-        $headers[] = "X-Mailer: PHP/".phpversion();
 
-        mail( $to, $subject, $txt, implode( "\r\n", $headers ) );
+        $options = [
+            'replyTo' => $replyTo
+        ];
+        if( isset( $_POST['self'] ) ) {
+            $options['cc'] = $replyTo;
+        }
+        $mailService->send( $to, $subject, $txt, $options );
     }
 
-    public function send_newsletter_mail()
+    public function send_newsletter_mail( $mailService )
     {
         if(isset($_POST['newsletter']))
         {
-            $nl = new ContactNewsletter($this->router);
-            $nl->send_mail();
+            $nl = new ContactNewsletter( $this->router );
+            $nl->send_mail( $mailService );
         }
     }
 

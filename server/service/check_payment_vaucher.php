@@ -79,10 +79,10 @@ class CheckPaymentVaucher extends CheckPayment {
         return parent::is_pending('user_vauchers_order');
     }
 
-    protected function send_mail($user, $payment_type, $to="") {
+    protected function send_mail( $mailService, $user, $payment_type, $to="" ) {
         $subject_str = "Pflanzenlabor - Dein Gutschein Kauf: ". $this->vaucher_name;
         $content = $this->get_email_content($user, $payment_type);
-        $this->send_mail_base($user, $payment_type, $subject_str, $content, $to);
+        $this->send_mail_base($mailService, $user, $payment_type, $subject_str, $content, $to);
     }
 
     private function create_random_string($length = 6) {

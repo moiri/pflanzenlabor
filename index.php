@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "./server/service/user.php";
+require_once "./server/service/mail.php";
 require_once "./server/service/router.php";
 require_once "./server/service/pflanzenlaborDbMapper.php";
 require_once "./server/service/globals.php";
@@ -92,32 +93,34 @@ $router->map( 'POST', '/impressionen_fetch', function( $router, $db ) {
 }, 'impressions_fetch');
 // Contact Pages
 $router->map( 'GET', '/kontakt', function( $router, $db ) {
-    $page = new Contact( $router, $db );
+    $page = new Contact( $router );
     $page->print_view();
 }, 'contact');
-$router->map( 'GET', '/newsletter', function( $router, $db ) {
-    $page = new Newsletter( $router, $db );
-    $page->print_view();
-}, 'newsletter');
-$router->map( 'POST', '/kontakt/senden', function( $router, $db ) {
-    $page = new ContactSend( $router );
-    if( isset($_POST['contact_me_by_fax_only'])
-        && $_POST['contact_me_by_fax_only'] === "" )
-    {
-        $page->send_mail();
-        $page->send_newsletter_mail();
-    }
-    $page->print_view();
-}, 'send');
-$router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) {
-    $page = new ContactNewsletter( $router );
-    if( isset($_POST['contact_me_by_fax_only'])
-        && $_POST['contact_me_by_fax_only'] === "" )
-    {
-        $page->send_mail();
-    }
-    $page->print_view();
-}, 'request_newsletter');
+/* $router->map( 'GET', '/newsletter', function( $router, $db ) { */
+/*     $page = new Newsletter( $router, $db ); */
+/*     $page->print_view(); */
+/* }, 'newsletter'); */
+/* $router->map( 'POST', '/kontakt/senden', function( $router, $db ) { */
+/*     $page = new ContactSend( $router ); */
+/*     $mailService = new MailService(); */
+/*     if( isset($_POST['contact_me_by_fax_only']) */
+/*         && $_POST['contact_me_by_fax_only'] === "" ) */
+/*     { */
+/*         $page->send_mail($mailService); */
+/*         $page->send_newsletter_mail($mailService); */
+/*     } */
+/*     $page->print_view(); */
+/* }, 'send'); */
+/* $router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) { */
+/*     $page = new ContactNewsletter( $router ); */
+/*     $mailService = new MailService(); */
+/*     if( isset($_POST['contact_me_by_fax_only']) */
+/*         && $_POST['contact_me_by_fax_only'] === "" ) */
+/*     { */
+/*         $page->send_mail($mailService); */
+/*     } */
+/*     $page->print_view(); */
+/* }, 'request_newsletter'); */
 // Course Pages
 $router->map( 'GET', '/kurse', function( $router, $db ) {
     $page = new Classes( $router, $db );
@@ -133,12 +136,13 @@ $router->map( 'GET', '/kurse_anmeldung/[i:id]', function( $router, $db, $id ) {
 }, 'enroll');
 $router->map( 'POST', '/kurse_bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new PaymentClass( $router, $db, intval( $id ) );
+    $mailService = new MailService();
     if( isset($_POST['contact_me_by_fax_only'])
         && $_POST['contact_me_by_fax_only'] === ""
         && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+        $page->send_newsletter_mail($mailService);
     }
     $page->print_view();
 }, 'payment');
@@ -161,12 +165,13 @@ $router->map( 'GET', '/paeckli_anmeldung/[i:id]', function( $router, $db, $id ) 
 }, 'packets_enroll');
 $router->map( 'POST', '/paeckli_bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new PaymentPacket( $router, $db, intval( $id ) );
+    $mailService = new MailService();
     if( isset($_POST['contact_me_by_fax_only'])
         && $_POST['contact_me_by_fax_only'] === ""
         && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+        $page->send_newsletter_mail($mailService);
     }
     $page->print_view();
 }, 'packets_payment');
@@ -181,12 +186,13 @@ $router->map( 'GET', '/gutschein_kaufen/[i:id]', function( $router, $db, $id ) {
 }, 'vauchers_enroll');
 $router->map( 'POST', '/gutschein_bezahlung/[i:id]', function( $router, $db, $id ) {
     $page = new PaymentVaucher( $router, $db, intval( $id ) );
+    $mailService = new MailService();
     if( isset($_POST['contact_me_by_fax_only'])
         && $_POST['contact_me_by_fax_only'] === ""
         && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+        $page->send_newsletter_mail($mailService);
     }
     $page->print_view();
 }, 'vauchers_payment');
@@ -195,6 +201,7 @@ $router->map( 'POST', '/gutschein', function( $router, $db ) {
     $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
     $vaucher_code = isset( $_POST['vaucher'] ) ? $_POST['vaucher'] : Null;
     $user = new User( $db );
+    $mailService = new MailService();
     $res = "bad arguments";
     if($user->is_user_valid())
     {
@@ -206,7 +213,7 @@ $router->map( 'POST', '/gutschein', function( $router, $db ) {
             if($res === true)
             {
                 if($check->enroll_user(PAYMENT_VAUCHER, true))
-                    $check->send_mails($user->get_user_data(), PAYMENT_VAUCHER);
+                    $check->send_mails($mailService, $user->get_user_data(), PAYMENT_VAUCHER);
                 print '{ "vaucher_valid": true }';
                 return;
             }
@@ -221,6 +228,7 @@ $router->map( 'POST', '/danke', function($router, $db) {
     $invoice = isset( $_POST['invoice'] ) ? $_POST['invoice'] : Null;
     $page = new Thanks( $router, $item );
     $user = new User( $db );
+    $mailService = new MailService();
     $check = null;
     if($user->is_user_valid())
     {
@@ -241,7 +249,7 @@ $router->map( 'POST', '/danke', function($router, $db) {
                 {
                     if($check->enroll_user(PAYMENT_BILL, false))
                     {
-                        $check->send_mails($user->get_user_data(), PAYMENT_BILL);
+                        $check->send_mails($mailService, $user->get_user_data(), PAYMENT_BILL);
                         $page->set_payment_type(PAYMENT_BILL);
                     }
                     else
@@ -303,6 +311,7 @@ $router->map( 'POST', '/check', function( $router, $db ) {
     $item = (isset($json['item'])) ? $json['item'] : Null;
     $invoice = (isset( $json['id_order'])) ? intval($json['id_order']) : Null;
     $check = null;
+    $mailService = new MailService();
     if($item !== Null)
     {
         if($item === "packet")
@@ -318,7 +327,7 @@ $router->map( 'POST', '/check', function( $router, $db ) {
             {
                 $user = new User($db);
                 $user->set_user_id($check->get_user_id());
-                $check->send_mails($user->get_user_data(), PAYMENT_PAYPAL);
+                $check->send_mails($mailService, $user->get_user_data(), PAYMENT_PAYPAL);
             }
         }
     }

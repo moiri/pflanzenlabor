@@ -1,7 +1,8 @@
 {
     "require": {
         "altorouter/altorouter": "1.1.0",
-        "erusev/parsedown": "^1.8"
+        "erusev/parsedown": "^1.8",
+        "phpmailer/phpmailer": "^7.1"
     },
     "config": {
         "vendor-dir": "server/vendor"

@@ -90,13 +90,13 @@ class CheckPaymentPacket extends CheckPayment {
         return parent::is_pending('user_packets_order');
     }
 
-    protected function send_mail($user, $payment_type, $to="") {
+    protected function send_mail( $mailService, $user, $payment_type, $to="" ) {
         $subject_str = "Pflanzenlabor - Deine Bestellung fürs Pflanzenpäckli Abo: ". $this->packet_name;
         $content = $this->get_email_content($user, $payment_type);
-        $this->send_mail_base($user, $payment_type, $subject_str, $content, $to);
+        $this->send_mail_base( $mailService, $user, $payment_type, $subject_str, $content, $to );
     }
 
-    private function get_email_content($user, $payment_type)
+    private function get_email_content( $user, $payment_type)
     {
         $packet_url = $this->router->generate('packets');
         $contact_url = $this->router->generate('contact');

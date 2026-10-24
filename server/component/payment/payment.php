@@ -58,12 +58,12 @@ abstract class Payment extends Page {
         $this->id_item = $id;
     }
 
-    public function send_newsletter_mail()
+    public function send_newsletter_mail($mailService)
     {
         if(isset($_POST['newsletter']))
         {
             $nl = new ContactNewsletter($this->router);
-            $nl->send_mail();
+            $nl->send_mail($mailService);
         }
     }
 

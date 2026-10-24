@@ -66,36 +66,23 @@ abstract class CheckPayment {
     abstract public function enroll_user($payment_type, $is_payed = false);
     abstract public function is_concluded();
     abstract public function is_open();
-    abstract protected function send_mail($user, $payment_type, $to="");
+    abstract protected function send_mail($mailService, $user, $payment_type, $to="");
 
-    public function send_mails($user, $payment_type)
+    public function send_mails($mailService, $user, $payment_type)
     {
-        if(!DEBUG)
-        {
-            $this->send_mail($user, $payment_type,
-                "Buchhaltung Pflanzenlabor <buha@pflanzenlabor.ch>");
-        }
-        $this->send_mail($user, $payment_type);
+        $this->send_mail($mailService, $user, $payment_type, SMTP_RECEIVER_ORDER );
+        $this->send_mail($mailService, $user, $payment_type);
     }
 
-    protected function send_mail_base($user, $payment_type, $subject_str,
+    protected function send_mail_base($mailService, $user, $payment_type, $subject_str,
         $content, $to="")
     {
-        $from = "info@pflanzenlabor.ch";
         $name = $user['first_name'] . " " . $user['last_name'];
         if($to === "")
             $to = '"' . $name . '" <' . $user['email'] . '>';
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
-        $headers   = array();
-        $headers[] = "MIME-Version: 1.0";
-        $headers[] = "Content-type: text/plain; charset=utf-8";
-        $headers[] = "From: {$from}";
-        $headers[] = "Reply-To: {$from}";
-        /* $headers[] = "Subject: {$subject}"; */
-        $headers[] = "X-Mailer: PHP/".phpversion();
-
-        mail( $to, $subject, $content, implode( "\r\n", $headers ) );
+        $mailService->send($to, $subject, $content);
     }
 
     public function check_paypal() {
