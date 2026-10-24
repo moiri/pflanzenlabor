@@ -22,12 +22,6 @@
                     <div class="footer-icon-container">
                         <?php $this->print_icon("contact", "Kontakt"); ?>
                     </div>
-                    <div class="footer-icon-container">
-                        <a href="https://www.instagram.com/pflanzenlabor" target="_blank" class="footer-icon-link text-dark">
-                            <div class="footer-icon footer-icon-ig m-auto"></div>
-                            <div class="text-center"><small>Instagram</small></div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
