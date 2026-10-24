@@ -7,6 +7,11 @@ require_once __DIR__ . "/check/check.php";
 class Checks {
 
     private $check_custom = "";
+    private $db;
+    private $user_id;
+    private $date_id;
+    private $foods;
+    private $input_custom;
 
     function __construct( $db, $user_id, $date_id, $input_custom ) {
         $this->db = $db;

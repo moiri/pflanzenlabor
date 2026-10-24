@@ -17,7 +17,7 @@ class ClassItemPreview {
         $this->db = $db;
         $this->title = $name;
         $this->id_class = $id;
-        $this->dates = new ClassDates( $router, $db, $id, array('margin-bottom'=>3) );
+        $this->dates = new ClassDates( $router, $db, $id, array('margin-bottom'=>0) );
         $id_section = ($this->dates->has_dates()) ? $id_section_dates : $id_section_preview;
         $this->section = $db->getSectionById( $id_section );
     }
@@ -26,11 +26,15 @@ class ClassItemPreview {
         echo $this->section['title'] . " " . $this->title;
     }
 
+    public function print_section_content() {
+        echo $this->section['content'];
+    }
+
     public function print_list() {
         if($this->dates->has_dates())
             $this->dates->print_view();
         else
-            echo $this->section['content'];
+            require __DIR__ . '/v_class_preview_content.php';
     }
 
     public function print_view() {

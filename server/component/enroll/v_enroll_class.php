@@ -8,16 +8,25 @@
                 <div class="col pr-md-0 d-flex">
                     <div class="card w-100">
                         <div class="card-body">
-                            <h1>Anmeldung zum Kurs <?php echo $this->class_name; ?></h1>
-                            <h2>vom <?php echo $this->date; ?></h2>
-                            <?php echo $this->class_cost; ?>
+                            <span class="lead">Anmeldung zum Kurs</span>
+                            <h1><?php echo $this->class_name; ?></h1>
+                            <dl class="row mb-0">
+                                <dt class="col-sm-3 col-lg-2">Datum</dt>
+                                <dd class="col-sm-9 col-lg-10"><?php echo $this->date; ?></dd>
+
+                                <dt class="col-sm-3 col-lg-2">Zeit</dt>
+                                <dd class="col-sm-9 col-lg-10"><?php echo $this->time; ?></dd>
+
+                                <dt class="col-sm-3 col-lg-2">Kosten</dt>
+                                <dd class="col-sm-9 col-lg-10 mb-0"><?php echo $this->class_cost; ?></dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
-                <div class="col-auto d-none d-md-block">
+                <div class="col-auto d-none d-md-flex">
                     <div class="card">
-                        <div class="card-body">
-                    <img class="" src="<?php echo $this->router->get_asset_path("/img/assets/course/hov_" . $this->class_img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>" height="150" width="150">
+                        <div class="card-body d-flex">
+                    <img class="align-self-center" src="<?php echo $this->router->get_asset_path("/img/assets/course/hov_" . $this->class_img); ?>" alt="Bild zum Kurs <?php echo $this->class_name; ?>" height="150" width="150">
                         </div>
                     </div>
                 </div>

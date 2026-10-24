@@ -16,7 +16,6 @@ class ClassPage extends Page {
     private $sections;
     private $class_type;
     private $place;
-    private $time;
     private $class_id;
     private $db;
     private $section_dates;
@@ -36,7 +35,6 @@ class ClassPage extends Page {
             $this->subtitle = $detail['subtitle'];
             $this->class_type = $detail['c_type'];
             $this->place = $detail['place'];
-            $this->time = $detail['time'];
             $this->section_dates = $dbMapper->getSectionById( $detail['id_section_dates'] );
             $this->section_preview = $dbMapper->getSectionById( $detail['id_section_preview'] );
             $this->sections = $dbMapper->getClassSections( $id );
@@ -51,7 +49,7 @@ class ClassPage extends Page {
     }
 
     private function print_class_dates() {
-        $dates = new ClassDates( $this->router, $this->db, $this->class_id, array('margin-bottom'=>3) );
+        $dates = new ClassDates( $this->router, $this->db, $this->class_id, array('margin-bottom'=>0) );
         if($dates->has_dates()) {
             $s = new ClassSection( $this->section_dates['title'], array( $dates, "print_view" ), $this->section_dates['type'] );
             $s->print_view();

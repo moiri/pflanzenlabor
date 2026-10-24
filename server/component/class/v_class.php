@@ -8,7 +8,7 @@
                 <div class="col-lg-7 col-12 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <small><?php echo $this->class_type; ?> | <?php echo $this->place; ?> | <?php echo $this->time; ?></small>
+                            <small><?php echo $this->class_type; ?> | <?php echo $this->place; ?></small>
                             <h2 class="mt-3">
                                 <?php echo $this->name; ?> &ndash;
                                 <?php echo $this->subtitle; ?>

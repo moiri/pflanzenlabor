@@ -10,11 +10,21 @@ class EnrollClass extends Enroll {
 
     private $open = 0;
     private $date;
+    private $time;
     private $id_type;
     private $class_name;
     private $class_img;
     private $class_id;
     private $class_cost;
+
+    private $comment = "";
+    private $check_vegi = "";
+    private $check_gluten = "";
+    private $check_lactose = "";
+    private $check_alc = "";
+    private $check_vegan = "";
+    private $check_custom = "";
+    private $input_custom = "";
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
@@ -22,6 +32,7 @@ class EnrollClass extends Enroll {
         $date = $dbMapper->getClassDate( $id );
         if( $date ) {
             $this->date = $date['date'];
+            $this->time = $date['time'];
             $this->class_name = $date['name'];
             $this->class_img = $date['img'];
             $this->class_id = intval($date['id_class']);

@@ -14,7 +14,6 @@ class ClassItem {
     private $img;
     private $type;
     private $place;
-    private $time;
     private $id_section_dates;
     private $id_section_preview;
     private $type_id;
@@ -31,7 +30,6 @@ class ClassItem {
         $this->type = $details['c_type'];
         $this->type_id = preg_replace('/\s/', '_', $this->type);
         $this->place = $details['place'];
-        $this->time = $details['time'];
         $this->id_section_dates = $details['id_section_dates'];
         $this->id_section_preview = $details['id_section_preview'];
     }

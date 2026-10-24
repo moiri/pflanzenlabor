@@ -14,7 +14,7 @@ abstract class Payment extends Page {
     protected $id_item;
     protected $id_order = null;
     protected $db;
-    protected $user;
+    protected User $user;
 
     protected $first_name = "";
     protected $last_name = "";

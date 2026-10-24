@@ -2,12 +2,11 @@
     <div class="col-12 col-lg-7 pr-lg-1 d-flex">
         <a href="<?php echo $this->router->generate("class", array('id' => $this->id)); ?>" class="list-group-item text-dark invert-link-img w-100">
             <div class="d-flex flex-column flex-sm-row">
-                <div>
+                <div class="d-flex justify-content-center">
                     <img class="align-self-center mr-3 d-none d-xl-flex" src="<?php echo $this->router->get_asset_path("/img/assets/course/" . $this->img); ?>" alt="Bild zum Kurs <?php echo $this->name; ?>" height="150" width="150">
                     <img class="align-self-center mr-3 d-flex d-xl-none" src="<?php echo $this->router->get_asset_path("/img/assets/course/hov_" . $this->img); ?>" alt="Bild zum Kurs <?php echo $this->name; ?>" height="150" width="150">
                 </div>
                 <div>
-                    <small><?php echo $this->type; ?> | <?php echo $this->place; ?> | <?php echo $this->time; ?></small>
                     <h4 class="mt-3"><?php echo $this->name; ?> &ndash;
                         <?php echo $this->subtitle; ?>
                     </h4>

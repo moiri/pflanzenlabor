@@ -10,6 +10,8 @@ class PaymentClass extends Payment {
     private $class_name;
     private $class_cost;
     private $open = 0;
+    private $comment = "";
+    private $input_custom = "";
 
     private $show_enroll_warning = false;
 

@@ -6,6 +6,8 @@
 class Check {
 
     private $checked = "";
+    private $id;
+    private $label;
 
     function __construct( $db, $id, $label, $user_id, $date_id ) {
         $this->id = $id;

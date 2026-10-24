@@ -95,7 +95,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getClass( $id ) {
         try {
             $sql = "SELECT c.id, c.name, c.subtitle, c.description, c.img,
-                c.place, c.time, c.img_desc, ct.name AS c_type, c.id_section_dates,
+                c.place, c.img_desc, ct.name AS c_type, c.id_section_dates,
                 c.id_section_preview
                 FROM classes AS c
                 LEFT JOIN class_type AS ct ON ct.id = c.id_type
@@ -203,7 +203,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
     function getClassDate( $id ) {
         try {
             $sql = "SELECT cd.id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date,
-                cd.places_max, cd.places_booked, c.name, c.img,
+                cd.time AS time, cd.places_max, cd.places_booked, c.name, c.img,
                 id_class, c.id_type, ct.name AS type, ct.paypal_key
                 FROM class_dates AS cd
                 LEFT JOIN classes AS c ON c.id = cd.id_class
@@ -332,7 +332,7 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
      */
     function getClassDates( $id ) {
         try {
-            $sql = "SELECT external_url, is_open, id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date, cd.places_max, cd.places_booked
+            $sql = "SELECT external_url, is_open, id, DATE_FORMAT(cd.date, \"%W %e. %M %Y\") AS date, cd.time AS time, cd.places_max, cd.places_booked
                 FROM class_dates AS cd
                 WHERE id_class = :id AND date >= CURDATE()
                 ORDER BY cd.date";

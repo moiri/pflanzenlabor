@@ -24,13 +24,19 @@ class ClassSection {
             $classContent = new ClassContentList( $this->content );
             $classContent->print_view();
         }
-        else if( $this->type == "dates" ) {
-            if( is_callable( $this->content ) )
-                call_user_func( $this->content );
-        }
         else if( $this->type == "markdown" ) {
             $classContent = new ClassContentMarkdown( $this->content );
             $classContent->print_view();
+        }
+    }
+
+    private function print_content_body() {
+        if( $this->type == "dates" ) {
+            if( is_callable( $this->content ) )
+                call_user_func( $this->content );
+        }
+        else {
+            require __DIR__ . '/v_class_section_body.php';
         }
     }
 
