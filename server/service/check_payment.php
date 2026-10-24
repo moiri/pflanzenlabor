@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../component/enroll/checks/checks.php';
 require_once __DIR__ . '/paypalIPN.php';
 require_once __DIR__ . "/globals_untracked.php";
+require_once __DIR__ . "/mail.php";
 
 /**
  * Base class to check for payment.
@@ -67,15 +68,15 @@ abstract class CheckPayment {
     abstract public function enroll_user($payment_type, $is_payed = false);
     abstract public function is_concluded();
     abstract public function is_open();
-    abstract protected function send_mail($mailService, $user, $payment_type, $toAddress="", $toName="");
+    abstract protected function send_mail( $user, $payment_type, $toAddress="", $toName="");
 
-    public function send_mails($mailService, $user, $payment_type)
+    public function send_mails( $user, $payment_type)
     {
-        $this->send_mail($mailService, $user, $payment_type, SMTP_RECEIVER_ORDER_ADDRESS, SMTP_RECEIVER_ORDER_NAME );
-        $this->send_mail($mailService, $user, $payment_type);
+        $this->send_mail( $user, $payment_type, SMTP_RECEIVER_ORDER_ADDRESS, SMTP_RECEIVER_ORDER_NAME );
+        $this->send_mail( $user, $payment_type);
     }
 
-    protected function send_mail_base($mailService, $user, $payment_type, $subject_str,
+    protected function send_mail_base( $user, $payment_type, $subject_str,
         $content, $toAddress="", $toName="")
     {
         $name = $user['first_name'] . " " . $user['last_name'];
@@ -85,7 +86,7 @@ abstract class CheckPayment {
         }
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
-        $mail = $mailService->createMailer();
+        $mail = createMailer();
         $mail->addAddress(
             $toAddress,
             $toName

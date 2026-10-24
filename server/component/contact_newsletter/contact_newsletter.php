@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../page.php';
 require_once __DIR__ . "/../../service/globals_untracked.php";
+require_once __DIR__ . "/../../service/mail.php";
 
 /**
  * Contact Component Class
@@ -13,7 +14,7 @@ class ContactNewsletter extends Page {
         parent::__construct( $router );
     }
 
-    public function send_mail( $mailService ) {
+    public function send_mail() {
         if( !isset( $_POST['email'] ) ) {
             $this->failed = true;
             return;
@@ -23,7 +24,7 @@ class ContactNewsletter extends Page {
         $subject = "Newsletter";
         $txt = wordwrap( "Neuer Newsletter Abonnent." );
 
-        $mail = $mailService->createMailer();
+        $mail = createMailer();
         $mail->addAddress(
             SMTP_RECEIVER_NEWSLETTER_ADDRESS,
             SMTP_RECEIVER_NEWSLETTER_NAME
