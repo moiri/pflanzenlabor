@@ -67,23 +67,33 @@ abstract class CheckPayment {
     abstract public function enroll_user($payment_type, $is_payed = false);
     abstract public function is_concluded();
     abstract public function is_open();
-    abstract protected function send_mail($mailService, $user, $payment_type, $to="");
+    abstract protected function send_mail($mailService, $user, $payment_type, $toAddress="", $toName="");
 
     public function send_mails($mailService, $user, $payment_type)
     {
-        $this->send_mail($mailService, $user, $payment_type, SMTP_RECEIVER_ORDER );
+        $this->send_mail($mailService, $user, $payment_type, SMTP_RECEIVER_ORDER_ADDRESS, SMTP_RECEIVER_ORDER_NAME );
         $this->send_mail($mailService, $user, $payment_type);
     }
 
     protected function send_mail_base($mailService, $user, $payment_type, $subject_str,
-        $content, $to="")
+        $content, $toAddress="", $toName="")
     {
         $name = $user['first_name'] . " " . $user['last_name'];
-        if($to === "")
-            $to = '"' . $name . '" <' . $user['email'] . '>';
+        if($toAddress === "") {
+            $toAddress = $user['email'];
+            $toName = $name;
+        }
         $subject = '=?utf-8?B?'.base64_encode(strip_tags($subject_str)).'?=';
 
-        $mailService->send($to, $subject, $content);
+        $mail = $mailService->createMailer();
+        $mail->addAddress(
+            $toAddress,
+            $toName
+        );
+        $mail->Subject = $subject;
+        $mail->Body = $content;
+
+        return $mail->send();
     }
 
     public function check_paypal() {

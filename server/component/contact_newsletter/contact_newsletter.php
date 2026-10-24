@@ -18,13 +18,21 @@ class ContactNewsletter extends Page {
             $this->failed = true;
             return;
         }
-        $to = SMTP_RECEIVER_NEWSLETTER;
 
         $replyTo = strip_tags( $_POST['email'] );
         $subject = "Newsletter";
         $txt = wordwrap( "Neuer Newsletter Abonnent." );
 
-        $mailService->send( $to, $subject, $txt, ['replyTo' => $replyTo] );
+        $mail = $mailService->createMailer();
+        $mail->addAddress(
+            SMTP_RECEIVER_NEWSLETTER_ADDRESS,
+            SMTP_RECEIVER_NEWSLETTER_NAME
+        );
+        $mail->addReplyTo($replyTo);
+        $mail->Subject = $subject;
+        $mail->Body = $txt;
+
+        return $mail->send();
     }
 
     public function print_view() {

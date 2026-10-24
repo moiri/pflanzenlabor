@@ -17,12 +17,20 @@ define ('SMTP_USERNAME', 'smtp_login_user');
 define ('SMTP_TOKEN', 'smtp_token');
 define ('SMTP_SERVER', 'smtp.protonmail.ch');
 define ('SMTP_PORT', '587');
-/** The email from which the messages are sent */
+
+/** The sender address and name from which the messages are sent */
 define ('SMTP_SENDER_ADDRESS', 'noreply@mydomain.ch');
-/** The name associated to the sender address */
 define ('SMTP_SENDER_NAME', 'Pflanzenlabor');
 
-define ('SMTP_RECEIVER_CONTACT', 'contact@mydomain.ch');
-define ('SMTP_RECEIVER_NEWSLETTER', 'newsletter@mydomain.ch');
-define ('SMTP_RECEIVER_ORDER', 'order@mydomain.ch');
+/** The receiver address and name for contact form messages */
+define ('SMTP_RECEIVER_CONTACT_ADDRESS', 'contact@mydomain.ch');
+define ('SMTP_RECEIVER_CONTACT_NAME', 'Pflanzenlabor');
+
+/** The receiver address and name for newsletter form messages */
+define ('SMTP_RECEIVER_NEWSLETTER_ADDRESS', 'newsletter@mydomain.ch');
+define ('SMTP_RECEIVER_NEWSLETTER_NAME', 'Pflanzenlabor');
+
+/** The receiver address and name for order form messages */
+define ('SMTP_RECEIVER_ORDER_ADDRESS', 'order@mydomain.ch');
+define ('SMTP_RECEIVER_ORDER_NAME', 'Pflanzenlabor');
 ?>

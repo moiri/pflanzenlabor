@@ -20,19 +20,24 @@ class ContactSend extends Page {
             $this->fail = true;
             return;
         }
-        $to = SMTP_RECEIVER_CONTACT;
         $name = strip_tags( $_POST['name'] );
-        $replyTo = '"' . $name . '" <' . strip_tags( $_POST['email'] ) . '>';
+        $replyTo = strip_tags( $_POST['email'] );
         $subject = '=?utf-8?B?'.base64_encode(strip_tags( $_POST['subject'] )).'?=';
         $txt = wordwrap( strip_tags( $_POST['content'], 70 ) );
 
-        $options = [
-            'replyTo' => $replyTo
-        ];
+        $mail = $mailService->createMailer();
+        $mail->addAddress(
+            SMTP_RECEIVER_CONTACT_ADDRESS,
+            SMTP_RECEIVER_CONTACT_NAME
+        );
+        $mail->addReplyTo($replyTo, $name);
         if( isset( $_POST['self'] ) ) {
-            $options['cc'] = $replyTo;
+            $mail->addCC($replyTo, $name);
         }
-        $mailService->send( $to, $subject, $txt, $options );
+        $mail->Subject = $subject;
+        $mail->Body = $txt;
+
+        return $mail->send();
     }
 
     public function send_newsletter_mail( $mailService )
