@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . "/Parsedown.php";
+/* require_once __DIR__ . "/Parsedown.php"; */
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Extension Class to the Parsedown service.
@@ -73,7 +74,7 @@ class ParsedownExtension extends Parsedown
      * Extends the blockTable parser by adding bootstrap classes to render
      * a table responsive.
      */
-    protected function blockTable($Line, array $Block = null)
+    protected function blockTable($Line, ?array $Block = null)
     {
         $table = parent::blockTable($Line, $Block);
 
