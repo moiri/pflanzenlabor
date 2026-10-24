@@ -4,6 +4,8 @@
  */
 class User
 {
+    private $db;
+
     function __construct( $db )  {
         $this->db = $db;
         if( !isset( $_SESSION['user_id'] ) )
@@ -76,7 +78,7 @@ class User
 
     public function get_user_id() {
         if( $_SESSION['user_id'] == NULL ) {
-            if( DEBUG ) print "ERROR: no user id set.";
+            if( DEBUG ) print "DEBUG: no user id set.";
         }
         return $_SESSION['user_id'];
     }

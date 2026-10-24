@@ -12,6 +12,7 @@ class CheckPaymentClass extends CheckPayment
     private $open = 0;
     private $class_cost;
     private $class_type;
+    private $class_type_id;
     private $class_name;
     private $class_date;
 
