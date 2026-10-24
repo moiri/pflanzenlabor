@@ -1,12 +1,9 @@
 Hallo <?php echo $user['first_name']; ?> 
 
 Vielen Dank für deine Anmeldung für folgende Veranstaltung:
-<?php echo $this->class_type; ?> <?php echo $this->class_name; ?> vom <?php echo $this->class_date; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $class_url ?>)
+<?php echo $this->class_name; ?> vom <?php echo $this->class_date; ?> (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $class_url ?>)
 Preis: <?php echo $this->class_cost; ?> 
 Bezahlung: <?php echo $this->print_payment_type($payment_type); ?> 
-
-Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Angaben zum Treffpunkt.
-<?php $this->print_bill($payment_type); ?>
 
 Du bist unter folgenden Angaben angemeldet:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 
@@ -16,10 +13,13 @@ Du bist unter folgenden Angaben angemeldet:
     Bemerkung: <?php echo $this->comment; ?> 
     Newsletter: <?php echo $newsletter; ?> 
 
-Bei Fragen oder Anregungen kannst du mich gerne per Email (info@pflanzenlabor.ch) oder via Web Formular (<?php echo $_SERVER['HTTP_HOST']; ?><?php echo $contact_url; ?>) erreichen.
+Vor dem Kurs wirst du eine E-Mail erhalten mit genaueren Infos.
 
-Ich freue mich dich am Kurs zu sehen,
-warme Grüsse
+Bei Fragen oder Anregungen kannst du mich gerne via Email (info@pflanzenlabor.ch) erreichen.
+
+Ich freue mich dich an der Veranstalung zu sehen,
+liebe Grüsse
+
 Giovina Nicolai
-
-PS. Das Pflanzenlabor verarbeitet Mails und Bestellungen jeweils am Mittwoch und Donnerstag. Danke für deine Geduld.
+www.pflanzenlabor.ch
+Entdeckungsraum für Pflanzenwissen
