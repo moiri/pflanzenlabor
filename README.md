@@ -4,7 +4,7 @@ The source code for the webpage of Giovina Nicolai: www.pflanzenlabor.ch
 
 ## Install apache2, php and mariadb.
 ```sh
-sudo apt install apache2 mariadb-server php php-mysql php-mbstring
+sudo apt install apache2 mariadb-server php php-mysql php-mbstring php-zip unzip
 ```
 
 ## Install composer

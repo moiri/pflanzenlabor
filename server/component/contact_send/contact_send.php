@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../page.php';
 require_once __DIR__ . '/../contact_newsletter/contact_newsletter.php';
+require_once __DIR__ . "/../../service/globals_untracked.php";
 
 /**
  * Contact Component Class

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../component/enroll/checks/checks.php';
 require_once __DIR__ . '/paypalIPN.php';
+require_once __DIR__ . "/globals_untracked.php";
 
 /**
  * Base class to check for payment.
