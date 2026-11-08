@@ -15,8 +15,8 @@ class PaymentClass extends Payment {
 
     private $show_enroll_warning = false;
 
-    function __construct( $router, $dbMapper, $id ) {
-        parent::__construct( $router, $dbMapper, $id );
+    function __construct( $router, $dbMapper, $request, $id ) {
+        parent::__construct( $router, $dbMapper, $request, $id );
 
         if( $_POST['comment'] == "" ) $this->comment = "keine Bemerkung";
         else $this->comment = $_POST['comment'];

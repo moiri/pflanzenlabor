@@ -135,13 +135,14 @@ $router->map( 'GET', '/kurse_anmeldung/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'enroll');
 $router->map( 'POST', '/kurse_bezahlung/[i:id]', function( $router, $db, $id ) {
-    $page = new PaymentClass( $router, $db, intval( $id ) );
+    $request = new NewsletterRequest();
+    $page = new PaymentClass( $router, $db, $request, intval( $id ) );
     if( isset($_POST['contact_me_by_fax_only'])
         && $_POST['contact_me_by_fax_only'] === ""
         && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+        $page->handle_subscription();
     }
     $page->print_view();
 }, 'payment');
@@ -163,13 +164,14 @@ $router->map( 'GET', '/paeckli_anmeldung/[i:id]', function( $router, $db, $id ) 
     $page->print_view();
 }, 'packets_enroll');
 $router->map( 'POST', '/paeckli_bezahlung/[i:id]', function( $router, $db, $id ) {
-    $page = new PaymentPacket( $router, $db, intval( $id ) );
+    $request = new NewsletterRequest();
+    $page = new PaymentPacket( $router, $db, $request, intval( $id ) );
     if( isset($_POST['contact_me_by_fax_only'])
         && $_POST['contact_me_by_fax_only'] === ""
         && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+        $page->handle_subscription();
     }
     $page->print_view();
 }, 'packets_payment');
@@ -183,13 +185,14 @@ $router->map( 'GET', '/gutschein_kaufen/[i:id]', function( $router, $db, $id ) {
     $page->print_view();
 }, 'vauchers_enroll');
 $router->map( 'POST', '/gutschein_bezahlung/[i:id]', function( $router, $db, $id ) {
-    $page = new PaymentVaucher( $router, $db, intval( $id ) );
+    $request = new NewsletterRequest();
+    $page = new PaymentVaucher( $router, $db, $request, intval( $id ) );
     if( isset($_POST['contact_me_by_fax_only'])
         && $_POST['contact_me_by_fax_only'] === ""
         && $page->is_state_ok() )
     {
         $page->submit_enroll_data();
-        $page->send_newsletter_mail();
+        $page->handle_subscription();
     }
     $page->print_view();
 }, 'vauchers_payment');

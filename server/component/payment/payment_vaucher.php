@@ -19,8 +19,8 @@ class PaymentVaucher extends Payment {
 
     private $show_enroll_warning = false;
 
-    function __construct( $router, $dbMapper, $id ) {
-        parent::__construct( $router, $dbMapper, $id );
+    function __construct( $router, $dbMapper, $request, $id ) {
+        parent::__construct( $router, $dbMapper, $request, $id );
 
         $this->delivery_first_name = $this->first_name;
         $this->delivery_last_name = $this->last_name;

@@ -25,8 +25,9 @@ abstract class Payment extends Page {
     protected $phone = "";
     protected $email = "";
     protected $newsletter = 0;
+    protected $request;
 
-    function __construct( $router, $dbMapper, $id ) {
+    function __construct( $router, $dbMapper, $request, $id ) {
         parent::__construct( $router );
         if( !isset( $_POST['first_name'] ) || !isset( $_POST['last_name'] )
                 || !isset( $_POST['street'] ) || !isset( $_POST['street_number'] )
@@ -55,15 +56,16 @@ abstract class Payment extends Page {
         $this->email = $_POST['email'];
         $this->newsletter = (isset($_POST['newsletter'])) ? 1 : 0;
         $this->db = $dbMapper;
+        $this->request = $request;
         $this->id_item = $id;
     }
 
-    public function send_newsletter_mail()
+    public function handle_subscription()
     {
-        if(isset($_POST['newsletter']))
+        if( $this->newsletter )
         {
-            $nl = new ContactNewsletter($this->router);
-            $nl->send_mail();
+            $this->request->subscribe(
+                $this->email, $this->first_name, $this->last_name );
         }
     }
 
