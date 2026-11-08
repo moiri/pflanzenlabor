@@ -33,4 +33,9 @@ define ('SMTP_RECEIVER_NEWSLETTER_NAME', 'Pflanzenlabor');
 /** The receiver address and name for order form messages */
 define ('SMTP_RECEIVER_ORDER_ADDRESS', 'order@mydomain.ch');
 define ('SMTP_RECEIVER_ORDER_NAME', 'Pflanzenlabor');
+
+/** The API information for newsletter management */
+define ('NEWSLETTER_API_TOKEN', 'API_TOKEN');
+define ('NEWSLETTER_API_ENDPOINT', 'https://api.infomaniak.com');
+define ('NEWSLETTER_API_DOMAIN', 'mydomain.ch');
 ?>

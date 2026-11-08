@@ -10,41 +10,48 @@ class ContactNewsletter extends Page {
 
     private $failed = false;
 
-    function __construct( $router ) {
+    function __construct( $router, $request ) {
         parent::__construct( $router );
-    }
 
-    public function send_mail() {
-        if( !isset( $_POST['email'] ) ) {
+        if( !isset( $_POST['contact_me_by_fax_only'] ) ||
+                $_POST['contact_me_by_fax_only'] !== "" )
+        {
+            return;
+        }
+
+        if( !isset( $_POST['email'] ) ||
+                !filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL )
+        ) {
+            error_log(
+                'Failed to subscribe newsletter, bad email: '
+                . $_POST['email']
+            );
             $this->failed = true;
             return;
         }
 
-        $replyTo = strip_tags( $_POST['email'] );
-        $subject = "Newsletter";
-        $txt = wordwrap( "Neuer Newsletter Abonnent." );
+        $firstname = '';
+        if( isset( $_POST['firstname'] ) ) {
+            $firstname = $_POST['firstname'];
+        }
+        $lastname = '';
+        if( isset( $_POST['lastname'] ) ) {
+            $lastname = $_POST['lastname'];
+        }
 
-        $mail = createMailer();
-        $mail->addAddress(
-            SMTP_RECEIVER_NEWSLETTER_ADDRESS,
-            SMTP_RECEIVER_NEWSLETTER_NAME
-        );
-        $mail->addReplyTo($replyTo);
-        $mail->Subject = $subject;
-        $mail->Body = $txt;
-
-        return $mail->send();
+        $request->subscribe( $_POST['email'], $firstname, $lastname );
     }
 
     public function print_view() {
-        if($this->failed)
+        if($this->failed) {
             $this->print_page( function() {
                 require __DIR__ . '/v_contact_newsletter_fail.php';
             } );
-        else
+        } else {
             $this->print_page( function() {
                 require __DIR__ . '/v_contact_newsletter.php';
             } );
+        }
     }
 }
 

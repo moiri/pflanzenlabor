@@ -2,6 +2,7 @@
 session_start();
 require_once "./server/service/user.php";
 require_once "./server/service/router.php";
+require_once "./server/service/newsletterRequest.php";
 require_once "./server/service/pflanzenlaborDbMapper.php";
 require_once "./server/service/globals.php";
 require_once "./server/service/globals_untracked.php";
@@ -13,6 +14,7 @@ require_once "./server/component/newsletter/newsletter.php";
 require_once "./server/component/contact/contact.php";
 require_once "./server/component/contact_send/contact_send.php";
 require_once "./server/component/contact_newsletter/contact_newsletter.php";
+require_once "./server/component/contact_newsletter/contact_newsletter_cancel.php";
 require_once "./server/component/impressum/impressum.php";
 require_once "./server/component/disclaimer/disclaimer.php";
 require_once "./server/component/agb/agb.php";
@@ -62,23 +64,23 @@ $router->map( 'GET', '/', function( $router, $db ) {
     $page = new Home( $router, $db );
     $page->print_view();
 }, 'home');
-$router->map( 'GET', '/giovina', function( $router, $db ) {
+$router->map( 'GET', '/giovina', function( $router ) {
     $page = new Me( $router );
     $page->print_view();
 }, 'me');
-$router->map( 'GET', '/abbruch', function( $router, $db ) {
+$router->map( 'GET', '/abbruch', function( $router ) {
     $page = new Cancel( $router );
     $page->print_view();
 }, 'cancel');
-$router->map( 'GET', '/impressum', function( $router, $db ) {
+$router->map( 'GET', '/impressum', function( $router ) {
     $page = new Impressum( $router );
     $page->print_view();
 }, 'impressum');
-$router->map( 'GET', '/disclaimer', function( $router, $db ) {
+$router->map( 'GET', '/disclaimer', function( $router ) {
     $page = new Disclaimer( $router );
     $page->print_view();
 }, 'disclaimer');
-$router->map( 'GET', '/agb', function( $router, $db ) {
+$router->map( 'GET', '/agb', function( $router ) {
     $page = new AGB( $router );
     $page->print_view();
 }, 'agb');
@@ -91,14 +93,14 @@ $router->map( 'POST', '/impressionen_fetch', function( $router, $db ) {
     print $page->fetch_impression_items($_POST['offset'], $_POST['count']);
 }, 'impressions_fetch');
 // Contact Pages
-$router->map( 'GET', '/kontakt', function( $router, $db ) {
+$router->map( 'GET', '/kontakt', function( $router ) {
     $page = new Contact( $router );
     $page->print_view();
 }, 'contact');
-/* $router->map( 'GET', '/newsletter', function( $router, $db ) { */
-/*     $page = new Newsletter( $router, $db ); */
-/*     $page->print_view(); */
-/* }, 'newsletter'); */
+$router->map( 'GET', '/newsletter', function( $router ) {
+    $page = new Newsletter( $router );
+    $page->print_view();
+}, 'newsletter');
 /* $router->map( 'POST', '/kontakt/senden', function( $router, $db ) { */
 /*     $page = new ContactSend( $router ); */
 /*     if( isset($_POST['contact_me_by_fax_only']) */
@@ -109,15 +111,16 @@ $router->map( 'GET', '/kontakt', function( $router, $db ) {
 /*     } */
 /*     $page->print_view(); */
 /* }, 'send'); */
-/* $router->map( 'POST', '/kontakt/newsletter', function( $router, $db ) { */
-/*     $page = new ContactNewsletter( $router ); */
-/*     if( isset($_POST['contact_me_by_fax_only']) */
-/*         && $_POST['contact_me_by_fax_only'] === "" ) */
-/*     { */
-/*         $page->send_mail(); */
-/*     } */
-/*     $page->print_view(); */
-/* }, 'request_newsletter'); */
+$router->map( 'POST', '/kontakt/newsletter', function( $router ) {
+    $request = new NewsletterRequest();
+    $page = new ContactNewsletter( $router, $request );
+    $page->print_view();
+}, 'request_newsletter');
+$router->map( 'POST', '/kontakt/newsletter/cancel', function( $router ) {
+    $request = new NewsletterRequest();
+    $page = new ContactNewsletterCancel( $router, $request );
+    $page->print_view();
+}, 'request_newsletter_cancel');
 // Course Pages
 $router->map( 'GET', '/kurse', function( $router, $db ) {
     $page = new Classes( $router, $db );
