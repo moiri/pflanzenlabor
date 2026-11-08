@@ -9,7 +9,7 @@ Du bist unter folgenden Angaben angemeldet:
     Name: <?php echo $user['first_name']; ?> <?php echo $user['last_name']; ?> 
     Adresse: <?php echo $user['street']; ?> <?php echo $user['street_number']; ?>, <?php echo $user['zip']; ?> <?php echo $user['city']; ?> 
     Email: <?php echo $user['email']; ?> 
-    Telefon: <?php echo $user['phone']; ?><?php $this->print_diet(); ?> 
+    Telefon: <?php echo $user['phone']; ?> 
     Bemerkung: <?php echo $this->comment; ?> 
     Newsletter: <?php echo $newsletter; ?> 
 

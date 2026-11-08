@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../component/enroll/checks/checks.php';
 require_once __DIR__ . '/paypalIPN.php';
 require_once __DIR__ . "/globals_untracked.php";
 require_once __DIR__ . "/mail.php";
@@ -87,7 +86,7 @@ abstract class CheckPayment {
             $toName
         );
         $mail->Subject = $subject;
-        $mail->Body = $content . bin2hex(random_bytes(12));
+        $mail->Body = $content;
 
         return $mail->send();
     }

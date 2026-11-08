@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/enroll.php";
 require_once __DIR__ . "/../class_closed/class_closed.php";
-require_once __DIR__ . "/checks/checks.php";
 
 /**
  * Specific Enroll Component Class to enroll for Classes.
@@ -18,13 +17,6 @@ class EnrollClass extends Enroll {
     private $class_cost;
 
     private $comment = "";
-    private $check_vegi = "";
-    private $check_gluten = "";
-    private $check_lactose = "";
-    private $check_alc = "";
-    private $check_vegan = "";
-    private $check_custom = "";
-    private $input_custom = "";
 
     function __construct( $router, $dbMapper, $id ) {
         parent::__construct( $router, $dbMapper, $id );
@@ -46,27 +38,12 @@ class EnrollClass extends Enroll {
         }
         else $this->set_state_missing();
         $this->comment = "";
-        $this->check_vegi = "";
-        $this->check_gluten = "";
-        $this->check_lactose = "";
-        $this->check_alc = "";
-        $this->check_vegan = "";
-        $this->check_custom = "";
-        $this->input_custom = "";
         if( $this->user->is_user_valid() ) {
             $user_specs = $this->user->get_class_enroll_data( $this->id_item );
             if( $user_specs ) {
                 $this->comment = $user_specs['comment'];
-                $this->check_custom = ( $user_specs['check_custom'] != "" ) ? " checked" : "";
-                $this->input_custom = $user_specs['check_custom'];
             }
         }
-    }
-
-    private function print_check_list() {
-        if( $this->id_type == CLASS_TYPE_WALK_ID ) return;
-        $checks = new Checks( $this->db, $this->user->get_user_id(), $this->id_item, $this->input_custom );
-        $checks->print_view();
     }
 
     public function print_view() {

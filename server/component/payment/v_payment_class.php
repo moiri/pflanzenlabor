@@ -68,7 +68,6 @@
     </div>
     <div class="card-body">
         <dl class="row mb-0">
-            <?php $this->print_food(); ?>
             <dt class="col-12">Bemerkung</dt>
             <dd class="col-12"><?php echo $this->comment; ?></dd>
             <dt class="col-12">Newsletter</dt>

@@ -23,25 +23,14 @@ class User
             if( $db_data['is_booked'] == '1' )
                 return false;
             $this->db->updateUserClassDates( $this->get_user_id(),
-                $date_id, $data['input_custom'], $data['comment'] );
-            foreach( $data['foods'] as $food_id => $food )
-                $this->db->updateUserClassDatesFood( $this->get_user_id(),
-                    $date_id, $food_id, $food );
+                $date_id, $data['comment'] );
         }
         else {
             $this->db->insert( 'user_class_dates', array(
                 'id_user' => $this->get_user_id(),
                 'id_class_dates' => $date_id,
-                'check_custom' => $data['input_custom'],
                 'comment' => $data['comment'] )
             );
-            $entries = array();
-            foreach( $data['foods'] as $food_id => $food ) {
-                $entry = array( $date_id, $this->get_user_id(), $food_id, $food );
-                array_push( $entries, $entry );
-            }
-            $cols = array( 'id_class_dates', 'id_user', 'id_food', 'is_checked' );
-            $this->db->insert_mult( "user_class_dates_food", $cols, $entries );
         }
         return true;
     }

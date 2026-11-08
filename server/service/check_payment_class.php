@@ -8,7 +8,6 @@ class CheckPaymentClass extends CheckPayment
 {
     private $item_id;
     private $comment = "";
-    private $check_custom = "";
     private $open = 0;
     private $class_cost;
     private $class_type;
@@ -25,7 +24,6 @@ class CheckPaymentClass extends CheckPayment
             $this->user_id = intval($order_data['id_user']);
             $this->item_id = intval($order_data['id_class_dates']);
             $this->comment = $order_data['comment'];
-            $this->check_custom = $order_data['check_custom'];
         }
         else $this->na = true;
 
@@ -91,14 +89,6 @@ class CheckPaymentClass extends CheckPayment
         $content = ob_get_contents();
         ob_end_clean();
         return $content;
-    }
-
-    private function print_diet()
-    {
-        if( $this->class_type_id == CLASS_TYPE_WALK_ID ) return;
-        $checks = new Checks($this->db, $this->user_id, $this->item_id,
-            $this->check_custom);
-        require __DIR__ . "/../email/tpl_diet.php";
     }
 
     private function print_bill($payment_type)

@@ -43,7 +43,6 @@
                         <?php $this->print_name($this->first_name, $this->last_name); ?>
                         <?php $this->print_address($this->street, $this->street_number, $this->zip, $this->city); ?>
                         <?php $this->print_contact($this->phone, $this->email); ?>
-                        <?php $this->print_check_list(); ?>
                         <div class="form-group">
                             <label for="contactContent">Bemerkung</label>
                             <textarea class="form-control" name="comment" rows="3"><?php echo $this->comment; ?></textarea>

@@ -261,40 +261,9 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         }
     }
 
-    function checkUserFood( $id_user, $id_date, $id_food ) {
-        try {
-            $sql = "SELECT is_checked
-                FROM user_class_dates_food AS uf
-                WHERE uf.id_user = :id_user AND uf.id_class_dates = :id_date
-                AND uf.id_food = :id_food AND uf.is_checked = 1";
-            $stmt = $this->dbh->prepare( $sql );
-            $stmt->execute( array( ':id_user' => $id_user, ':id_date' => $id_date, ':id_food' => $id_food ) );
-            return $stmt->fetch( PDO::FETCH_ASSOC );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::checkUserFood: ".$e->getMessage();
-        }
-    }
-
-    function getCheckedFood( $id_user, $id_date ) {
-        try {
-            $sql = "SELECT f.name
-                FROM food AS f
-                LEFT JOIN user_class_dates_food AS uf ON f.id = uf.id_food
-                WHERE uf.id_user = :id_user AND uf.id_class_dates = :id_date
-                AND uf.is_checked = 1";
-            $stmt = $this->dbh->prepare( $sql );
-            $stmt->execute( array( ':id_user' => $id_user, ':id_date' => $id_date ) );
-            return $stmt->fetchAll( PDO::FETCH_ASSOC );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::checkUserFood: ".$e->getMessage();
-        }
-    }
-
     function getUserDateSpecifics( $id_user, $id_date ) {
         try {
-            $sql = "SELECT comment, check_custom, is_payed, is_booked
+            $sql = "SELECT comment, is_payed, is_booked
                 FROM user_class_dates
                 WHERE id_user = :id_user AND id_class_dates = :id_date";
             $stmt = $this->dbh->prepare( $sql );
@@ -399,37 +368,19 @@ class PflanzenlaborDbMapper extends BaseDbMapper {
         ));
     }
 
-    function updateUserClassDates( $id_user, $id_date, $check_custom, $comment ) {
+    function updateUserClassDates( $id_user, $id_date, $comment ) {
         try {
             $sql = "UPDATE user_class_dates
-                SET check_custom = :check_custom, comment = :comment
+                SET comment = :comment
                 WHERE id_user = :id_user AND id_class_dates = :id_date";
             $stmt = $this->dbh->prepare( $sql );
             return $stmt->execute( array(
                 ':id_user' => $id_user,
                 ':id_date' => $id_date,
-                ':check_custom' => $check_custom,
                 ':comment' => $comment ) );
         }
         catch(PDOException $e) {
             if( DEBUG == 1 ) print "PflanzenlaborDbMapper::updateUserClassDates: ".$e->getMessage();
-        }
-    }
-
-    function updateUserClassDatesFood( $id_user, $id_date, $id_food, $is_checked ) {
-        try {
-            $sql = "UPDATE user_class_dates_food
-                SET is_checked = :is_checked
-                WHERE id_user = :id_user AND id_class_dates = :id_date AND id_food = :id_food";
-            $stmt = $this->dbh->prepare( $sql );
-            return $stmt->execute( array(
-                ':id_user' => $id_user,
-                ':id_date' => $id_date,
-                ':id_food' => $id_food,
-                ':is_checked' => $is_checked ) );
-        }
-        catch(PDOException $e) {
-            if( DEBUG == 1 ) print "PflanzenlaborDbMapper::updateUserClassDatesFood: ".$e->getMessage();
         }
     }
 }
